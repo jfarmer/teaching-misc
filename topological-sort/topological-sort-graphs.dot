@@ -1,0 +1,33 @@
+digraph Example1 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A,B,C,D,E,F
+
+    A -> B
+    A -> C
+
+    C -> D
+
+    D -> B
+    D -> E
+
+    F -> C
+}
+
+digraph AgeGame {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    Steve -> Mei
+    Mei -> Noor
+    Steve -> Amir
+    Amir -> Noor
+    Mei -> Sofia
+    Mei -> Zara
+    Dmitri -> Zara
+    Sofia -> Amir
+    Amir -> Dmitri
+    Dmitri -> Kendrick
+    Kendrick -> Zara
+}
