@@ -7,6 +7,23 @@
 3. Framing Vocabulary
 4. Designing + Implementing
 
+## Given List
+
+```javascript
+vertexList = [
+  "Prepare kitchen", "Mix flour", "Mix wet ingredients", "Combine", "Put in oven", "Clean kitchen"
+]
+
+edgeList = [
+  ["Prepare kitchen", "Mix wet ingredients"],
+  ["Prepare kitchen", "Mix flour"],
+  ["Mix flour", "Combine"],
+  ["Mix wet ingredients", "Combine"],
+  ["Combine", "Put in oven"],
+  ["Combine", "Clean kitchen"],
+]
+```
+
 ## Age Game
 
 Topological sorting / directed graphs as pairwise relationships, like a logic puzzle.
