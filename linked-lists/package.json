@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "benchmark": "^2.1.4",
+    "microtime": "^3.1.1"
+  }
+}
