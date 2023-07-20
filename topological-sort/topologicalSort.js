@@ -53,6 +53,17 @@ function topologicalSortBFS(graph) {
   return results;
 }
 
+function topologicalSortBFSRecursive(graph) {
+  if (Object.keys(graph).length === 0) {
+    return [];
+  }
+
+  let sources = graphGetSources(graph);
+  sources.forEach(v => delete graph[v]);
+
+  return sources.concat(topologicalSortBFSRecursive(graph));
+}
+
 /**
  * Given a graph, returns an array of vertexes that have been topologically sorted
 */
