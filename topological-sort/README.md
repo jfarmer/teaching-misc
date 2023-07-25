@@ -24,6 +24,18 @@ edgeList = [
 ]
 ```
 
+```javascript
+let vertexList = ['A', 'B', 'C', 'D', 'E', 'F'];
+let edgeList = [
+  ['A', 'B'],
+  ['A', 'C'],
+  ['C', 'D'],
+  ['D', 'B'],
+  ['D', 'E'],
+  ['F', 'C'],
+]
+```
+
 ## Age Game
 
 Topological sorting / directed graphs as pairwise relationships, like a logic puzzle.
