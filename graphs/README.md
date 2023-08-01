@@ -112,3 +112,24 @@ Example 2:
 Input: rooms = [[1,3],[3,0,1],[2],[0]]
 Output: false
 Explanation: We can not enter room number 2 since the only key that unlocks it is in that room.
+
+### Solution
+
+```js
+function canVisitEverything(rooms) {
+  let currentKey = null;
+  let keysInPocket = [0];
+  let pocket = [];
+  let visited = new Set();
+
+  while (pocket.length !== 0) {
+    currentKey = pocket.pop();
+
+    visited.add(currentKey);
+
+    keysInPocket = keysInPocket.concat(rooms[currentKey]);
+  }
+
+  return visited.length === rooms.length;
+}
+```
