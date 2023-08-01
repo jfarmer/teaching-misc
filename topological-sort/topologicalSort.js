@@ -89,7 +89,7 @@ function dfs(graph, vertex, callbackFn, visited) {
   visited.add(vertex);
 
   for (let neighbor of graph[vertex]) {
-    dfs(graph, vertex, callbackFn, visited);
+    dfs(graph, neighbor, callbackFn, visited);
   }
 
   callbackFn(vertex);
