@@ -1,0 +1,247 @@
+digraph BinaryTree {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5, minlen=1];
+
+    A -> B;
+    A -> C;
+    B -> D;
+    B -> E;
+    C -> F;
+    C -> G;
+}
+
+digraph RandomDigraph1 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A -> B;
+    A -> C;
+    A -> D;
+    B -> C;
+    B -> E;
+    C -> D;
+    C -> E;
+}
+
+graph RandomGraph1 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A -- B;
+    A -- C;
+    A -- D;
+    B -- C;
+    B -- E;
+    C -- D;
+    C -- E;
+}
+
+digraph RandomDigraph2 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A -> B;
+    A -> C;
+    B -> C;
+    B -> D;
+    C -> D;
+    D -> E;
+}
+
+digraph RandomDigraph3 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A -> B;
+    A -> C;
+    A -> D;
+    B -> D;
+    C -> E;
+}
+
+digraph RandomDigraph4 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A -> B;
+    A -> C;
+    A -> D;
+    B -> C;
+    B -> D;
+    C -> D;
+    D -> E;
+}
+
+
+digraph RandomDigraph5 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A -> B;
+    A -> C;
+    A -> D;
+    B -> C;
+    B -> E;
+    C -> D;
+    D -> E;
+    E -> A;
+}
+
+
+digraph CompleteDigraph {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A -> B;
+    A -> C;
+    A -> D;
+    A -> E;
+    B -> A;
+    B -> C;
+    B -> D;
+    B -> E;
+    C -> A;
+    C -> B;
+    C -> D;
+    C -> E;
+    D -> A;
+    D -> B;
+    D -> C;
+    D -> E;
+    E -> A;
+    E -> B;
+    E -> C;
+    E -> D;
+}
+
+graph CompleteGraph {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    A -- {B,C,D,E,F}
+    B -- {C,D,E,F}
+    C -- {D,E,F}
+    D -- {E,F}
+    E -- {F}
+    F -- {}
+}
+
+
+digraph NaturalNumbers {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+    rankdir=LR;
+
+    label="\lV = {0, 1, 2, 3, …,}\lE = {(n, n+1) : n in V}\l ";
+    labelloc=t;
+
+    inf [label="⋯", shape="plaintext",style=none,fontsize=18]
+    0 -> 1 -> 2 -> 3 -> 4 -> inf;
+}
+
+digraph SubsetsABC {
+    node [shape=circle, style=filled, fontname="Consolas,Courier",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+    edge [len=1.0, minlen=1.5,penwidth=1.0, arrowsize=1.0];
+    rankdir=BT;
+
+    label="\lV = ℙ({a,b,c})\lE = {(X,Y) : X,Y in V and X ⊊ Y w/ no smaller Y}\l\lRecall ℙ({a,b,c}) is set of all subsets of {a, b, c}\l
+    ";
+    labelloc=t;
+
+    empty [label="{}"];
+    a [label="{a}"];
+    b [label="{b}"];
+    c [label="{c}"];
+    ab [label="{a, b}"];
+    ac [label="{a, c}"];
+    bc [label="{b, c}"];
+    abc [label="{a, b, c}"];
+
+    empty -> {a, b, c};
+    a -> {ab, ac};
+    b -> {ab, bc};
+    c -> {ac, bc};
+    ab -> {abc};
+    ac -> {abc};
+    bc -> {abc};
+
+}
+
+digraph SubsetsABC {
+    node [shape=circle, style=filled, fontname="Consolas,Courier",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+    edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+    rankdir=BT;
+
+    label="\lV = ℙ({a,b,c})\lE = {(X,Y) : X,Y in V and X ⊆ Y}\l ";
+    labelloc=t;
+
+    empty [label="{}"];
+    a [label="{a}"];
+    b [label="{b}"];
+    c [label="{c}"];
+    ab [label="{a,b}"];
+    ac [label="{a,c}"];
+    bc [label="{b,c}"];
+    abc [label="{a, b, c}"];
+
+    {
+        empty -> empty;
+        a -> a;
+        b -> b;
+        c -> c;
+        ab -> ab;
+        ac -> ac;
+        bc -> bc;
+        abc -> abc;
+    }
+
+    {
+        empty -> {ab, ac, bc, abc};
+        a -> {abc};
+        b -> {abc};
+        c -> {abc};
+    }
+
+    empty -> {a, b, c};
+    a -> {ab, ac};
+    b -> {ab, bc};
+    c -> {ac, bc};
+    ab -> {abc};
+    ac -> {abc};
+    bc -> {abc};
+    abc -> {};
+}
+
+digraph PermutationsABC {
+    node [shape=circle, style=filled, fontname="Consolas,Courier",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+    edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+    rankdir=TB;
+
+    empty [label="''\n{a,b,c}"];
+    a [label="a__\n{b,c}"];
+    b [label="b__\n{a,c}"];
+    c [label="c__\n{a,b}"];
+    ab [label="ab_\n{c}"];
+    ac [label="ac_\n{b}"];
+    ba [label="ba_\n{c}"];
+    bc [label="bc_\n{a}"];
+    ca [label="ca_\n{b}"];
+    cb [label="cb_\n{a}"];
+    abc [label="abc\n{}"];
+    acb [label="acb\n{}"];
+    bac [label="bac\n{}"];
+    bca [label="bca\n{}"];
+    cab [label="cab\n{}"];
+    cba [label="cba\n{}"];
+
+    empty -> {a, b, c};
+    a -> {ab, ac}
+    b -> {ba, bc};
+    c -> {ca, cb};
+    ab -> {abc}
+    ac -> {acb}
+    ba -> {bac}
+    bc -> {bca}
+    ca -> {cab}
+    cb -> {cba}
+}
