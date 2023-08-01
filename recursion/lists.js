@@ -29,6 +29,14 @@ class Node {
   [util.inspect.custom]() {
     return this.toString();
   }
+
+  *[Symbol.iterator]() {
+    yield this.value;
+
+    if (!isEmpty(this.next)){
+      yield* this.next;
+    }
+  }
 }
 
 function listToString(list) {
