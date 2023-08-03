@@ -30,14 +30,6 @@ class Node {
   [util.inspect.custom]() {
     return this.toString();
   }
-
-  *[Symbol.iterator]() {
-    yield this.value;
-
-    if (!isEmpty(this.next)){
-      yield* this.next;
-    }
-  }
 }
 
 function listToString(list) {
@@ -54,7 +46,7 @@ function isEmpty(list) {
   return list === EMPTY_LIST;
 }
 
-function isSingleton(list) {
+function isRestEmpty(list) {
   return isEmpty(list) || isEmpty(list.next);
 }
 
@@ -79,23 +71,26 @@ function add(x, y) {
  * Given a linked list containing numbers, return the sum of its elements
  */
 function sum(list) {
-  // List<Int> := EmptyList
+  // Case:
+  //   List<Int> := EmptyList
   if (isEmpty(list)) {
     return 0;
   }
 
-  // List<Int> := prepend(Int, List<Int>)
+
+  // Case:
+  //   List<Int> := prepend(Int, List<Int>)
   let [first, rest] = unprepend(list);
 
   return add(first, sum(rest));
 }
 
 function max(list) {
-  if (array.length ===  ____) {
+  if (_____) {
     return ____;
   }
 
-  let [first, ...rest] = array;
+  let [first, rest] = unprepend(list);
 
   return ____;
 }
@@ -134,7 +129,7 @@ function max(list) {
   // handle the one-element list first. We can always declare that
   // "max" requires non-empty lists by throwing an error when isEmpty
 
-  if (isSingleton(list)) {
+  if (isRestEmpty(list)) {
     return _____;
   }
 

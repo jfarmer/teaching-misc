@@ -53,7 +53,7 @@ function isEmpty(list) {
   return list === EMPTY_LIST;
 }
 
-function isSingleton(list) {
+function isRestEmpty(list) {
   return isEmpty(list) || isEmpty(list.next);
 }
 
@@ -149,7 +149,7 @@ function larger(x, y) {
  * the largest element.
  */
 function max(list) {
-  if (isSingleton(list)) {
+  if (isRestEmpty(list)) {
     return list.value;
   }
 
@@ -230,7 +230,7 @@ function largerBy(x, y, fn) {
  * the function is largest.
  */
 function maxBy(list, fn) {
-  if (isSingleton(list)) {
+  if (isRestEmpty(list)) {
     return list.value;
   }
 
