@@ -42,6 +42,23 @@ function treeSum(tree) {
   return value + treeSum(left) + treeSum(right);
 }
 
+function filter(tree, predicate) {
+  if (isEmpty(tree)) {
+    return EMPTY_TREE;
+  }
+
+  let [value, left, right] = destruct(tree);
+
+  let filteredLeft = filter(left, predicate);
+  let filteredRight = filter(right, predicate);
+
+  if (predicate(value)) {
+    return new TreeNode(value, filteredLeft, filteredRight);
+  } else {
+    return mergeTrees(filteredLeft, filteredRight);
+  }
+}
+
 function invertTree(tree) {
   if (isEmpty(tree)) {
     return EMPTY_TREE;
@@ -109,5 +126,6 @@ module.exports = {
   treeToString,
   maxDepth,
   treeSum,
+  filter,
   invertTree,
 };
