@@ -32,6 +32,16 @@ function maxDepth(tree) {
   return 1 + Math.max(maxDepth(left), maxDepth(right));
 }
 
+function treeSum(tree) {
+  if (isEmpty(tree)) {
+    return 0;
+  }
+
+  let [value, left, right] = destruct(tree);
+
+  return value + treeSum(left) + treeSum(right);
+}
+
 function isEmpty(tree) {
   return tree === EMPTY_TREE;
 }
@@ -85,4 +95,5 @@ module.exports = {
   TreeNode,
   treeToString,
   maxDepth,
+  treeSum,
 };
