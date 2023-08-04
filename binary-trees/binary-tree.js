@@ -42,6 +42,19 @@ function treeSum(tree) {
   return value + treeSum(left) + treeSum(right);
 }
 
+function invertTree(tree) {
+  if (isEmpty(tree)) {
+    return EMPTY_TREE;
+  }
+
+  let [value, left, right] = destruct(tree);
+
+  let invertedLeft = invertTree(right);
+  let invertedRight = invertTree(left);
+
+  return new TreeNode(value, invertedLeft, invertedRight);
+}
+
 function isEmpty(tree) {
   return tree === EMPTY_TREE;
 }
@@ -96,4 +109,5 @@ module.exports = {
   treeToString,
   maxDepth,
   treeSum,
+  invertTree,
 };
