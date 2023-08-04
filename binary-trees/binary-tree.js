@@ -72,6 +72,24 @@ function invertTree(tree) {
   return new TreeNode(value, invertedLeft, invertedRight);
 }
 
+function mergeTrees(leftTree, rightTree) {
+  if (isEmpty(leftTree)) {
+    return rightTree;
+  }
+
+  if (isEmpty(rightTree)) {
+    return leftTree;
+  }
+
+  let [leftValue, leftLeft, leftRight] = destruct(leftTree);
+  let [rightValue, rightLeft, rightRight] = destruct(rightTree);
+
+  let mergedLeft = mergeTrees(leftLeft, rightLeft);
+  let mergedRight = mergeTrees(leftRight, rightRight);
+
+  return new TreeNode(leftValue + rightValue, mergedLeft, mergedRight);
+}
+
 function isEmpty(tree) {
   return tree === EMPTY_TREE;
 }
@@ -128,4 +146,5 @@ module.exports = {
   treeSum,
   filter,
   invertTree,
+  mergeTrees,
 };
