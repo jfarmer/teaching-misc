@@ -1,4 +1,5 @@
-let {Node, isEmpty, unprepend, prepend, append, EMPTY_LIST} = require('./lists');
+let {Node, isEmpty, unprepend, prepend, EMPTY_LIST} = require('./lists');
+let {append} = require('./append');
 let {foldL, foldR} = require('./fold');
 
 /**

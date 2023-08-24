@@ -65,21 +65,9 @@ function prepend(val, list) {
   return new Node(val, list);
 }
 
-function append(list, val) {
-  if (isEmpty(list)) {
-    return new Node(val);
-  }
-
-  let [first, rest] = unprepend(list);
-
-  return prepend(first, append(rest, val));
-}
-
 function unprepend(list) {
   return [list.value, list.next];
 }
-
-
 
 // Left vs right fold
 //
