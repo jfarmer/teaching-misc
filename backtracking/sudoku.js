@@ -1,3 +1,6 @@
+const fs = require('fs');
+const process = require('process');
+
 /*
 Find the first empty cell
 Find all the possible numbers that could go in that cell
@@ -14,18 +17,39 @@ for each number from 1..9 as N:
     ....
 */
 
+function runtime(fn) {
+  let start = performance.now();
+
+  fn();
+
+  let finish = performance.now();
+
+  return finish - start;
+}
+
+function* chunk(array, n) {
+  for (let i = 0; i < array.length; i += n) {
+    yield array.slice(i, i + n);
+  }
+}
+
+function sudokuBoardFromString(boardStr) {
+  let board = boardStr.split('').map(Number)
+  return [...chunk(board, 9)];
+}
+
 function printSudokuBoard(board) {
   for (let i = 0; i < board.length; i++) {
     if (i % 3 === 0 && i !== 0) {
-      console.log(' - - - - - - - - - - - -');
+      console.log('- - - - - - - - - - -');
     }
 
     for (let j = 0; j < board[i].length; j++) {
       if (j % 3 === 0 && j !== 0) {
-        process.stdout.write(' | ');
+        process.stdout.write(' |');
       }
 
-      process.stdout.write(' ' + board[i][j]);
+      process.stdout.write((j === 0 ? '' : ' ') + board[i][j]);
     }
 
     console.log();
@@ -103,5 +127,36 @@ let sudokuBoard = [
   [0, 0, 0, 0, 8, 0, 0, 7, 9]
 ];
 
-let solvedBoard = solveSudoku(sudokuBoard);
-printSudokuBoard(solvedBoard);
+// let solvedBoard = solveSudoku(sudokuBoard);
+// printSudokuBoard(solvedBoard);
+
+let boards = [];
+
+try {
+  let boardsRaw = fs.readFileSync(process.stdin.fd, 'utf-8');
+  boards = boardsRaw.trim().split('\n').map(sudokuBoardFromString);
+} catch {
+  let sudokuBoard = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+  ];
+
+  boards = [sudokuBoard]
+}
+
+for (let board of boards) {
+    let ms = runtime(() => solveSudoku(board));
+
+    console.log('\n---------\n')
+    console.log('time: %s ms', ms.toFixed(3));
+    console.log('');
+
+    printSudokuBoard(board);
+}
