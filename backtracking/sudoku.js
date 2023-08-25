@@ -69,6 +69,17 @@ function isPossibleValue(board, row, col, num) {
   return true;
 }
 
+function findPossibleValues(board, row, col) {
+  let results = [];
+
+  for (let num = 1; num <= 9; num++) {
+    if (isPossibleValue(num)) {
+      results.push(num);
+    }
+  }
+
+  return results;
+}
 
 function solveSudoku(board) {
   let [row, col] = findFirstEmptyCell(board);
