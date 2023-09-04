@@ -1,0 +1,15 @@
+digraph G {
+  node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5];
+  edge [len=2.0, minlen=1];
+
+  # edge [dir=back]
+
+  "fib(5)" -> "fib(4)"
+  "fib(5)" -> "fib(3)"
+  "fib(4)" -> "fib(3)"
+  "fib(4)" -> "fib(2)"
+  "fib(3)" -> "fib(2)"
+  "fib(3)" -> "fib(1)"
+  "fib(2)" -> "fib(1)"
+  "fib(2)" -> "fib(0)"
+}

@@ -1,0 +1,31 @@
+digraph BinaryTree {
+  node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+  edge [len=2.0, penwidth=0.5, arrowsize=0.5, minlen=1];
+
+  subgraph {
+    node [fillcolor=lightblue];
+    B -> D;
+    B -> E;
+    D -> H;
+    D -> I;
+    E -> J;
+    E -> K;
+  }
+
+  subgraph {
+    node[fillcolor=lightgreen]
+    C -> F;
+    C -> G;
+    F -> L;
+    F -> M;
+    G -> N;
+    G -> O;
+  }
+
+  subgraph {
+    # node[style=invis];
+    # edge[style=invis];
+    A -> B;
+    A -> C;
+  }
+}
