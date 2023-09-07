@@ -30,6 +30,8 @@ Here's a list of graph terms. Put your initial next to any you haven't heard bef
 
 ## Main Themes
 
+When traversing a graph depth-first, how many times do we visit a given node?
+
 ### Generality of Graphs
 
 The point of graphs is that they can represent a HUGE range of general situations and structures, but still be concrete enough that we can reason about them mathematically and algorithmically.
