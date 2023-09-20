@@ -4,6 +4,11 @@ digraph RandomDigraph1 {
 
   # edge [dir=none]
 
+  # rankdir=LR
+  # rankdir=RL
+  # rankdir=TB
+  # rankdir=BT
+
   A -> B;
   A -> C;
   A -> D;
