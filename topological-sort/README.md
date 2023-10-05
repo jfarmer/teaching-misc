@@ -25,8 +25,8 @@ edgeList = [
 ```
 
 ```javascript
-let vertexList = ['A', 'B', 'C', 'D', 'E', 'F'];
-let edgeList = [
+vertexList = ['A', 'B', 'C', 'D', 'E', 'F'];
+edgeList = [
   ['A', 'B'],
   ['A', 'C'],
   ['C', 'D'],
@@ -44,6 +44,6 @@ Mei is older than Steve but younger than Noor. Steve is younger than Amir, who i
 
 Who is the youngest? Can you say how Noor and Zara's age compare? Is Sofia definitely younger than Kendrick?
 
-Use <https://viz-js.com/> to generate full graph from pairwise information. Make sure students are clear on what an edge represents (either "younger than" or "older than"). Fill in the graph after it's clear they understand what each edge represents.
+Use <https://sketchviz.com/> to generate full graph from pairwise information. Make sure students are clear on what an edge represents (either "younger than" or "older than"). Fill in the graph after it's clear they understand what each edge represents.
 
 The goal is for them to see why arranging the information as a DAG is valuable (the gestalt of the graph). But also emphasize that the same graph can be laid out many ways by changing between render engines.
