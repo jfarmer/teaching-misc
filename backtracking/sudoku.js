@@ -107,7 +107,7 @@ function solveSudoku(board) {
   let [row, col] = findFirstEmptyCell(board);
 
   // If there are no empty cells, we're done.
-  if(row === -1 && col === -1){
+  if(row === -1 && col === -1) {
     return board;
   }
 
