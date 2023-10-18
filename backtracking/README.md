@@ -7,6 +7,34 @@
 3. The Maze Metaphor + DFS
 4. Exercises
 
+## DFS
+
+Every backtracking problem is a depth-first search of *some* tree. Many trees can represent the same problem. How fast backtracking runs depends on your choice of tree to represent the problem.
+
+## Permutations
+
+List all permutations of the string: ABC
+
+```text
+ABC
+ACB
+BAC
+BCA
+CAB
+CBA
+```
+
+How about all permutations of ABCD? To make pattern clearer, let's say the string is QABC
+
+```text
+QABC
+QACB
+QBAC
+QBCA
+QCAB
+QCBA
+```
+
 ## Trees
 
 Let's say we have generic `Tree` where each node has a value and 0 or more children:
@@ -63,6 +91,8 @@ dfs(root, node => console.log(node.value));
 ## Pseudocode
 
 ```text
+// P is the data
+// c is a solution candidate
 procedure backtrack(P, c) is
   if reject(P, c) then return
   if accept(P, c) then output(P, c)
