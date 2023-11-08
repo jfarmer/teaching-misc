@@ -133,10 +133,7 @@ function accumulate(array, operator, initial) {
 function map(array, someFunc) {
   return accumulate(
     array,
-    (resultSoFar, item) => {
-      resultSoFar.push(someFunc(item));
-      return resultSoFar;
-    },
+    (resultSoFar, item) => resultSoFar.concat(someFunc(item)),
     []
   );
 }
