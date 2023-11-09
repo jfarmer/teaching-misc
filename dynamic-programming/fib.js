@@ -54,11 +54,18 @@ let fibTopDown = memoize1(fib);
 function fibBottomUp(n) {
   let fib = [];
 
-  fib[0] = 0;
-  fib[1] = 1;
+  for (let i = 0; i <= n; i++) {
+    if (i === 0) {
+      fib[i] = 0;
+    }
 
-  for(let i = 2; i <= n; i++) {
-    fib[i] = fib[i-1] + fib[i - 2];
+    if (i === 1) {
+      fib[i] = 1;
+    }
+
+    if (i > 1) {
+      fib[i] = fib[i-1] + fib[i - 2];
+    }
   }
 
   return fib[n];
