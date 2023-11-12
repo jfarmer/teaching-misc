@@ -112,7 +112,6 @@ module.exports = {
   Node,
   prepend,
   unprepend,
-  append,
   EMPTY_LIST,
   listToString,
   isEmpty,

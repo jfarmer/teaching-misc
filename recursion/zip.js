@@ -1,4 +1,4 @@
-let {isEmpty, unprepend} = require('./lists');
+let {isEmpty, unprepend, prepend, EMPTY_LIST} = require('./lists');
 
 /**
  * Given two lists, produce a new lists consisting of
