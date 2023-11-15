@@ -4,26 +4,41 @@ class Graph {
     this.edges = edges;
     let adjList = new Map(vertexes.map(v => [v, new Set()]));
 
-    this._adjList = this.edges.reduce((acc, [from, to]) => {
-      return acc.set(from, acc.get(from).add(to));
-    }, adjList);
+    this._adjList = this.edges.reduce(
+      (acc, [from, to]) => acc.set(from, acc.get(from).add(to)),
+      adjList
+    );
+  }
+
+  getNeighbors(vertex) {
+    return this._adjList.get(vertex);
   }
 }
 
+// The identity function: does nothing
 let noOp = v => v;
 
-function dfs(graph, startVertex, callback = noOP, visited = new Set()) {
+function dfs(graph, callback = noOp, visited = new Set()) {
+  for (let vertex of graph.vertexes) {
+    dfsFromVertex(graph, vertex, callback, visited);
+  }
+}
+
+function dfsFromVertex(graph, startVertex, callback = noOp, visited = new Set()) {
+  if (visited.has(startVertex)) {
+    return;
+  }
+
   visited.add(startVertex);
+
   callback(startVertex);
 
   for (let neighbor of graph.getNeighbors(startVertex)) {
-    if (!visited.has(neighbor)) {
-      dfs(graph, neighbor, callback, visited);
-    }
+    dfsFromVertex(graph, neighbor, callback, visited);
   }
 }
 
-function dfsIterative(graph, startVertex, callback = noOp) {
+function dfsFromVertexIterative(graph, startVertex, callback = noOp) {
   let visited = new Set();
   let stack = [];
 
@@ -42,3 +57,13 @@ function dfsIterative(graph, startVertex, callback = noOp) {
     }
   }
 }
+
+// let vertexes = 'ABCDE'.split('')
+// let edges = ['AB', 'AC', 'BC', 'BD', 'CD', 'DE'].map(s => s.split(''))
+// let graph = new Graph(vertexes, edges);
+
+module.exports = {
+  Graph,
+  dfs,
+  dfsFromVertex
+};
