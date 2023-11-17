@@ -56,8 +56,33 @@ function largest(list) {
 }
 
 /**
+ * Returns a reversed copy of the given list, i.g.,
  *
+ *   reverse(10 -> 20 -> 30) == 30 -> 20 -> 10
  */
+function reverse(list) {
+  if (_____) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return _____;
+}
+
+/**
+ * Return a new list that looks like the old list w/ the
+ * given value appended to the end.
+ */
+function append(value, list) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return _____;
+}
 
 // Binary Operations Identities
 //
