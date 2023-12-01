@@ -5,15 +5,19 @@ digraph Example1 {
     # edge [dir=none]
     # edge [dir=back]
 
-    A,B,C,D,E,F
+    A B C D E F
 
     A -> B
     A -> C
+
+    B -> {}
 
     C -> D
 
     D -> B
     D -> E
+
+    E -> {}
 
     F -> C
 }
