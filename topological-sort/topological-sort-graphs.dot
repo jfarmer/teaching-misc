@@ -2,6 +2,9 @@ digraph Example1 {
     node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=18, width=0.75, fontname="Courier", penwidth=0.5];
     edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
+    # edge [dir=none]
+    # edge [dir=back]
+
     A,B,C,D,E,F
 
     A -> B
@@ -19,7 +22,7 @@ digraph Package {
   rankdir=LR
   # edge [dir=back]
   {
-node [style=filled, fillcolor=pink, fontcolor=black]
+    node [style=filled, fillcolor=pink, fontcolor=black]
     "<project>" -> {"@awaitjs/express","cookie-parser","debug","dotenv","eslint","eslint-config-standard","eslint-plugin-import","eslint-plugin-json","eslint-plugin-node","eslint-plugin-promise","eslint-plugin-standard","express","express-handlebars","express-promise-router","handlebars","hbs","http-errors","jsdoc","knex","morgan","nodemon","pg","strftime"}
 
   }
