@@ -85,15 +85,6 @@ function sum(list) {
   return add(first, sum(rest));
 }
 
-function max(list) {
-  if (_____) {
-    return ____;
-  }
-
-  let [first, rest] = unprepend(list);
-
-  return ____;
-}
 
 function multiply(x, y) {
   return x * y;
@@ -178,6 +169,19 @@ function reverse(list) {
   // What are common ways of adding something to a list?
   // Each "way" is an operation. For each "way", can
   // you think of how to reverse a list using only that operation?
+
+  return _____;
+}
+
+/**
+ * Given a list and a value, return a new list with that value appended to it
+ */
+function append(list, value) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
 
   return _____;
 }
