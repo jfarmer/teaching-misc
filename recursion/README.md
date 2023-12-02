@@ -2,6 +2,8 @@
 
 ## Recursive Data Types
 
+If you're looking for exercises, read the bit below on recursive data types and complete the unwritten functions in [lists.skeleton.js](./lists.skeleton.js).
+
 ```text
 // A list is either:
 //   1. The empty list, or
