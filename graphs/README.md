@@ -119,19 +119,22 @@ Explanation: We can not enter room number 2 since the only key that unlocks it i
 
 ```js
 function canVisitEverything(rooms) {
-  let currentKey = null;
   let keysInPocket = [0];
-  let pocket = [];
   let visited = new Set();
 
-  while (pocket.length !== 0) {
-    currentKey = pocket.pop();
+  while (keysInPocket.length !== 0) {
+    let currentKey = keysInPocket.pop();
+    let roomKeys = rooms[currentKey];
+
+    if (visited.has(currentKey)) {
+      continue;
+    }
 
     visited.add(currentKey);
 
-    keysInPocket = keysInPocket.concat(rooms[currentKey]);
+    keysInPocket.push(...roomKeys);
   }
 
-  return visited.length === rooms.length;
+  return visited.size === rooms.length;
 }
 ```

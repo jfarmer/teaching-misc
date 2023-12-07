@@ -2,12 +2,12 @@ digraph RandomDigraph1 {
   node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
   edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
-  # edge [dir=none]
+  // edge [dir=none]
 
-  # rankdir=LR
-  # rankdir=RL
-  # rankdir=TB
-  # rankdir=BT
+  // rankdir=LR
+  // rankdir=RL
+  // rankdir=TB
+  // rankdir=BT
 
   A -> B;
   A -> C;
@@ -18,11 +18,125 @@ digraph RandomDigraph1 {
   C -> E;
 }
 
+digraph Cycle {
+  node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
+  edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+  // edge [dir=none]
+
+    A B C D E F
+
+    A -> {B}
+    B -> {C}
+    C -> {D}
+    D -> {E}
+    E -> {F}
+    F -> {A}
+}
+
+digraph Divisors30 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5];
+    edge [len=2.0, minlen=1, penwidth=0.5, arrowsize=0.5];
+    rankdir=BT;
+
+    1 -> {2, 3, 5};
+    2 -> {6, 10};
+    3 -> {6, 15};
+    5 -> {10, 15};
+
+    // {
+    //     edge [style=dotted, penwidth=0.25, arrowsize=0.25];
+    //     1 -> {6, 10, 15, 30};
+    //     2 -> {30};
+    //     5 -> {30};
+    //     3 -> {30};
+    // }
+
+    6 -> {30};
+    10 -> {30};
+    15 -> {30};
+}
+
+// if (a > b) {
+//   console.log('larger');
+// } else {
+//   console.log('smaller');
+// }
+
+// return;
+
+digraph Program1 {
+    fontname="Consolas"
+    fontsize=10;
+    labelloc=t;
+    label="\llet a = 10;\llet b = 20;\l\l\lif (a > b) {\l  console.log('larger');\l} else {\l  console.log('smaller');\l}\l\lreturn;\l\l"
+    node [shape=rectangle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier"];
+    edge [len=2.0, minlen=1, labeldistance=2.0, fontname="Courier"];
+
+    "let a = 10" -> "let b = 20"
+    "let b = 20" -> "if a > b"
+    "if a > b" -> "print('larger')"  [xlabel=" True"]
+    "if a > b" -> "print('smaller')" [label=" False"]
+    "print('larger')" -> "return"
+    "print('smaller')" -> "return"
+}
+
+// let count = 1;
+
+// while (count <= 10) {
+//     console.log('count is:', count);
+//     count += 1;
+// }
+
+// console.log('all done');
+// return;
+
+digraph Program2 {
+    fontname="Consolas"
+    fontsize=10;
+    labelloc=t;
+    label="\llet count = 1;\l\lwhile (count <= 10) {\l    console.log('count is:', count);\l    count += 1;\l}\l\lconsole.log('all done');\lreturn;\l\l\l"
+    node [shape=rectangle, style=filled, fillcolor=pink, fontcolor=black, fontsize=10, width=2.0, height=0.5, fontname="Consolas"];
+    edge [len=2.0, minlen=2.0, labeldistance=2.0, labelfloat=t,fontname="Consolas"];
+
+    "let count = 1" -> "if count <= 10"
+    "if count <= 10" -> "print('count is:', count)"  [headlabel="True", labeldistance=3.5, labelangle=30]
+    "print('count is:', count)" -> "count += 1"
+    "count += 1" -> "if count <= 10"
+    "if count <= 10" -> "print('all done')" [headlabel="False", labeldistance=3.5, labelangle=-30]
+    "print('all done')" -> "return"
+}
+
+digraph Expression {
+    fontname="Consolas"
+    fontsize=10
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5];
+    edge [len=2.0, minlen=1];
+
+    labelloc=t;
+    label="\lBinary expression tree for...\l\lInfix:   (4 + 5) * (8*2 + 17)\lPrefix:  * + 4 5 + * 8 2 17\lPostfix: 4 5 + 8 2 * 17 + *\l\l"
+
+    // (4 + 5) * (8*2 + 17)
+    // * + 4 5 + * 8 2 17
+    // 4 5 + 8 2 * 17 + *
+
+
+    add1 [label="+"];
+    add2 [label="+"]
+    mul1 [label="*"]
+    mul2 [label="*"]
+
+    mul1 -> {add1 add2};
+    add1 -> {4 5};
+    add2 -> {mul2 17};
+    mul2 -> {8 2};
+}
+
 digraph RandomDigraph2 {
   node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
   edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
-  # edge [dir=none]
+  // edge [dir=none]
 
   A -> B;
   A -> C;
@@ -70,4 +184,61 @@ digraph CompleteDigraph {
   E -> B;
   E -> C;
   E -> D;
+}
+
+strict graph USStates {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5];
+    edge [minlen=1];
+
+
+    AK -- {};
+    AL -- {GA MS FL TN};
+    AR -- {MO TN MS LA TX OK};
+    AZ -- {CA NV UT CO NM};
+    CA -- {OR NV AZ};
+    CO -- {WY NE KS OK NM UT AZ};
+    CT -- {NY MA RI};
+    DE -- {MD PA NJ};
+    FL -- {AL GA};
+    GA -- {FL SC NC TN AL};
+    HI -- {};
+    IA -- {MN WI IL MO NE SD};
+    ID -- {WA OR NV UT MT WY};
+    IL -- {IN KY MO IA WI};
+    IN -- {MI OH KY IL};
+    KS -- {NE MO OK CO};
+    KY -- {IN OH WV VA TN MO IL};
+    LA -- {TX AR MS};
+    MA -- {NY NH VT CT RI};
+    MD -- {VA WV DE PA};
+    ME -- {NH};
+    MI -- {WI IN OH};
+    MN -- {WI IA SD ND};
+    MO -- {IA IL KY TN AR OK KS NE};
+    MS -- {TN AL LA AR};
+    MT -- {ND SD WY ID};
+    NC -- {VA TN GA SC};
+    ND -- {MN MT};
+    NE -- {SD WY CO KS MO IA};
+    NH -- {VT ME MA};
+    NJ -- {NY DE PA};
+    NM -- {CO OK TX AZ};
+    NV -- {OR ID UT AZ CA};
+    NY -- {NJ PA VT MA CT};
+    OH -- {MI IN KY WV PA};
+    OK -- {KS MO AR TX NM CO};
+    OR -- {WA ID NV CA};
+    PA -- {NY NJ DE MD WV OH};
+    RI -- {CT MA};
+    SC -- {NC GA};
+    SD -- {ND MT WY NE IA MN};
+    TN -- {KY VA NC GA AL MS AR MO};
+    TX -- {OK AR LA NM};
+    UT -- {ID WY CO AZ NV};
+    VA -- {MD WV KY NC TN};
+    VT -- {NY NH};
+    WA -- {OR ID};
+    WI -- {MI MN IA IL};
+    WV -- {PA MD VA KY OH};
+    WY -- {MT SD NE CO UT ID};
 }
