@@ -2,7 +2,7 @@ digraph DAG1 {
   node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5];
   edge [len=2.0];
 
-  # edge [dir=back]
+  // edge [dir=back]
 
   Z -> B;
   A -> B;
