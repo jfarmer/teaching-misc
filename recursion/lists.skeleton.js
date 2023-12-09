@@ -155,6 +155,25 @@ function filter(list, checkFn) {
   return _____;
 }
 
+function increment(n) {
+  return n + 1;
+}
+
+/**
+ * Given a list, return its length
+ */
+function length(list) {
+  if (isEmpty(list)) {
+    return 0;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  // return increment(length(rest));
+  return 1 + length(rest);
+}
+
+
 /**
  * Given a list, return a reversed copy of the list.
  */
