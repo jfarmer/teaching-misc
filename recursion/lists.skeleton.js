@@ -204,3 +204,140 @@ function map(list, fn) {
 
   return ______;
 }
+
+/**
+ * Given a list and a function, return true if the function evaluates to true
+ * for EVERY value in the list and false otherwise.
+ *
+ * every(10 -> 20 -> 30, n % 2 === 0); // => true
+ * every(1 -> 2 -> 3, n % 2 === 0); // => false
+ */
+function every(list, fn) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return ______;
+}
+
+/**
+ * Given a list and a function, return true if the function evaluates to true
+ * for SOME value in the list and false otherwise.
+ *
+ * some(10 -> 20 -> 30, n % 2 === 1); // => false
+ * some(1 -> 2 -> 3, n % 2 === 0); // => true
+ */
+function some(list, fn) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return ______;
+}
+
+
+/**
+ * Given two lists, produce a new lists consisting of
+ * pairs of elements from each. For example:
+ *
+ * zip(a -> b -> c, x -> y -> z) == [a,x] -> [b,y] -> [c,z]
+ *
+ * Zip returns a list as long as the shortest input list
+ */
+function zip(left, right) {
+  // Careful: when dealing w/ two lists, either one might be empty
+  if (_____) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return ______;
+}
+
+/**
+ * Given a list and a function, return the number of elements in the
+ * list for which the function returns true.
+ *
+ * countBy(1 -> 2 -> 3, n => n % 2 === 1); // => 2
+ */
+function countBy(list, fn) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return ______;
+}
+
+/**
+ * Given a list and a value, returns true if the list contains the
+ * value and false otherwise.
+ */
+function contains(list, value) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return ______;
+}
+
+/**
+ * Given a list and a function, returns a Map where the keys
+ * are the distinct return values of the function and the values
+ * are arrays of items in the list which return that value.
+ *
+ * groupBy(1 -> 2 -> 3, n => n % 2); // => Map {0 => [2], 1 => [1,3]}
+ */
+function contains(list, fn) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return ______;
+}
+
+/**
+ * Given a list and a chunk size, split the input list into chunk-sized
+ * contiguous sub-lists. The last chunk might be smaller than the chunk size.
+ * Returns an array of chunks.
+ *
+ * chunk(1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8, 3); // => [1 -> 2 -> 3, 4 -> 5 -> 6, 7 -> 8]
+ */
+function chunk(list, size) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return ______;
+}
+
+/**
+ * Given two lists, return their concatenation as a new list.
+ *
+ * concat(1 -> 2 -> 3, 10 -> 20 -> 30); // 1->2->3->10->20->30
+ */
+function concat(left, right) {
+  if (isEmpty(left)) {
+    return _____;
+  }
+
+  if (isEmpty(right)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return ______;
+}
