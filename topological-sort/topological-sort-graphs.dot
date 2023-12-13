@@ -2,8 +2,8 @@ digraph Example1 {
     node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=18, width=0.75, fontname="Courier", penwidth=0.5];
     edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
-    # edge [dir=none]
-    # edge [dir=back]
+    // edge [dir=none]
+    // edge [dir=back]
 
     A B C D E F
 
@@ -20,6 +20,27 @@ digraph Example1 {
     E -> {}
 
     F -> C
+}
+
+digraph Example1 {
+    node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=18, width=0.75, fontname="Courier", penwidth=0.5];
+    edge [len=2.0, penwidth=0.5, arrowsize=0.5];
+
+    // edge [dir=none]
+    // edge [dir=back]
+
+    A B C D E F
+
+    A -> {B C}
+    B -> {}
+
+    C -> {D}
+
+    D -> {B E}
+
+    E -> {}
+
+    F -> {C}
 }
 
 digraph Package {

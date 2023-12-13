@@ -95,12 +95,12 @@ function multiply(x, y) {
  */
 function product(list) {
   if (isEmpty(list)) {
-    return 1;
+    return _____;
   }
 
   let [first, rest] = unprepend(list);
 
-  return multiply(first, product(rest));
+  return _____;
 }
 
 function larger(x, y) {
