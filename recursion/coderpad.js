@@ -46,7 +46,7 @@ function product(list) {
  * Given a list of numbers, returns the largest number in the list.
  */
 function largest(list) {
-  if (_____) {
+  if (isEmpty(list)) {
     return _____;
   }
 
@@ -61,7 +61,7 @@ function largest(list) {
  *   reverse(10 -> 20 -> 30) == 30 -> 20 -> 10
  */
 function reverse(list) {
-  if (_____) {
+  if (isEmpty(list)) {
     return _____;
   }
 
