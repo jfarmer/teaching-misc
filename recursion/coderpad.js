@@ -18,7 +18,7 @@ function sum(list) {
 }
 
 function template(list) {
-  if (_____) {
+  if (isEmpty(list)) {
     return _____;
   }
 
@@ -152,12 +152,12 @@ function append(value, list) {
 // the identity of that operation, if it exists. If it doesn't exist then you
 // probably want to disallow empty lists as input.
 
-// let list = Node.fromArray([10, 21, 30, -17, 40, -109]);
+let list = Node.fromArray([10, 21, 30, -17, 40, -109]);
 // let list2 = Node.fromArray(['one', 'two']);
 
 // console.log('list:    ', list);
 // console.log('sum:     ', sum(list));
-// console.log('max:     ', max(list));
+// console.log('max:     ', largest(list));
 // console.log('odds:    ', filter(list, x => x % 2 !== 0));
 // console.log('double:  ', map(list, x => x * 2));
 // console.log('everyNeg:', every(list, x => x < 0));

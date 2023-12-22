@@ -115,10 +115,10 @@ function larger(x, y) {
  * Given a list of comparable things (e.g., numbers, strings), return
  * the largest element.
  */
-function max(list) {
+function largest(list) {
   // It's possible to handle an empty list, but think about how to
   // handle the one-element list first. We can always declare that
-  // "max" requires non-empty lists by throwing an error when isEmpty
+  // "largest" requires non-empty lists by throwing an error when isEmpty
 
   if (isRestEmpty(list)) {
     return _____;
