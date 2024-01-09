@@ -315,7 +315,7 @@ function contains(list, value) {
  *
  * groupBy(1 -> 2 -> 3, n => n % 2); // => Map {0 => [2], 1 => [1,3]}
  */
-function contains(list, fn) {
+function groupBy(list, fn) {
   if (isEmpty(list)) {
     return _____;
   }
