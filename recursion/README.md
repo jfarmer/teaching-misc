@@ -14,8 +14,8 @@ type List<Int> := prepend(Int, List<Int>)
 // A binary tree is either:
 //   1. The empty tree, or
 //   2. A value plus two (smaller) left + right sub-trees
-BinaryTree<Int> := EmptyTree
-BinaryTree<Int> := Node(Int, BinaryTree<Int>, BinaryTree<Int>)
+type BinaryTree<Int> := EmptyTree
+type BinaryTree<Int> := Node(Int, BinaryTree<Int>, BinaryTree<Int>)
 
 // A tree is either:
 //   1. The empty tree, or
