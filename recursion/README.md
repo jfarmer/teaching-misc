@@ -2,15 +2,12 @@
 
 ## Contents <!-- omit in toc -->
 
-- [Exercises](#exercises)
 - [Goals](#goals)
+- [Exercises](#exercises)
+  - [Sequence of Exercises](#sequence-of-exercises)
 - [Recursive Data Types](#recursive-data-types)
   - [Linked Lists as Recursive Data Types](#linked-lists-as-recursive-data-types)
   - [Other Recursive Data Types](#other-recursive-data-types)
-
-## Exercises
-
-If you're looking for exercises, read the bit below on recursive data types and complete the unwritten functions in [lists.skeleton.js](./lists.skeleton.js).
 
 ## Goals
 
@@ -21,6 +18,76 @@ I have three goals for this session:
 1. Give you a new way of thinking about recursion (with link lists as an example)
 1. Leave you with a template that you can use to solve *any* problem involving linked lists, recursively
 1. Convince you that "thinking recursively" is worth it on its own terms and not just because you might be asked in an interview one day.
+
+## Exercises
+
+Read a bit below on [recursive data types](#recursive-data-types) and then take a look at some of the other files.
+
+- To see what I typically cover in a session, look at [coderpad.js](./coderpad.js).
+- For a fuller set of exercises, complete the unwritten functions in [lists.skeleton.js](./lists.skeleton.js).
+
+### Sequence of Exercises
+
+The structure of the exercises goes like this:
+
+1. We have a basic linked list implementation
+1. Make sure you understand how `sum` is calculating the sum of a linked list
+1. There's a fill-in-the-blank template that can be used to implement *any* linked list algorithm you'd be interested in
+1. Use that template to implement `product`, `largest`, `reverse`, and `append`.
+
+This is `sum` and the template:
+
+```js
+function add(x, y) {
+  return x + y;
+}
+
+/**
+ * Given a list of numbers, return their sum.
+ */
+function sum(list) {
+  // List<Int> := EmptyList
+  if (isEmpty(list)) {
+    return 0;
+  }
+
+  // List<Int> := prepend(Int, List<Int>)
+  let [first, rest] = unprepend(list);
+
+  return add(first, sum(rest));
+}
+
+function template(list) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return _____;
+}
+
+
+/**
+ * Given a list of numbers, return their product, i.e.,
+ * multiply them together.
+ */
+function product(list) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return _____;
+}
+
+let list = [10, 20, 30, -1];
+
+console.log('list:    ', list);
+console.log('sum:     ', sum(list));
+// console.log('product: ', product(list));
+```
 
 ## Recursive Data Types
 
