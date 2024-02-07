@@ -148,6 +148,27 @@ function append(value, list) {
   return _____;
 }
 
+
+
+let list = Node.fromArray([10, 20, 30, -1]);
+
+// console.log('list:    ', list);
+// console.log('sum:     ', sum(list));
+// console.log('product: ', product(list));
+// console.log('largest: ', largest(list));
+// console.log('reverse: ', reverse(list));
+// console.log('append:  ', append(list, 200));
+// console.log('odds:    ', filter(list, x => x % 2 !== 0));
+// console.log('double:  ', map(list, x => x * 2));
+// console.log('everyNeg:', every(list, x => x < 0));
+// console.log('someNeg: ', some(list, x => x < 0));
+// console.log('maxByAbs:', maxBy(list, x => Math.abs(x)));
+// console.log('zip:     ', zip(list, list2));
+// console.log('groupBy: ', groupBy(list, x => x % 2 === 0));
+
+// console.log('revBad:  ', reverseBad(list));
+// console.log('reverseA:', reverseA(list));
+
 // Binary Operations Identities
 //
 // A function that takes two values of the same type and returns
@@ -215,22 +236,3 @@ function append(value, list) {
 // If you're passing a binary operation to fold then the initial value should be
 // the identity of that operation, if it exists. If it doesn't exist then you
 // probably want to disallow empty lists as input.
-
-let list = Node.fromArray([10, 21, 30, -17, 40, -109]);
-// let list2 = Node.fromArray(['one', 'two']);
-
-console.log('list:    ', list);
-// console.log('sum:     ', sum(list));
-// console.log('product: ', sum(list));
-// console.log('largest: ', largest(list));
-// console.log('odds:    ', filter(list, x => x % 2 !== 0));
-// console.log('double:  ', map(list, x => x * 2));
-// console.log('everyNeg:', every(list, x => x < 0));
-// console.log('someNeg: ', some(list, x => x < 0));
-// console.log('maxByAbs:', maxBy(list, x => Math.abs(x)));
-// console.log('reverse: ', reverse(list));
-// console.log('revBad:  ', reverseBad(list));
-// console.log('reverseA:', reverseA(list));
-// console.log('append:  ', append(list, 200));
-// console.log('zip:     ', zip(list, list2));
-// console.log('groupBy: ', groupBy(list, x => x % 2 === 0));
