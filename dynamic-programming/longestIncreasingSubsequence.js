@@ -24,8 +24,6 @@ function longestIncreasingIter(array) {
   }
 
   const LIS = [0];
-  let curMax = 0;
-  let overallMax = 0;
 
   for(let i = 0; i < array.length; i += 1) {
     let curMax = 0;
@@ -40,7 +38,7 @@ function longestIncreasingIter(array) {
     overallMax = Math.max(LIS[i], overallMax);
   }
 
-  return overallMax;
+  return Math.max(...LIS);
 }
 
 function L(array, i, memo = []) {
