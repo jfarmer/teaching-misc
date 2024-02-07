@@ -112,6 +112,37 @@ function larger(x, y) {
 }
 
 /**
+ * Given a list, return a reversed copy of the list.
+ */
+function reverse(list) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  // Other logic can go here
+  // What are common ways of adding something to a list?
+  // Each "way" is an operation. For each "way", can
+  // you think of how to reverse a list using only that operation?
+
+  return _____;
+}
+
+/**
+ * Given a list and a value, return a new list with that value appended to it
+ */
+function append(list, value) {
+  if (isEmpty(list)) {
+    return _____;
+  }
+
+  let [first, rest] = unprepend(list);
+
+  return _____;
+}
+
+/**
  * Given a list of comparable things (e.g., numbers, strings), return
  * the largest element.
  */
@@ -173,37 +204,6 @@ function length(list) {
   return 1 + length(rest);
 }
 
-
-/**
- * Given a list, return a reversed copy of the list.
- */
-function reverse(list) {
-  if (isEmpty(list)) {
-    return _____;
-  }
-
-  let [first, rest] = unprepend(list);
-
-  // Other logic can go here
-  // What are common ways of adding something to a list?
-  // Each "way" is an operation. For each "way", can
-  // you think of how to reverse a list using only that operation?
-
-  return _____;
-}
-
-/**
- * Given a list and a value, return a new list with that value appended to it
- */
-function append(list, value) {
-  if (isEmpty(list)) {
-    return _____;
-  }
-
-  let [first, rest] = unprepend(list);
-
-  return _____;
-}
 
 /**
  * Given a list and a function, return a new list where each element

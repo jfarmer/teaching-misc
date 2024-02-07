@@ -8,6 +8,8 @@
 - [Recursive Data Types](#recursive-data-types)
   - [Linked Lists as Recursive Data Types](#linked-lists-as-recursive-data-types)
   - [Other Recursive Data Types](#other-recursive-data-types)
+- [Problem-Solving Strategies](#problem-solving-strategies)
+
 
 ## Goals
 
@@ -171,3 +173,36 @@ What this recursive definition says is that you can construct any natural number
 2 == successor(successor(0))
 5 == successor(successor(successor(successor(successor(0)))))
 ```
+
+## Problem-Solving Strategies
+
+Here are some helpful problem-solving strategies:
+
+1. Concretize the situation by thinking of a pile of index cards w/ numbers on them. Something like `first + sum(rest)` means "the first number in the pile plus the sum of the rest of the numbers".
+
+1. If you don't know what the answer should be for the empty list, think about how to get the function working with a 1-element linked list. That will usually tell you.
+
+   For example, `product([30])` should be `30`, but the recursive definition also says that it should be `30 * product([])`. Basic algebra tells us that if `product([])` has a value then that value must be `1`.
+
+1. "Play legos" by ensuring the types line up. For example, `largest(list)` wants to take a linked list as an argument. The only lists you have a reference to are `list` and `rest`. The recursive call can't be `largest(list)` because that'd create an infinite loop, so the recursive call *must* be `largest(rest)` by process of elimination.
+
+   Because we've handled the base case, `largest(rest)` will terminate. How can we use that result to answer the question for the entire list?
+
+1. Every non-empty list is constructed by repeatedly prepending values to the empty list. That is, it looks like
+
+   ```js
+   // List is 10 -> 20 -> 30 -> EmptyList
+   prepend(10, prepend(20, prepend(30, EMPTY_LIST)));
+   ```
+
+   Whatever we replace `EMPTY_LIST` with is the base case, and what we replace `prepend` with is the recursive case. For example,
+
+   ```js
+   prepend(10, prepend(20, prepend(30, EMPTY_LIST)));
+
+   // sum of list, replace prepend with add and EMPTY_LIST with 0
+   add(10, add(20, add(30, 0)));
+
+   // product of list, replace prepend with multiply and EMPTY_LIST with 1
+   multiply(10, multiply(20, multiply(30, 1)));
+   ```
