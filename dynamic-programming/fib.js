@@ -29,27 +29,47 @@ function memoize1(fn) {
   }
 }
 
-let fibTopDown = memoize1(fib);
+function memoizeGeneric(fn) {
+  let memo = new Map();
 
-// function fibTopDown(n, memo = new Map()) {
-//   if (memo.has(n)) {
-//     return memo.get(n);
-//   }
+  return function(...args) {
+    // We have to do something like this because JavaScript
+    // determines array equality by reference rather than element-wise
+    let key = JSON.stringify(args);
 
-//   if (n === 0) {
-//     return 0;
-//   }
+    if (memo.has(key)) {
+      return memo.get(key);
+    }
 
-//   if (n === 1) {
-//     return 1;
-//   }
+    let result = fn(...args);
 
-//   let result = fib(n - 1, memo) + fib(n - 2, memo);
+    memo.set(key, result);
 
-//   memo.set(n, result);
+    return result;
+  }
+}
 
-//   return result;
-// }
+let fibTopDownAutoMemo = memoize1(fib);
+
+function fibTopDown(n, memo = new Map()) {
+  if (memo.has(n)) {
+    return memo.get(n);
+  }
+
+  if (n === 0) {
+    return 0;
+  }
+
+  if (n === 1) {
+    return 1;
+  }
+
+  let result = fib(n - 1, memo) + fib(n - 2, memo);
+
+  memo.set(n, result);
+
+  return result;
+}
 
 function fibBottomUp(n) {
   let fib = [];
