@@ -26,7 +26,6 @@ Here's a list of graph terms. Put your initial next to any you haven't heard bef
   - Path:
 - Cycle:
 - Connected (vs. disconnected):
-- Subgraph:
 
 ## Main Themes
 
@@ -38,14 +37,18 @@ The point of graphs is that they can represent a HUGE range of general situation
 
 A graph consists of two sets, V and E, called the vertex and edge sets respectively.
 
-V can represnet anything. E consists of pairs of vertices. Every graph can be described by saying...
+The elements in the vertex set V can represent anything. The edge set E always consists of pairs of vertexes, i.e., pairs of elements of V.
+
+Every graph can be described by saying...
 
 > Let each vertex represent a ______. Draw an edge from Vertex A to Vertex B if ______.
 
 For example:
 
-> Let G be a graph where each vertex represents a person. Draw an edge from Person A to Person B if Person A knows Person B's phone number.
-> Let G be a graph where each vertex represents a website. Draw an edge from Website A to Website B if there's a hyperlink from Website A to Website B.
+1. Let G be a graph where each vertex represents a Person. Draw an edge from Person A to Person B if Person A knows Person B's phone number.
+2. Let G be a graph where each vertex represents a Website. Draw an edge from Website A to Website B if there's a hyperlink on Website A to Website B.
+
+We'll take 3-5 minutes for everyone to come up with 2-3 examples of graphs. Type up your examples on your own computer. After we reach the time limit — which I'll announce — everyone paste their examples below.
 
 This is often written by saying "Let G=(V,E) be a graph where V is ... and E is ...".
 

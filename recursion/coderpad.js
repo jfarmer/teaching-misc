@@ -78,6 +78,10 @@ function sum(list) {
   // List<Int> := prepend(Int, List<Int>)
   let [first, rest] = unprepend(list);
 
+  // The above is equivalent to:
+  // let first = list.value;
+  // let rest = list.next;
+
   return add(first, sum(rest));
 }
 
