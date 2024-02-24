@@ -2,7 +2,10 @@ digraph G {
   node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5];
   edge [len=2.0, minlen=1];
 
-  # edge [dir=back]
+  layout="dot" // try "neato", "fdp", "circo", "twopi"
+
+  // edge [dir=back] // Reverse direction of edges
+  // edge [dir=none] // Make graph undirected
 
   "fib(5)" -> "fib(4)"
   "fib(5)" -> "fib(3)"

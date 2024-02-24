@@ -2,8 +2,11 @@ digraph RandomDigraph1 {
   node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
   edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
+  layout="dot" // try "neato", "fdp", "circo", "twopi"
+
   // edge [dir=none]
   // edge [dir=back]
+
   // rankdir=LR
   // rankdir=RL
   // rankdir=TB
@@ -22,7 +25,10 @@ digraph Cycle {
   node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
   edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
-  // edge [dir=none]
+    layout="dot" // try "neato", "fdp", "circo", "twopi"
+
+    // edge [dir=none] // Make graph undirected
+    // edge [dir=back] // Reverse direction of edges
 
     A B C D E F
 

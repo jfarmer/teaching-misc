@@ -1,11 +1,43 @@
 digraph NPMPackage {
-  rankdir=LR
-  # edge [dir=back]
-  {
-    node [style=filled, fillcolor=pink, fontcolor=black]
-    "<project>" -> {"@awaitjs/express","cookie-parser","debug","dotenv","eslint","eslint-config-standard","eslint-plugin-import","eslint-plugin-json","eslint-plugin-node","eslint-plugin-promise","eslint-plugin-standard","express","express-handlebars","express-promise-router","handlebars","hbs","http-errors","jsdoc","knex","morgan","nodemon","pg","strftime"}
+  node [fontsize=18, width=1.0, fontname="Courier", fontsize=32, shape=ellipse]
+  edge [arrowsize=1.5]
 
+  rankdir=LR
+  layout="dot" // try "dot", "neato", "fdp", "circo", "twopi"
+
+  edge [dir=back] // Reverse direction of edges
+  // edge [dir=none] // Make graph undirected
+  subgraph top_level_dependencies {
+    node [style=filled, fillcolor=plum1, fontcolor=black, height=1.5, width=10.0, fontsize=48, shape=rectangle]
+    "<project>" [fillcolor=green, height=2.0, width=10.0, fontsize=64]
+    "<project>" -> {
+
+      "@awaitjs/express",
+      "cookie-parser",
+      "debug",
+      "dotenv",
+      "eslint",
+      "eslint-config-standard",
+      "eslint-plugin-import",
+      "eslint-plugin-json",
+      "eslint-plugin-node",
+      "eslint-plugin-promise",
+      "eslint-plugin-standard",
+      "express","express-handlebars",
+      "express-promise-router",
+      "handlebars",
+      "hbs",
+      "http-errors",
+      "jsdoc",
+      "knex",
+      "morgan",
+      "nodemon",
+      "pg",
+      "strftime"
+    }
   }
+
+  subgraph internal_dependencies {
     "@awaitjs/express" -> {"@types/express","express"}
     "@babel/parser" -> {}
     "@eslint-community/eslint-utils" -> {"eslint","eslint-visitor-keys"}
@@ -133,7 +165,6 @@ digraph NPMPackage {
     "foreground-child" -> {"cross-spawn","signal-exit"}
     "forwarded" -> {}
     "fresh" -> {}
-    "fs.realpath" -> {}
     "fsevents" -> {}
     "function-bind" -> {}
     "function.prototype.name" -> {"call-bind","define-properties","es-abstract","functions-have-names"}
@@ -164,7 +195,6 @@ digraph NPMPackage {
     "ignore-by-default" -> {}
     "import-fresh" -> {"parent-module","resolve-from"}
     "imurmurhash" -> {}
-    "inflight" -> {"once","wrappy"}
     "inherits" -> {}
     "internal-slot" -> {"get-intrinsic","has","side-channel"}
     "interpret" -> {}
@@ -237,7 +267,6 @@ digraph NPMPackage {
     "object.values" -> {"call-bind","define-properties","es-abstract"}
     "on-finished" -> {"ee-first"}
     "on-headers" -> {}
-    "once" -> {"wrappy"}
     "optionator" -> {"deep-is","fast-levenshtein","levn","prelude-ls","type-check","word-wrap"}
     "p-limit" -> {"yocto-queue"}
     "p-locate" -> {"p-limit"}
@@ -245,7 +274,6 @@ digraph NPMPackage {
     "parent-module" -> {"callsites"}
     "parseurl" -> {}
     "path-exists" -> {}
-    "path-is-absolute" -> {}
     "path-key" -> {}
     "path-parse" -> {}
     "path-scurry" -> {"lru-cache","minipass"}
@@ -337,9 +365,8 @@ digraph NPMPackage {
     "word-wrap" -> {}
     "wordwrap" -> {}
     "wrap-ansi" -> {"ansi-styles","string-width","strip-ansi"}
-    "wrappy" -> {}
     "xmlcreate" -> {}
     "xtend" -> {}
-    "yallist" -> {}
     "yocto-queue" -> {}
+  }
 }

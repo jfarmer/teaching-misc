@@ -2,8 +2,10 @@ digraph Example1 {
     node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=18, width=0.75, fontname="Courier", penwidth=0.5];
     edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
-    // edge [dir=none]
-    // edge [dir=back]
+    layout="dot" // try "neato", "fdp", "circo", "twopi"
+
+    // edge [dir=none] // Make graph undirected
+    // edge [dir=back] // Reverse direction of edges
 
     A B C D E F
 
@@ -26,8 +28,10 @@ digraph Example1 {
     node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=18, width=0.75, fontname="Courier", penwidth=0.5];
     edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
-    // edge [dir=none]
-    // edge [dir=back]
+    layout="dot" // try "neato", "fdp", "circo", "twopi"
+
+    // edge [dir=none] // Make graph undirected
+    // edge [dir=back] // Reverse direction of edges
 
     A B C D E F
 
