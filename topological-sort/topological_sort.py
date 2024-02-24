@@ -31,12 +31,20 @@ def graph_get_indegrees(graph):
 def graph_get_sources(graph):
     """
     Given a graph, return an array of source vertexes, i.e., vertexes
-    with no incoming edges.
+    with no incoming edges. No guarantees are made about the order
+    of the veretexes in the returned array.
     """
 
     in_degrees = graph_get_indegrees(graph)
 
     return [vertex for vertex in graph if in_degrees[vertex] == 0]
+
+def graph_get_source(graph):
+    """
+    Given a graph, return the first source vertex we find or None
+    if there aren't any.
+    """
+    return next((s for s in graph_get_sources(graph)), None)
 
 def topological_sort_bfs(graph):
     """
@@ -57,6 +65,27 @@ def topological_sort_bfs(graph):
                 queue.append(neighbor)
 
     return results
+
+def topological_sort_bfs_recursive(graph):
+    """
+    Perform a topological sort on a graph using a recursive and
+    destructive breadth-first search. We recursively remove
+    sources from the graph.
+    """
+    if not graph:
+        return []
+
+    source = graph_get_source(graph)
+
+    # The graph isn't empty, but it has no source.
+    # That means there must be a cycle
+    if not source:
+        raise TypeError('Graph contains a cycle')
+
+    # Could also do: graph.pop(source)
+    del graph[source]
+
+    return [source] + topological_sort_bfs_recursive(graph)
 
 def topological_sort_dfs(graph):
     """
@@ -97,7 +126,7 @@ def topological_sort_dfs(graph):
 # }
 # print(topological_sort_dfs(graph))
 
-vertex_list = ['A', 'B', 'C', 'D', 'E', 'F'];
+vertex_list = ['A', 'B', 'C', 'D', 'E', 'F']
 edge_list = [
   ('A', 'B'),
   ('A', 'C'),
@@ -108,4 +137,7 @@ edge_list = [
 ]
 
 graph = graph_to_adjacency_list(vertex_list, edge_list)
-print(topological_sort_dfs(graph))
+
+print('BFS (iterative):', topological_sort_bfs(graph))
+print('BFS (recursive):', topological_sort_bfs_recursive(graph.copy()))
+print('DFS (recursive):', topological_sort_dfs(graph))
