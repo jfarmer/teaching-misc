@@ -87,7 +87,7 @@ def topological_sort_bfs_recursive(graph):
 
     return [source] + topological_sort_bfs_recursive(graph)
 
-def topological_sort_dfs(graph):
+def topological_sort_dfs_recursive(graph):
     """
     Perform a topological sort on a graph using depth-first search.
     This is recursive, depth first, and non-destructive.
@@ -124,7 +124,7 @@ def topological_sort_dfs(graph):
 #     'C': ['D'],
 #     'D': []
 # }
-# print(topological_sort_dfs(graph))
+# print(topological_sort_dfs_recursive(graph))
 
 vertex_list = ['A', 'B', 'C', 'D', 'E', 'F']
 edge_list = [
@@ -140,4 +140,4 @@ graph = graph_to_adjacency_list(vertex_list, edge_list)
 
 print('BFS (iterative):', topological_sort_bfs(graph))
 print('BFS (recursive):', topological_sort_bfs_recursive(graph.copy()))
-print('DFS (recursive):', topological_sort_dfs(graph))
+print('DFS (recursive):', topological_sort_dfs_recursive(graph))
