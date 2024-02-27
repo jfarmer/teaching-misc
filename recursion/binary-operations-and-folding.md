@@ -22,11 +22,19 @@ Examples:
 ```js
 x == add(x, 0)                 // 0 is the identity of addition
 x == multiply(x, 1)            // 1 is the identity of multiplication
-x == largest(x, -Infinity)     // -Infinity is the identity of larger
+
+x == larger(x, -Infinity)      // -Infinity is the identity of larger
+x == smaller(x, +Infinity)     // +Infinity is the identity of larger
+
 
 array == concat(array, [])     // [] is the identity of array concatenation
 
+str == strConcat(str, '')      // '' is the identity of string concatenation
+
 set == union(set, EMPTY_SET)   // The empty set is the identity of set union
+
+bool == and(bool, true)        // true is the identity of logical AND / &&
+bool == or(bool, false)        // false is the identity of logical OR / ||
 ```
 
 Not every binary operation has an identity.
