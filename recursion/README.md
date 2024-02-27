@@ -26,7 +26,7 @@ I have three goals for this session:
 Read a bit below on [recursive data types](#recursive-data-types) and then take a look at some of the other files.
 
 - To see what I typically cover in a session, look at <code>[coderpad.js](./coderpad.js)</code>.
-- For a fuller set of exercises, complete the unwritten functions in <code>[lists.skeleton.js](./lists.skeleton.js)</code>.
+- For a fuller set of exercises, complete the unwritten functions in <code>[lists.skeleton.js](./lists.skeleton.js)</code> (JavaScript) or <code>[lists.skeleton.py](./lists.skeleton.py)</code> (Python).
 
 ### Sequence of Exercises
 
