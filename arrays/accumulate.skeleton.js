@@ -45,7 +45,7 @@ function product(array) {
 }
 
 function larger(x, y) {
-  if (X > y) {
+  if (x > y) {
     return x;
   } else {
     return y;
