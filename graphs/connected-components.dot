@@ -1,0 +1,34 @@
+digraph StronglyConnectedComponents {
+  node [shape = circle; style = filled; fillcolor = pink; fontcolor = black; fontsize = 12; width = 0.5; height = 0.5; fontname = "Courier"; penwidth = 0.5;];
+  edge [len = 2.0; penwidth = 0.5; arrowsize = 0.5;];
+
+  subgraph cluster_0 {
+    label = "Component 1";
+    color = red;
+    A -> B -> C -> A;
+  }
+
+  subgraph cluster_1 {
+    label = "Component 2";
+    color = blue;
+    D -> E -> F -> G -> D;
+    E -> G;
+    D -> F;
+  }
+
+  subgraph cluster_2 {
+    label = "Component 3";
+    color = green;
+
+    H -> I -> J -> I -> H -> J;
+  }
+
+  subgraph cluster_3 {
+    label = "Component 4";
+    X;
+  }
+
+  C -> F;
+  H -> A;
+  X -> {B J};
+}
