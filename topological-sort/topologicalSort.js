@@ -98,9 +98,7 @@ function topologicalSortDFS(graph) {
   let results = [];
 
   for (let vertex of Object.keys(graph)) {
-    if (!visited.has(vertex)) {
-      postOrderDFS(graph, vertex, vertex => results.push(vertex), visited);
-    }
+    postOrderDFS(graph, vertex, vertex => results.push(vertex), visited);
   }
 
   return results.reverse();
