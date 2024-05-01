@@ -88,7 +88,7 @@ Using the "G=(V,E)" language, here are many examples of graphs:
 9. Let ℤ⁺ = {1, 2, 3, ...} be the set of positive integers and let (r, s) ∈ ℤ⁺² be an edge if r divides s
 10. Let ℙ({1,2,3}) be the set of all subsets of {1,2,3} and let (s1, s2) ∈ ℙ({1,2,3})² be an edge if s1 is a subset of s2
 11. Let P be a set of propositions, each of which may be true or false. Let (p1, p2) ∈ P² be an edge if p1 implies p2.
-12. Let G=(V,E) be a graph. Define C(G)=(V, V²\E), i.e., the vertexes remain the same, but there's an edge (v1, v2) in C(G) onli if there is NO edge (v1, v2) in the original graph. This is called the "complement graph" of G.
+12. Let G=(V,E) be a graph. Define C(G)=(V, V²\E), i.e., the vertexes remain the same, but there's an edge (v1, v2) in C(G) only if there is NO edge (v1, v2) in the original graph. This is called the "complement graph" of G.
 13. Let G=(V,E) be a graph. Define Op(G) where the vertexes remain the same and the edges are reversed, i.e., (a,b) is an edge in Op(G) only if (b,a) is an edge in G. This is called the "opposite graph" or "transpose graph" of G.
 14. Let G=(V,E) be a graph. Define L(G) where the vertexes are all the edges in E and (e1, e2) is an edge in L(G) if e1 and e2 have a vertex in common in the original graph G. This is called the "line graph" of G.
 15. Let G=(V,E) be a graph. Define P(G)=(V,F) where (v1, v2) is in F if there's a path from v1 to v2 in G. This is called the "path graph" or "reachability graph" of G.
