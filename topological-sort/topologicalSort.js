@@ -17,20 +17,19 @@ function graphToAdjacencyList(vertexList, edgeList) {
 }
 
 /**
- * Given a graph return a list of its vertexes
- */
-function graphGetVertexes(graph) {
-  return Object.keys(graph);
-}
-
-/**
  * Given a graph, return an array of source vertexes, i.e., vertexes
  * with no incoming edges
  */
 function graphGetSources(graph) {
   let inDegrees = graphGetInDegrees(graph);
 
-  return graphGetVertexes(graph).filter(vertex => inDegrees.get(vertex) === 0);
+  return Object.keys(graph).filter(vertex => inDegrees.get(vertex) === 0);
+}
+
+function graphGetSource(graph) {
+  let inDegrees = graphGetInDegrees(graph);
+
+  return Object.keys(graph).find(vertex => inDegrees.get(vertex) === 0);
 }
 
 /**
@@ -40,9 +39,21 @@ function graphGetSources(graph) {
  * A vertex's in-degree is the number of incoming edges to that vertex.
  */
 function graphGetInDegrees(graph) {
-  let inDegrees = new Map(graphGetVertexes(graph).map(v => [v, 0]));
+  let inDegrees = new Map();
 
-  return Object.values(graph).flat().reduce((map, v) => map.set(v, map.get(v) + 1), inDegrees);
+  for (let vertex of Object.keys(graph)) {
+    inDegrees.set(vertex, 0);
+  }
+
+  for (let neighbors of Object.values(graph)) {
+    for (let outVertex of neighbors) {
+      let currentInDegree = inDegrees.get(outVertex);
+
+      inDegrees.set(outVertex, currentInDegree + 1);
+    }
+  }
+
+  return inDegrees;
 }
 
 /**
@@ -53,7 +64,9 @@ function graphGetInDegrees(graph) {
 function topologicalSortBFS(graph) {
   let results = [];
   let inDegrees = graphGetInDegrees(graph);
-  let queue = graphGetVertexes(graph).filter(v => inDegrees.get(v) === 0);
+  let sources = Object.keys(graph).filter(v => inDegrees.get(v) === 0);
+
+  let queue = [...sources];
 
   while (queue.length > 0) {
     let node = queue.shift();
@@ -68,6 +81,10 @@ function topologicalSortBFS(graph) {
     }
   }
 
+  // Doing cycle detection with BFS is easy:
+  //
+  // If results doesn't contain every vertex in the graph then
+  // there was a cycle. Otherwise, there was no cycle.
   return results;
 }
 
@@ -94,13 +111,9 @@ function topologicalSortBFSRecursive(graph) {
  */
 
 function topologicalSortDFS(graph) {
-  let visited = new Set();
   let results = [];
 
-  for (let vertex of Object.keys(graph)) {
-    postOrderDFS(graph, vertex, vertex => results.push(vertex), visited);
-  }
-
+  dfsPostOrder(graph, vertex => results.push(vertex));
   return results.reverse();
 }
 
@@ -109,7 +122,7 @@ function topologicalSortDFS(graph) {
  * post-order depth-first traversal of the graph. The callback function
  * is called in the post-order position.
  */
-function postOrderDFS(graph, startVertex, callbackFn, visited = new Set()) {
+function dfsFromNodePostOrder(graph, startVertex, callbackFn, visited = new Set()) {
   if (visited.has(startVertex)) {
     return;
   }
@@ -117,12 +130,20 @@ function postOrderDFS(graph, startVertex, callbackFn, visited = new Set()) {
   visited.add(startVertex);
 
   for (let neighbor of graph[startVertex]) {
-    postOrderDFS(graph, neighbor, callbackFn, visited);
+    dfsFromNodePostOrder(graph, neighbor, callbackFn, visited);
   }
 
   // Invoke the callback if we have it
   if (typeof callbackFn === 'function') {
     callbackFn(startVertex);
+  }
+}
+
+function dfsPostOrder(graph, callbackFn) {
+  let visited = new Set();
+
+  for (let vertex of Object.keys(graph)) {
+    dfsFromNodePostOrder(graph, vertex, callbackFn, visited);
   }
 }
 
