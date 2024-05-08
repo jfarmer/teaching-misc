@@ -1,28 +1,4 @@
-/**
- * Given a graph, represented as an adjacency list, iterate through it breadth-first
- * and call the callback for each node.
- */
-function bfs(graph, startNode, callback, visited = new Set()) {
-  let queue = [startNode];
-
-  while (queue.length > 0) {
-    let node = queue.shift();
-
-    if (visited.has(node)) {
-      continue;
-    }
-
-    visited.add(node);
-
-    if (typeof callback === 'function') {
-      callback(node);
-    }
-
-    for (let neighbor of graph[node]) {
-      queue.push(neighbor);
-    }
-  }
-}
+const { bfs } = require('./bfs');
 
 function vertexes(graph) {
   return Object.keys(graph);
@@ -42,12 +18,17 @@ function shortestPathsFromNode(graph, startVertex) {
   }
 
   // Because we're iterating breadth-first, the first time we see
-  // a vertex will always be along the shortest path.
+  // a vertex will always be along the shortest path. So only ever
+  // set it's distance once.
   bfs(graph, startVertex, (currentVertex) => {
+    let distToCurrent = distances.get(currentVertex);
+
     for (let neighbor of graph[currentVertex]) {
+      let distToNeighbor = distances.get(neighbor);
+
       // The shortest distance to any of currentNode's neighbors
-      // is 1 more than the shortest distance to currentNode
-      distances.set(neighbor, distances.get(currentVertex) + 1);
+      // is 1 more than the shortest distance to currentNode.
+      distances.set(neighbor, Math.min(distToNeighbor, distToCurrent + 1));
     }
   });
 
