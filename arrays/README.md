@@ -48,3 +48,52 @@ def template(array):
 
   return result_so_far
 ```
+
+## Algebra
+
+See: https://github.com/jfarmer/algebra-via-cs
+
+The general pattern looks like this:
+
+```js
+function accumulate(array, operation, initialValue) {
+  let resultSoFar = initialValue;
+
+  for (let value of array) {
+    resultSoFar = operation(resultSoFar, value);
+  }
+
+  return resultSoFar;
+}
+```
+
+For example:
+
+```js
+function sumAcc(array) {
+  return accumulate(array, (x, y) => x + y, 0);
+}
+
+function productAcc(array) {
+  return accumulate(array, (x, y) => x * y, 1);
+}
+
+function largestAcc(array) {
+  return accumulate(array, (x, y) => x > y ? x : y, -Infinity);
+}
+
+// e.g., select(array, val => val % 2 === 0)
+function select(array, checkFn) {
+  return accumulate(
+    array,
+    (results, item) => {
+      if (checkFn(item)) {
+        results.push(item)
+      }
+
+      return results;
+    },
+    []
+  );
+}
+```

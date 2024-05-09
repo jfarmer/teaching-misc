@@ -153,7 +153,7 @@ function largestAcc(array) {
 }
 
 function sumAcc(array) {
-  // array.redice((x, y) => x + y, 0);
+  // array.reduce((x, y) => x + y, 0);
   return accumulate(array, (x, y) => x + y, 0);
 }
 
