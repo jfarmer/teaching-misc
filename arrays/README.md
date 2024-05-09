@@ -1,1 +1,50 @@
 # Arrays
+
+## Agenda
+
+1. Introductions (brief!)
+2. Calibration
+3. Arrays and Random Access
+4. Coding
+
+## Why Do Arrays Have O(1) Random Access?
+
+Recall that "random access" means accessing the value in an array at a particular index.
+
+Unlike most data structures, there's nothing about the *shape* of an array that tells us why we get O(1) random access. Array random access is fast because we built hardware to make it fast.
+
+For example, the EDVAC used delay-line memory, which does *not* have constant-time random access. Still, in his paper describing EDVAC, John von Neumann gave a program that implemented merge sort.
+
+See: https://web.mit.edu/STS.035/www/PDFs/edvac.pdf
+
+The "Manchester Baby" is the first computer to support random access memory. It was designed as a prototype / proof-of-concept to illustrate the idea in 1948.
+
+See: https://en.wikipedia.org/wiki/Manchester_Baby
+
+## Patterns
+
+We'll talk about the "accumulator" and "find-the-best" patterns, but what I want to emphasize is that they're really the *same* pattern.
+
+This is the general template:
+
+```js
+function template(array) {
+  let resultSoFar = _____;
+
+  for (let value of array) {
+    resultSoFar = _____;
+  }
+
+  return resultSoFar;
+}
+```
+
+```python
+def template(array):
+  result_so_far = _____
+
+  for value in array:
+    result_so_far = _____
+
+  return result_so_far
+```

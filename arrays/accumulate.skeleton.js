@@ -1,3 +1,12 @@
+// let example = [10, 20, 30, -1];
+//
+// console.log('array: ', example);
+// console.log('sum:   ', sum(example));
+// console.log('product: ', product(example));
+// console.log('largest: ', largest(example));
+// console.log('evens:   ', selectEvens(example));
+
+
 function template(array) {
   let resultSoFar = _____;
 
@@ -28,7 +37,7 @@ function sum(array) {
 
 // product([10, 10, 5]) === 10 * 10 * 5 === 500
 // product([-1, 4, 200]) === -1 * 4 * 200 === -800
-// produce([]) === 1
+// product([]) === 1
 
 function multiply(x, y) {
   return x * y;
@@ -110,10 +119,6 @@ function map(array, fn) {
   return resultSoFar;
 }
 
-
-
-// zip([10, 20, 30], [1, 2, 3]) [[10, 1], [20, 2], [30, 3]]
-
 function accumulate(array, operator, initial) {
   let resultSoFar = initial;
 
@@ -130,7 +135,7 @@ function accumulate(array, operator, initial) {
 //   === [someFunc(10), someFunc(20), someFunc(30)]'
 
 
-function map(array, someFunc) {
+function mapAcc(array, someFunc) {
   return accumulate(
     array,
     (resultSoFar, item) => resultSoFar.concat(someFunc(item)),
@@ -138,40 +143,23 @@ function map(array, someFunc) {
   );
 }
 
-// [...[...[...[], someFunc(4)], someFunc(19)], someFunc(76)];
-// [...[...[...[], someFunc(4)], someFunc(19)], someFunc(76)];
-// [...[...[someFunc(4)], someFunc(19)], someFunc(76)];
-// [...[someFunc(4), someFunc(19)], someFunc(76)];
-// [someFunc(4), someFunc(19)], someFunc(76)];
-
-
-// let array = [4, 19, 76];
-// let someFunc = function(x) { return x * 2; }
-
-
-let results = map([10], x => x * 2);
-
-// results === [20] (should be)
-// results === 20
-console.log('results are:', results);
-
-function product(array) {
+function productAcc(array) {
   return accumulate(array, multiply, 1);
 }
 
 
-function largest(array) {
+function largestAcc(array) {
   return accumulate(array, larger, -Infinity);
 }
 
-function sum(array) {
+function sumAcc(array) {
   // array.redice((x, y) => x + y, 0);
   return accumulate(array, (x, y) => x + y, 0);
 }
 
 // returns true if condition returns true for all
 // elements of array
-function all(array, condition) {
+function everyAcc(array, condition) {
   return accumulate(
     array,
     (result, item) => result && condition(item),
@@ -179,7 +167,7 @@ function all(array, condition) {
   );
 }
 
-function any(array, condition) {
+function anyAcc(array, condition) {
   return accumulate(
     array,
     (result, item) => result || condition(item),
@@ -187,7 +175,7 @@ function any(array, condition) {
   );
 }
 
-function countItem(array, itemToCount) {
+function countItemAcc(array, itemToCount) {
   return accumulate(
     array,
     (result, item) => item === itemToCount ? result + 1 : result,
@@ -195,63 +183,10 @@ function countItem(array, itemToCount) {
   );
 }
 
-function countItems(array) {
+function countItemsAcc(array) {
   return accumulate(
     array,
     (results, item) => results.set(results.has(item) ? results.get(item) + 1 : 1),
     new Map()
   );
 }
-
-
-// array[0] * array[0] * array[1] * array[2]
-// console.log('product is:', product([10, 20, 5]));
-
-// Don't use Math.max
-
-function larger(x, y) {
-  if (x > y) {
-    return x;
-  } else {
-    return y;
-  }
-}
-
-// function largest(array, operator, initial) {
-//   let resultSoFar = initial;
-
-//   for(let item of array){
-//     resultSoFar = operator(resultSoFar, item);
-//   }
-
-//   return resultSoFar;
-// }
-
-let input = [-54, -67, -8, -19];
-
-// console.log('max is:', largest(input));
-
-// monoid
-// x + y + z === x + y + z
-
-
-
-//
-
-// function and(x, y) {
-//   return x && y;
-// }
-
-// add(x,0) === add(0,x) === x
-
-// operation(x, e) === operation(e, x) === x
-
-// // x and e are booleans (true or false)
-// and(x, e) === and(e, x) === x
-
-// and(false, true) === false
-// and(true, false) === false
-
-// and(true, true) === true
-
-// [x, y] = [y, x]
