@@ -25,7 +25,7 @@ function groupBy(list, fn) {
 
   return restGroup.set(key, restGroup.get(key).concat(first))
 
-  return groupIntoMap(fn(first), groupBy(rest, fn), first);
+  // return groupIntoMap(fn(first), groupBy(rest, fn), first);
 }
 
 module.exports = {

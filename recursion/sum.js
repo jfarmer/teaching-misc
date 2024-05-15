@@ -30,11 +30,12 @@ function sumL(list, res = 0) {
 }
 
 function sumIter(list) {
+  let current = list;
   let res = 0;
 
-  while (!isEmpty(list)) {
-    res = add(res, list.value);
-    list = list.next;
+  while (!isEmpty(current)) {
+    res = add(res, current.value);
+    current = current.next;
   }
 
   return res;

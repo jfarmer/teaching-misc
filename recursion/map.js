@@ -18,7 +18,11 @@ function map(list, fn) {
 }
 
 function mapFoldR(list, fn) {
-  return foldR(list, (value, rest) => prepend(fn(value), map(rest, fn)), EMPTY_LIST);
+  return foldR(
+    list,
+    (value, rest) => prepend(fn(value), map(rest, fn)),
+    EMPTY_LIST
+  );
 }
 
 module.exports = {
