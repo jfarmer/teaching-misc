@@ -1,4 +1,9 @@
-let { graphToAdjacencyList, graphGetSources, graphGetSource, graphGetInDegrees } = require('./graphs');
+let {
+  graphToAdjacencyList,
+  graphGetSources,
+  graphGetSource,
+  graphGetInDegrees,
+} = require('./graphs');
 
 /**
  * Perform a topological sort on a graph
@@ -118,7 +123,7 @@ let edgeList = [
   ['D', 'B'],
   ['D', 'E'],
   ['F', 'C'],
-]
+];
 
 let graph = graphToAdjacencyList(vertexList, edgeList);
 
