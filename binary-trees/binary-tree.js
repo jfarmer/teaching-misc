@@ -3,6 +3,16 @@ const util = require('node:util');
 const EMPTY_TREE = null;
 
 class TreeNode {
+  static fromArray(array) {
+    if (array === undefined || array === null || array.length === 0) {
+      return EMPTY_TREE;
+    }
+
+    let [value, left, right] = array;
+
+    return new TreeNode(value, TreeNode.fromArray(left), TreeNode.fromArray(right));
+  }
+
   constructor(value, left = EMPTY_TREE, right = EMPTY_TREE) {
     this.value = value;
     this.left = left;
@@ -68,6 +78,45 @@ function subtreeToString(tree, pointer = '', padding = '', hasRightSibling = fal
   result += subtreeToString(right, rightPointer, padding + newPadding, false);
 
   return result;
+}
+
+function doNothing() { return; };
+
+function treeDFS(tree, callback = doNothing) {
+  if (isEmpty(tree)) {
+    return;
+  }
+
+  callback(tree);
+  treeDFS(tree.left, callback);
+  treeDFS(tree.right, callback);
+}
+
+function treeDFSInOrder(tree, callback = doNothing) {
+  if (isEmpty(tree)) {
+    return;
+  }
+
+  treeDFSInOrder(tree.left, callback);
+  callback(tree);
+  treeDFSInOrder(tree.right, callback);
+}
+
+
+function treeBFS(tree, callback = doNothing) {
+  let queue = [tree];
+
+  while (queue.length > 0) {
+    let current = queue.shift();
+
+    if (isEmpty(current)) {
+      continue;
+    }
+
+    callback(current);
+    queue.push(current.left);
+    queue.push(current.right);
+  }
 }
 
 function treeTemplate(tree) {
@@ -146,6 +195,30 @@ function treeMerge(leftTree, rightTree) {
   let mergedRight = treeMerge(leftRight, rightRight);
 
   return new TreeNode(leftValue + rightValue, mergedLeft, mergedRight);
+}
+
+if (require.main === module) {
+  let exampleTree = TreeNode.fromArray(
+    [100,
+      [50,
+        [-100,
+          [-250],
+          [30]
+        ],
+        [75]
+      ],
+      [150,
+        [125],
+        [250]
+      ],
+    ]
+  );
+
+  console.log('Tree:');
+  console.log(exampleTree);
+
+  console.log('In-order DFS:');
+  treeDFSInOrder(exampleTree, node => console.log(node.value));
 }
 
 module.exports = {
