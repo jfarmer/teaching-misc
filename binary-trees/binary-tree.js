@@ -22,74 +22,6 @@ class TreeNode {
   }
 }
 
-function maxDepth(tree) {
-  if (isEmpty(tree) || isLeaf(tree)) {
-    return 0;
-  }
-
-  let [_, left, right] = destruct(tree);
-
-  return 1 + Math.max(maxDepth(left), maxDepth(right));
-}
-
-function treeSum(tree) {
-  if (isEmpty(tree)) {
-    return 0;
-  }
-
-  let [value, left, right] = destruct(tree);
-
-  return value + treeSum(left) + treeSum(right);
-}
-
-function filter(tree, predicate) {
-  if (isEmpty(tree)) {
-    return EMPTY_TREE;
-  }
-
-  let [value, left, right] = destruct(tree);
-
-  let filteredLeft = filter(left, predicate);
-  let filteredRight = filter(right, predicate);
-
-  if (predicate(value)) {
-    return new TreeNode(value, filteredLeft, filteredRight);
-  } else {
-    return mergeTrees(filteredLeft, filteredRight);
-  }
-}
-
-function invertTree(tree) {
-  if (isEmpty(tree)) {
-    return EMPTY_TREE;
-  }
-
-  let [value, left, right] = destruct(tree);
-
-  let invertedLeft = invertTree(right);
-  let invertedRight = invertTree(left);
-
-  return new TreeNode(value, invertedLeft, invertedRight);
-}
-
-function mergeTrees(leftTree, rightTree) {
-  if (isEmpty(leftTree)) {
-    return rightTree;
-  }
-
-  if (isEmpty(rightTree)) {
-    return leftTree;
-  }
-
-  let [leftValue, leftLeft, leftRight] = destruct(leftTree);
-  let [rightValue, rightLeft, rightRight] = destruct(rightTree);
-
-  let mergedLeft = mergeTrees(leftLeft, rightLeft);
-  let mergedRight = mergeTrees(leftRight, rightRight);
-
-  return new TreeNode(leftValue + rightValue, mergedLeft, mergedRight);
-}
-
 function isEmpty(tree) {
   return tree === EMPTY_TREE;
 }
@@ -119,7 +51,6 @@ function treeToString(tree, pointer = '', padding = '') {
   return result;
 }
 
-
 function subtreeToString(tree, pointer = '', padding = '', hasRightSibling = false) {
   if (isEmpty(tree)) {
       return '';
@@ -139,12 +70,90 @@ function subtreeToString(tree, pointer = '', padding = '', hasRightSibling = fal
   return result;
 }
 
+function treeTemplate(tree) {
+  if (isEmpty(tree)) {
+    return _____;
+  }
+
+  let [value, left, right] = destruct(tree);
+
+  return _____;
+}
+
+function maxDepth(tree) {
+  if (isEmpty(tree)) {
+    return -1
+  }
+
+  let [value, left, right] = destruct(tree);
+
+  return 1 + Math.max(maxDepth(left), maxDepth(right));
+}
+
+function treeSum(tree) {
+  if (isEmpty(tree)) {
+    return 0;
+  }
+
+  let [value, left, right] = destruct(tree);
+
+  return value + treeSum(left) + treeSum(right);
+}
+
+function treeFilter(tree, predicate) {
+  if (isEmpty(tree)) {
+    return EMPTY_TREE;
+  }
+
+  let [value, left, right] = destruct(tree);
+
+  let filteredLeft = treeFilter(left, predicate);
+  let filteredRight = treeFilter(right, predicate);
+
+  if (predicate(value)) {
+    return new TreeNode(value, filteredLeft, filteredRight);
+  } else {
+    return treeMerge(filteredLeft, filteredRight);
+  }
+}
+
+function invertTree(tree) {
+  if (isEmpty(tree)) {
+    return EMPTY_TREE;
+  }
+
+  let [value, left, right] = destruct(tree);
+
+  let invertedLeft = invertTree(right);
+  let invertedRight = invertTree(left);
+
+  return new TreeNode(value, invertedLeft, invertedRight);
+}
+
+function treeMerge(leftTree, rightTree) {
+  if (isEmpty(leftTree)) {
+    return rightTree;
+  }
+
+  if (isEmpty(rightTree)) {
+    return leftTree;
+  }
+
+  let [leftValue, leftLeft, leftRight] = destruct(leftTree);
+  let [rightValue, rightLeft, rightRight] = destruct(rightTree);
+
+  let mergedLeft = treeMerge(leftLeft, rightLeft);
+  let mergedRight = treeMerge(leftRight, rightRight);
+
+  return new TreeNode(leftValue + rightValue, mergedLeft, mergedRight);
+}
+
 module.exports = {
   TreeNode,
   treeToString,
   maxDepth,
   treeSum,
-  filter,
+  treeFilter,
   invertTree,
-  mergeTrees,
+  treeMerge,
 };
