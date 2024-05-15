@@ -1,8 +1,10 @@
+function doNothing() { return; }
+
 /**
  * Given a graph, represented as an adjacency list, iterate through it breadth-first
  * and call the callback for each node.
  */
-function bfs(graph, startNode, callback, visited = new Set()) {
+function bfs(graph, startNode, callback = doNothing, visited = new Set()) {
   let queue = [startNode];
 
   while (queue.length > 0) {
@@ -14,9 +16,7 @@ function bfs(graph, startNode, callback, visited = new Set()) {
 
     visited.add(node);
 
-    if (typeof callback === 'function') {
-      callback(node);
-    }
+    callback(node);
 
     for (let neighbor of graph[node]) {
       queue.push(neighbor);

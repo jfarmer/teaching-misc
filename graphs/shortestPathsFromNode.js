@@ -27,11 +27,11 @@ function shortestPathsFromNode(graph, startVertex) {
   bfs(graph, startVertex, (currentVertex) => {
     let distToCurrent = distances.get(currentVertex);
 
-    for (let neighbor of graph[currentVertex]) {
+    for (let neighbor of neighbors(graph, currentVertex)) {
       let distToNeighbor = distances.get(neighbor);
 
-      // The shortest distance to any of currentNode's neighbors
-      // is 1 more than the shortest distance to currentNode.
+      // The shortest distance to any of currentVertex's UNVISITED neighbors
+      // is 1 more than the shortest distance to currentVertex.
       distances.set(neighbor, Math.min(distToNeighbor, distToCurrent + 1));
     }
   });
