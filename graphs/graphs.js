@@ -2,11 +2,11 @@ class Graph {
   constructor(vertexes, edges) {
     this.vertexes = vertexes;
     this.edges = edges;
-    let adjList = new Map(vertexes.map(v => [v, new Set()]));
+    let adjList = new Map(vertexes.map((v) => [v, new Set()]));
 
     this._adjList = this.edges.reduce(
       (acc, [from, to]) => acc.set(from, acc.get(from).add(to)),
-      adjList
+      adjList,
     );
   }
 
@@ -16,15 +16,17 @@ class Graph {
 }
 
 // The identity function: does nothing
-let noOp = v => v;
+function doNothing() {
+  return;
+}
 
-function dfs(graph, callback = noOp, visited = new Set()) {
+function dfs(graph, callback = doNothing, visited = new Set()) {
   for (let vertex of graph.vertexes) {
     dfsFromVertex(graph, vertex, callback, visited);
   }
 }
 
-function dfsFromVertex(graph, startVertex, callback = noOp, visited = new Set()) {
+function dfsFromVertex(graph, startVertex, callback = doNothing, visited = new Set()) {
   if (visited.has(startVertex)) {
     return;
   }
@@ -38,7 +40,7 @@ function dfsFromVertex(graph, startVertex, callback = noOp, visited = new Set())
   }
 }
 
-function dfsFromVertexIterative(graph, startVertex, callback = noOp) {
+function dfsFromVertexIterative(graph, startVertex, callback = doNothing) {
   let visited = new Set();
   let stack = [];
 
@@ -49,7 +51,7 @@ function dfsFromVertexIterative(graph, startVertex, callback = noOp) {
 
     if (!visited.has(vertex)) {
       visited.add(vertex);
-      callback(vertex)
+      callback(vertex);
 
       for (let neighbor of graph.getNeighbors(vertex)) {
         stack.push(neighbor);
@@ -65,5 +67,5 @@ function dfsFromVertexIterative(graph, startVertex, callback = noOp) {
 module.exports = {
   Graph,
   dfs,
-  dfsFromVertex
+  dfsFromVertex,
 };

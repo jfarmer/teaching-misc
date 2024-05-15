@@ -4,6 +4,10 @@ function vertexes(graph) {
   return Object.keys(graph);
 }
 
+function neighbors(graph, vertex) {
+  return graph[vertex];
+}
+
 function shortestPathsFromNode(graph, startVertex) {
   let distances = new Map();
 
