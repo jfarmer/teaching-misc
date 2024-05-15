@@ -42,8 +42,8 @@ function treeToString(tree, pointer = '', padding = '') {
   let [value, left, right] = destruct(tree);
 
   let result = ` ${padding}${pointer}${value}\n`;
-  let rightPointer = " └── ";
-  let leftPointer = isEmpty(right) ? rightPointer : " ├── ";
+  let rightPointer = ' └── ';
+  let leftPointer = isEmpty(right) ? rightPointer : ' ├── ';
 
   result += subtreeToString(left, leftPointer, padding, !isEmpty(right));
   result += subtreeToString(right, rightPointer, padding, false);
@@ -53,16 +53,16 @@ function treeToString(tree, pointer = '', padding = '') {
 
 function subtreeToString(tree, pointer = '', padding = '', hasRightSibling = false) {
   if (isEmpty(tree)) {
-      return '';
+    return '';
   }
 
   let [value, left, right] = destruct(tree);
 
   let result = `${padding}${pointer}${value}\n`;
-  let rightPointer = " └── ";
-  let leftPointer = isEmpty(right) ? rightPointer : " ├── ";
+  let rightPointer = ' └── ';
+  let leftPointer = isEmpty(right) ? rightPointer : ' ├── ';
 
-  let newPadding = hasRightSibling ? " │  " : "    ";
+  let newPadding = hasRightSibling ? ' │  ' : '    ';
 
   result += subtreeToString(left, leftPointer, padding + newPadding, !isEmpty(right));
   result += subtreeToString(right, rightPointer, padding + newPadding, false);
@@ -82,7 +82,7 @@ function treeTemplate(tree) {
 
 function maxDepth(tree) {
   if (isEmpty(tree)) {
-    return -1
+    return -1;
   }
 
   let [value, left, right] = destruct(tree);
