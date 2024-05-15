@@ -1,4 +1,4 @@
-let {isEmpty, prepend, unprepend} = require('./lists');
+let { isEmpty, prepend, unprepend } = require('./lists');
 
 function merge(left, right) {
   if (isEmpty(left)) {

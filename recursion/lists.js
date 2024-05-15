@@ -36,7 +36,7 @@ class Node {
   *[Symbol.iterator]() {
     yield this.value;
 
-    if (!isEmpty(this.next)){
+    if (!isEmpty(this.next)) {
       yield* this.next;
     }
   }

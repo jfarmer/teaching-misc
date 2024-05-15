@@ -1,5 +1,5 @@
-let {isEmpty, unprepend} = require('./lists');
-let {foldR} = require('./fold');
+let { isEmpty, unprepend } = require('./lists');
+let { foldR } = require('./fold');
 
 /**
  * Given a list and a function, return a new list where each element
@@ -18,14 +18,10 @@ function map(list, fn) {
 }
 
 function mapFoldR(list, fn) {
-  return foldR(
-    list,
-    (value, rest) => prepend(fn(value), map(rest, fn)),
-    EMPTY_LIST
-  );
+  return foldR(list, (value, rest) => prepend(fn(value), map(rest, fn)), EMPTY_LIST);
 }
 
 module.exports = {
   map,
   mapFoldR,
-}
+};

@@ -62,7 +62,6 @@ function unprepend(list) {
   return [list.value, list.next];
 }
 
-
 function add(x, y) {
   return x + y;
 }
@@ -77,14 +76,12 @@ function sum(list) {
     return 0;
   }
 
-
   // Case:
   //   List<Int> := prepend(Int, List<Int>)
   let [first, rest] = unprepend(list);
 
   return add(first, sum(rest));
 }
-
 
 function multiply(x, y) {
   return x * y;
@@ -204,7 +201,6 @@ function length(list) {
   return 1 + length(rest);
 }
 
-
 /**
  * Given a list and a function, return a new list where each element
  * is the result of applying the function to the corresponding element.
@@ -257,7 +253,6 @@ function some(list, fn) {
 
   return ______;
 }
-
 
 /**
  * Given two lists, produce a new lists consisting of

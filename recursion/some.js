@@ -1,4 +1,4 @@
-let {isEmpty, unprepend} = require('./lists');
+let { isEmpty, unprepend } = require('./lists');
 
 function or(x, y) {
   return x || y;
@@ -21,4 +21,4 @@ function some(list, fn) {
 module.exports = {
   or,
   some,
-}
+};

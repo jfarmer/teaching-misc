@@ -1,4 +1,4 @@
-let {isEmpty, prepend, unprepend} = require('./lists');
+let { isEmpty, prepend, unprepend } = require('./lists');
 
 /**
  *
@@ -8,14 +8,14 @@ function addKFromEndWithLength(list, k) {
     return [head, 0];
   }
 
-  let [first, rest] = unprepend(list)
+  let [first, rest] = unprepend(list);
 
   let [restPlusK, length] = addKFromEndWithLength(rest, k);
 
   if ((length + 1) % k === 0) {
-    return [prepend(first + k, restPlusK), length + 1]
+    return [prepend(first + k, restPlusK), length + 1];
   } else {
-    return [prepend(first, restPlusK), length + 1]
+    return [prepend(first, restPlusK), length + 1];
   }
 }
 
@@ -31,5 +31,5 @@ function addKFromEnd(head, k) {
 
 module.exports = {
   addKFromEnd,
-  addKFromEndWithLength
-}
+  addKFromEndWithLength,
+};

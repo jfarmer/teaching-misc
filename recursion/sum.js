@@ -1,4 +1,4 @@
-let {isEmpty, unprepend} = require('./list');
+let { isEmpty, unprepend } = require('./list');
 
 function add(x, y) {
   return x + y;

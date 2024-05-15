@@ -114,7 +114,6 @@ function template(list) {
   return _____;
 }
 
-
 /**
  * Given a list of numbers, return their product, i.e.,
  * multiply them together.

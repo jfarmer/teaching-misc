@@ -1,4 +1,4 @@
-let {isEmpty, unprepend} = require('./lists');
+let { isEmpty, unprepend } = require('./lists');
 
 function foldR(list, fn, initial) {
   if (isEmpty(list)) {

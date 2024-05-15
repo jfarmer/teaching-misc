@@ -1,4 +1,4 @@
-let {isEmpty, unprepend} = require('./lists');
+let { isEmpty, unprepend } = require('./lists');
 
 function and(x, y) {
   return x && y;
@@ -20,4 +20,4 @@ function every(list, fn) {
 module.exports = {
   and,
   every,
-}
+};

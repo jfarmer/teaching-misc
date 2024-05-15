@@ -1,6 +1,6 @@
-let {Node, isEmpty, unprepend, prepend, EMPTY_LIST} = require('./lists');
-let {append} = require('./append');
-let {foldL, foldR} = require('./fold');
+let { Node, isEmpty, unprepend, prepend, EMPTY_LIST } = require('./lists');
+let { append } = require('./append');
+let { foldL, foldR } = require('./fold');
 
 /**
  * Given a list, return a reversed copy of the list.
@@ -42,4 +42,4 @@ module.exports = {
   reverseBad,
   reverseFoldLeft,
   reverseFoldRight,
-}
+};

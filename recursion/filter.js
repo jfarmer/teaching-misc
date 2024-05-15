@@ -1,4 +1,4 @@
-let {isEmpty, prepend, unprepend} = require('./lists');
+let { isEmpty, prepend, unprepend } = require('./lists');
 
 function prependIfCheck(val, list, checkFn) {
   if (checkFn(val)) {
@@ -17,7 +17,7 @@ function filter(list, checkFn) {
     return EMPTY_LIST;
   }
 
-  let [first, rest] = unprepend(list)
+  let [first, rest] = unprepend(list);
 
   return prependIfCheck(first, filter(rest, checkFn), checkFn);
 }
@@ -25,4 +25,4 @@ function filter(list, checkFn) {
 module.exports = {
   prependIfCheck,
   filter,
-}
+};

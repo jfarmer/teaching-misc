@@ -1,7 +1,7 @@
-let {isEmpty, isRestEmpty, unprepend} = require('./lists');
+let { isEmpty, isRestEmpty, unprepend } = require('./lists');
 
 function largerBy(x, y, fn) {
-  if (fn(x) > fn(y))  {
+  if (fn(x) > fn(y)) {
     return x;
   } else {
     return y;

@@ -1,5 +1,5 @@
-let {Node, isEmpty, unprepend, prepend, EMPTY_LIST} = require('./lists');
-let {foldR} = require('./fold');
+let { Node, isEmpty, unprepend, prepend, EMPTY_LIST } = require('./lists');
+let { foldR } = require('./fold');
 
 function append(list, val) {
   if (isEmpty(list)) {
@@ -23,4 +23,4 @@ function appendFoldR(list, val) {
 module.exports = {
   append,
   appendFoldR,
-}
+};
