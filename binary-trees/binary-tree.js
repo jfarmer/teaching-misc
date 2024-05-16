@@ -103,6 +103,26 @@ function treeDFSInOrder(tree, callback = doNothing) {
 }
 
 
+function foldTreeR(tree, fn, init) {
+  if (tree === null) {
+    return init;
+  }
+
+  let {value, left, right} = tree;
+
+  return fn(value, foldTreeR(right, fn, foldTreeR(left, fn, init)));
+}
+
+function foldTreeL(tree, fn, init) {
+  if (tree === null) {
+    return init;
+  }
+
+  let { value, left, right } = tree;
+
+  return foldTreeL(right, fn, foldTreeL(left, fn, fn(init, value)));
+}
+
 function treeBFS(tree, callback = doNothing) {
   let queue = [tree];
 
@@ -219,6 +239,8 @@ if (require.main === module) {
 
   console.log('In-order DFS:');
   treeDFSInOrder(exampleTree, node => console.log(node.value));
+
+  console.log('sum:', foldTreeR(exampleTree, (x, y) => x + y, 0));
 }
 
 module.exports = {
