@@ -126,7 +126,7 @@ def append(value, lst):
 #   # 5 -> 10 -> 11 -> 12
 #   lst = Node.from_list([5,10,11,12])
 #   select(lambda n: n % 2 == 0, lst) # => 10 -> 12
-def select(func, lst):
+def select(lst, func):
     if is_empty(lst):
         return _____
 
@@ -149,7 +149,7 @@ print('sum:     ', sum_list(lst))
 # print('largest: ', largest(lst))
 # print('reverse: ', reverse(lst))
 # print('append:  ', append(200, lst))
-# print('odds:    ', select(lambda x: x % 2 != 0), lst)
+# print('odds:    ', select(lst, lambda x: x % 2 != 0))
 # print('double:  ', map(lst, lambda x: x * 2))
 # print('everyNeg:', every(lst, lambda x: x < 0))
 # print('someNeg: ', some(lst, lambda x: x < 0))

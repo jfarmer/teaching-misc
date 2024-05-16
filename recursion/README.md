@@ -10,7 +10,6 @@
   - [Other Recursive Data Types](#other-recursive-data-types)
 - [Problem-Solving Strategies](#problem-solving-strategies)
 
-
 ## Goals
 
 Many folks feel like recursion is a more-convoluted way to solve a problem. It doesn't have any real benefit over iteration and makes things unnecessarily "mathematical". Maybe *you* don't feel that way, but many folks do.
