@@ -28,8 +28,8 @@ function add(x, y) {
 function sum(array) {
   let resultSoFar = 0;
 
-  for (let item of array) {
-    resultSoFar = resultSoFar + item;
+  for (let value of array) {
+    resultSoFar = resultSoFar + value;
   }
 
   return resultSoFar;
@@ -70,22 +70,6 @@ function largest(array) {
 
   return resultSoFar;
 }
-
-
-function multiply(x, y) {
-  return x * y;
-}
-
-function product(array) {
-  let resultSoFar = _____;
-
-  for (let value of array) {
-    resultSoFar = _____;
-  }
-
-  return resultSoFar;
-}
-
 
 function appendIfEven(array, num) {
   if (num % 2 === 0) {
