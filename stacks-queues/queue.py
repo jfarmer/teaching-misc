@@ -1,24 +1,24 @@
 class Node:
-    def __init__(self, value):
+    def __init__(self, value, next = None):
         self.value = value
-        self.next = None
+        self.next = next
 
 class Queue:
     def __init__(self):
-        self.front = None
-        self.rear = None
-        self.length = 0
+        self.head = None
+        self.tail = None
+        self.size = 0
 
     def enqueue(self, value):
-        new_node = Node(value)
+        new_tail = Node(value)
 
         if self.is_empty():
-            self.front = self.rear = new_node
+            self.head = new_tail
         else:
-            self.rear.next = new_node
-            self.rear = new_node
+            self.tail.next = new_tail
 
-        self.length += 1
+        self.tail = new_tail
+        self.size += 1
 
         return self
 
@@ -26,20 +26,17 @@ class Queue:
         if self.is_empty():
             return None
 
-        value = self.front.value
-        self.front = self.front.next
-        self.length -= 1
+        value = self.head.value
+        self.head = self.head.next
+        self.size -= 1
 
         if self.is_empty():
-            self.rear = None
+            self.tail = None
 
         return value
 
     def is_empty(self):
-        return self.length == 0
+        return self.size == 0
 
     def peek(self):
-        return None if self.is_empty() else self.front.value
-
-    def size(self):
-        return self.length
+        return None if self.is_empty() else self.head.value
