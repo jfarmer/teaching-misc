@@ -54,11 +54,19 @@ for k in range(5):
 # plus the number of paths of length 2 plus the number of paths
 # of length 3 and so on.
 
+# Get the dimension of our adjacency matrix, i.e., the number
+# of vertexes
 dim = adj.shape[0]
+
+# For N vertexes, create an N-by-N identity matrix
 I = np.identity(dim)
 
-all_paths = np.linalg.inv(I - adj).astype(int)
-no_zero_paths = (all_paths - I).astype(int)
+# 1/(1-x) becomes inv(I - adj), where inv finds the matrix inverse
+all_paths = np.linalg.inv(I - adj)
+
+# inv(I - adj) counts paths of length 0, but we can subtract those
+# if we want
+no_zero_paths = (all_paths - I)
 
 print('All paths, exluding paths of length 0:')
-print(no_zero_paths)
+print(no_zero_paths.astype(int))
