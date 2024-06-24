@@ -10,9 +10,6 @@ def graph_to_adjacency_list(vertex_list, edge_list):
 
     return adjacency_list
 
-def graph_get_vertexes(graph):
-    return list(graph.keys())
-
 def graph_get_indegrees(graph):
     """
     Given a graph, return a dictionary whose keys are vertices and whose
