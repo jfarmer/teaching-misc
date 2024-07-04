@@ -1,5 +1,5 @@
-const fs = require('fs');
-const process = require('process');
+const fs = require('node:fs');
+const process = require('node:process');
 
 /*
 Find the first empty cell
@@ -65,7 +65,7 @@ function printSudokuBoard(board) {
 function findFirstEmptyCell(board) {
   for (let i = 0 ; i < board.length; i++){
     for(let j = 0; j < board[i].length; j++){
-      if (board[i][j] == 0){
+      if (board[i][j] === 0){
         return [i, j];
       }
     }
