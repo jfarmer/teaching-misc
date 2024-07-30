@@ -1,0 +1,34 @@
+digraph G {
+  node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier"];
+  edge [len=2.0, minlen=1];
+
+  fontname="Courier"
+  labelloc=t
+
+  label="
++   +----------+---+
+| S...........A| C |
+| . -----------+ . |
+| ....B........... |
++---- . +----+-----+
+|D....E.....F|L... |
++---+ . +----+-- . |
+| G | . | ...... H |
+| . | . | . +--+ . |
+| ....I...J...K| X |
++--------------+   +
+
+"
+
+  rankdir=LR
+
+  S [fillcolor=lightgreen]
+  X [fillcolor=yellow]
+
+  S -> {A,B}
+  B -> {C,E}
+  E -> {D,I,F}
+  I -> {G,J}
+  J -> {K,H}
+  H -> {L,X}
+}
