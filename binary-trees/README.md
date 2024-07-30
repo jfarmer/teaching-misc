@@ -1,5 +1,15 @@
 # Binary Trees
 
+## Rough Idea
+
+1. Trees have a special property: there's exactly one path from the root to every other node in the tree
+2. Because there's only one path from the root to any other node we can ask what the *longest* path is. That's the *height* of the tree.
+   - **Note**: We can count the length of a path by the number of nodes on the path, or the number of edges. The number of nodes is always one more than the number of edges. Counting edge-wise is more common.
+3. Many tree algorithms have time and space complexity related to the *height* of the tree.
+   - For example, if you perform a recursive DFS on a tree then the stack never has more than height-many nodes in it. Do you see why?
+4. For a given number of nodes `N`, there are many (binary) trees containing `N` nodes.
+   - For example, if a binary tree contains `7` nodes it might look like a 7-noded linked list, or it might look like a full binary tree. The former has a height of 6 and the latter has a height of 2.
+
 ## Outline
 
 - A binary tree is a tree where each node has at MOST 2 children

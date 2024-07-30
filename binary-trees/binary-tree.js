@@ -139,6 +139,23 @@ function treeBFS(tree, callback = doNothing) {
   }
 }
 
+function treeDFSIterative(tree, callback = doNothing) {
+  let stack = [tree];
+
+  while (stack.length > 0) {
+    let current = stack.pop();
+
+    if (isEmpty(current)) {
+      continue;
+    }
+
+    callback(current);
+    stack.push(current.left);
+    stack.push(current.right);
+  }
+}
+
+
 function treeTemplate(tree) {
   if (isEmpty(tree)) {
     return _____;
