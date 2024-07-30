@@ -1,20 +1,14 @@
 digraph BinaryTree {
-  node [shape=circle, style=filled, fillcolor=pink, fontcolor=black, fontsize=12, width=0.5, height=0.5, fontname="Courier", penwidth=0.5];
-  edge [len=2.0, penwidth=0.5, arrowsize=0.5, minlen=1];
+  node [shape = circle; style = filled; fillcolor = pink; fontcolor = black; fontsize = 12; width = 0.5; height = 0.5; fontname = "Courier"; penwidth = 0.5;];
+  edge [len = 2.0; penwidth = 0.5; arrowsize = 0.5; minlen = 1;];
 
-  layout="dot" // try "dot", "neato", "fdp", "circo", "twopi"
+  layout = "dot";
+  // try "dot", "neato", "fdp", "circo", "twopi"
 
   // edge [dir=none] // Make graph undirected
 
-  subgraph root_node {
-    // node[style=invis];
-    // edge[style=invis];
-    A -> B;
-    A -> C;
-  }
-
   subgraph left_subtree {
-    node [fillcolor=lightblue];
+    node [fillcolor = lightblue;];
     B -> D;
     B -> E;
     D -> H;
@@ -24,12 +18,56 @@ digraph BinaryTree {
   }
 
   subgraph right_subtree {
-    node[fillcolor=plum1]
+    node [fillcolor = plum1;];
     C -> F;
     C -> G;
     F -> L;
     F -> M;
     G -> N;
     G -> O;
+  }
+
+  subgraph root_node {
+    // node[style=invis];
+    // edge[style=invis];
+    A -> B;
+    A -> C;
+  }
+}
+
+digraph ThreeNodeBinaryTrees {
+  node [shape = circle; style = filled; fillcolor = pink; fontcolor = black; fontsize = 12; width = 0.5; height = 0.5; fontname = "Courier"; penwidth = 0.5;];
+  edge [len = 2.0; penwidth = 0.5; arrowsize = 0.5; minlen = 1;];
+
+  layout = "dot";
+  // try "dot", "neato", "fdp", "circo", "twopi"
+
+  // edge [dir=none] // Make graph undirected
+
+  subgraph tree1 {
+    node [fillcolor = lightblue;];
+    B -> D;
+    B -> E;
+    D -> H;
+    D -> I;
+    E -> J;
+    E -> K;
+  }
+
+  subgraph right_subtree {
+    node [fillcolor = plum1;];
+    C -> F;
+    C -> G;
+    F -> L;
+    F -> M;
+    G -> N;
+    G -> O;
+  }
+
+  subgraph root_node {
+    // node[style=invis];
+    // edge[style=invis];
+    A -> B;
+    A -> C;
   }
 }
