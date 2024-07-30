@@ -1,17 +1,18 @@
 import pickle
 
-def memoize(func):
-    cache = dict()
+_cache = dict()
+def memoize(f):
+    """Memoize any function."""
 
-    def memoized_func(*args):
-        key = pickle.dumps(args)
-        if key in cache:
-            return cache[key]
-        result = func(*args)
-        cache[key] = result
-        return result
+    def decorated(*args):
+        key = (f, pickle.dumps(args))
+        if key in _cache:
+            return _cache[key]
 
-    return memoized_func
+        _cache[key] = f(*args)
+        return _cache[key]
+
+    return decorated
 
 def longest_common_subsequence(left, right):
     '''
