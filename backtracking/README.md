@@ -7,6 +7,20 @@
 3. The Maze Metaphor + DFS
 4. Exercises
 
+```text
++   +----------+---+
+| S...........A| C |
+| . -----------+ . |
+| ....B........... |
++---- . +----+-----+
+|D....E.....F|L... |
++---+ . +----+-- . |
+| G | . | ...... H |
+| . | . | . +--+ . |
+| ....I...J...K| X |
++--------------+   +
+```
+
 ## DFS
 
 Every backtracking problem is a depth-first search of *some* tree. Many trees can represent the same problem. How fast backtracking runs depends on your choice of tree to represent the problem.

@@ -23,9 +23,9 @@ def print_sudoku_board(board):
 
         print()
 
-def find_first_empty_cell(board):
-    for i, row in enumerate(board):
-        for j, cell in enumerate(row):
+def find_first_empty_cell(board, start_row = 0):
+    for i in range(start_row, 9):
+        for j, cell in enumerate(board[i]):
             if cell == 0:
                 return i, j
     return -1, -1
@@ -39,11 +39,25 @@ def is_possible_value(board, row, col, num):
             return False
     return True
 
-def find_possible_values(board, row, col):
-    return [num for num in range(1, 10) if is_possible_value(board, row, col, num)]
+# def find_possible_values(board, row, col):
+#     return [num for num in range(1, 10) if is_possible_value(board, row, col, num)]
 
-def solve_sudoku(board):
-    row, col = find_first_empty_cell(board)
+def find_possible_values(board, row, col):
+    results = set(range(1, 10))
+    for i in range(9):
+        m = 3 * (row // 3) + i // 3
+        n = 3 * (col // 3) + i % 3
+
+        # set.remove raises KeyError if value not present, so use discard
+        results.discard(board[i][col])
+        results.discard(board[row][i])
+        results.discard(board[m][n])
+
+    return results
+
+import cProfile
+def solve_sudoku(board, start_row = 0):
+    row, col = find_first_empty_cell(board, start_row)
 
     if row == -1 and col == -1:
         return board
@@ -53,7 +67,7 @@ def solve_sudoku(board):
     for possible_value in possible_values:
         board[row][col] = possible_value
 
-        if solve_sudoku(board):
+        if solve_sudoku(board, row):
             return board
 
         board[row][col] = 0
@@ -69,27 +83,33 @@ def runtime(fn):
 boards = []
 
 # try:
-#     boards_raw = sys.stdin.buffer.read()
-#     boards = [sudoku_board_from_string(board_str) for board_str in boards_raw.strip().split('\n')]
+boards_raw = sys.stdin.read()
+boards = [sudoku_board_from_string(board_str) for board_str in boards_raw.strip().split('\n')]
 # except:
-sudoku_board = [
-    [5, 3, 0, 0, 7, 0, 0, 0, 0],
-    [6, 0, 0, 1, 9, 5, 0, 0, 0],
-    [0, 9, 8, 0, 0, 0, 0, 6, 0],
-    [8, 0, 0, 0, 6, 0, 0, 0, 3],
-    [4, 0, 0, 8, 0, 3, 0, 0, 1],
-    [7, 0, 0, 0, 2, 0, 0, 0, 6],
-    [0, 6, 0, 0, 0, 0, 2, 8, 0],
-    [0, 0, 0, 4, 1, 9, 0, 0, 5],
-    [0, 0, 0, 0, 8, 0, 0, 7, 9]
-]
-boards = [sudoku_board]
+#     sudoku_board = [
+#         [5, 3, 0, 0, 7, 0, 0, 0, 0],
+#         [6, 0, 0, 1, 9, 5, 0, 0, 0],
+#         [0, 9, 8, 0, 0, 0, 0, 6, 0],
+#         [8, 0, 0, 0, 6, 0, 0, 0, 3],
+#         [4, 0, 0, 8, 0, 3, 0, 0, 1],
+#         [7, 0, 0, 0, 2, 0, 0, 0, 6],
+#         [0, 6, 0, 0, 0, 0, 2, 8, 0],
+#         [0, 0, 0, 4, 1, 9, 0, 0, 5],
+#         [0, 0, 0, 0, 8, 0, 0, 7, 9]
+#     ]
+#     boards = [sudoku_board]
 
+# with cProfile.Profile() as pr:
 for board in boards:
-    ms = runtime(lambda: solve_sudoku(board))
+    solve_sudoku(board)
 
-    print('\n---------\n')
-    print(f'time: {ms:.3f} ms')
-    print()
+    # pr.dump_stats("./sudoku2.profile")
 
-    print_sudoku_board(board)
+# for board in boards:
+#     ms = runtime(lambda: solve_sudoku(board))
+
+#     print('\n---------\n')
+#     print(f'time: {ms:.3f} ms')
+#     print()
+
+#     print_sudoku_board(board)
