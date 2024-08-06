@@ -23,6 +23,8 @@ function longestIncreasingIter(array) {
     return 0;
   }
 
+  // let overallMax = 0;
+
   const LIS = [0];
 
   for(let i = 0; i < array.length; i += 1) {
@@ -34,10 +36,11 @@ function longestIncreasingIter(array) {
       }
     }
 
+    // overallMax = Math.max(LIS[i], overallMax);
     LIS[i] = 1 + curMax;
-    overallMax = Math.max(LIS[i], overallMax);
   }
 
+  // return overallMax;
   return Math.max(...LIS);
 }
 
@@ -46,7 +49,7 @@ function L(array, i, memo = []) {
     return memo[i];
   }
 
-  if (i === 0) return 1;
+  if (i === 0) return 0;
   if (i === 1) return 1;
 
 
