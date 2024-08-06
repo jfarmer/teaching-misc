@@ -11,6 +11,21 @@ class Graph:
     def neighbors_for(self, vertex):
         return self._graph[vertex]
 
+def graph_to_adjacency_list(vertex_list, edge_list):
+    """
+    Given a graph represented as a vertex list and an edge list,
+    return an adjacency list that represents the same graph.
+    """
+    adjacency_list = {vertex: [] for vertex in vertex_list}
+
+    for from_vertex, to_vertex in edge_list:
+        adjacency_list[from_vertex].append(to_vertex)
+
+    return adjacency_list
+
+def graph_get_neighbors(graph, node):
+    return graph[node]
+
 def dfs(graph, start_vertex, callback = lambda x: x, visited = set()):
     if (start_vertex in visited):
         return
@@ -20,5 +35,21 @@ def dfs(graph, start_vertex, callback = lambda x: x, visited = set()):
     # Preorder
     callback(start_vertex)
 
-    for neighbor in graph.neighbors_for(start_vertex):
+    for neighbor in graph_get_neighbors(graph, start_vertex):
         dfs(graph, neighbor, callback, visited)
+
+vertex_list = ['A', 'B', 'C', 'D', 'E', 'F']
+edge_list = [
+  ('A', 'B'),
+  ('A', 'C'),
+  ('C', 'D'),
+  ('D', 'B'),
+  ('D', 'E'),
+  ('F', 'C'),
+]
+
+graph = graph_to_adjacency_list(vertex_list, edge_list)
+
+import pprint
+
+pprint.pprint(graph, width=40)
