@@ -3,6 +3,7 @@
 ## Contents <!-- omit in toc -->
 
 - [Goals](#goals)
+- [Algorithms or data structures first](#algorithms-or-data-structures-first)
 - [Exercises](#exercises)
   - [Sequence of Exercises](#sequence-of-exercises)
 - [Recursive Data Types](#recursive-data-types)
@@ -17,8 +18,18 @@ Many folks feel like recursion is a more-convoluted way to solve a problem. It d
 I have three goals for this session:
 
 1. Give you a new way of thinking about recursion (with link lists as an example)
-1. Leave you with a template that you can use to solve *any* problem involving linked lists, recursively
-1. Convince you that "thinking recursively" is worth it on its own terms and not just because you might be asked in an interview one day.
+2. Leave you with a template that you can use to solve *any* problem involving linked lists, recursively
+3. Convince you that "thinking recursively" is worth it on its own terms and not just because you might be asked in an interview one day.
+
+## Algorithms or data structures first
+
+Data structures and algorithms (DSA) is typically adopt an algorithm-centric perspective. Data structures exist to make algorithms fast.
+
+The truth is that they are two sides of the same coin and you can just as well take a data-structure-centric perspective. Every data structure has a shape and that shape pushes us towards certain ways of interacting with it and away from others.
+
+This is the programming equivalent of "When in Rome, do as the Romans do." What is the "native language" of a linked list or a binary tree? What do our problems look like using data structures' native language?
+
+We're going to take this shape-centric perspective.
 
 ## Exercises
 
