@@ -10,6 +10,10 @@ def graph_to_adjacency_list(vertex_list, edge_list):
 
     return adjacency_list
 
+
+def graph_get_outdegrees(graph):
+    return {vertex: len(graph(vertex)) for vertex in graph}
+
 def graph_get_indegrees(graph):
     """
     Given a graph, return a dictionary whose keys are vertices and whose
@@ -25,6 +29,7 @@ def graph_get_indegrees(graph):
 
     return in_degrees
 
+
 def graph_get_sources(graph):
     """
     Given a graph, return an array of source vertexes, i.e., vertexes
@@ -36,12 +41,14 @@ def graph_get_sources(graph):
 
     return [vertex for vertex in graph if in_degrees[vertex] == 0]
 
+
 def graph_get_source(graph):
     """
     Given a graph, return the first source vertex we find or None
     if there aren't any.
     """
     return next((s for s in graph_get_sources(graph)), None)
+
 
 def topological_sort_bfs(graph):
     """
@@ -63,6 +70,7 @@ def topological_sort_bfs(graph):
 
     return results
 
+
 def topological_sort_bfs_recursive(graph):
     """
     Perform a topological sort on a graph using a recursive and
@@ -83,6 +91,7 @@ def topological_sort_bfs_recursive(graph):
     del graph[source]
 
     return [source] + topological_sort_bfs_recursive(graph)
+
 
 def topological_sort_dfs_recursive(graph):
     """
@@ -123,17 +132,21 @@ def topological_sort_dfs_recursive(graph):
 # }
 # print(topological_sort_dfs_recursive(graph))
 
+
 vertex_list = ['A', 'B', 'C', 'D', 'E', 'F']
 edge_list = [
-  ('A', 'B'),
-  ('A', 'C'),
-  ('C', 'D'),
-  ('D', 'B'),
-  ('D', 'E'),
-  ('F', 'C'),
+    ('A', 'B'),
+    ('A', 'C'),
+    ('C', 'D'),
+    ('D', 'B'),
+    ('D', 'E'),
+    ('F', 'C'),
 ]
 
 graph = graph_to_adjacency_list(vertex_list, edge_list)
+
+from pprint import pprint
+pprint(graph, width=40)
 
 print('BFS (iterative):', topological_sort_bfs(graph))
 print('BFS (recursive):', topological_sort_bfs_recursive(graph.copy()))
