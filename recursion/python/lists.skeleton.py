@@ -82,13 +82,6 @@ def template(lst):
     return _____
 
 # Given a list of numbers, return the largest number in the list
-#
-# Note: You can either try to handle the empty case, or you
-#       can refuse to handle it by throwing an error. This
-#       effectively changes the function signature from "any list of numbers"
-#       to "any non-empty list of numbers"
-#
-#       If you do the latter, the 1-element case becomes the base case
 def largest(lst):
     if is_empty(lst):
         return _____
