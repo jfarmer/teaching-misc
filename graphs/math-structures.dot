@@ -84,37 +84,3 @@ digraph SubsetsABC {
   bc -> {abc};
   abc -> {};
 }
-
-digraph PermutationsABC {
-  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
-  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
-  rankdir=TB;
-
-  empty [label="'___'\n{a,b,c}"];
-  a [label="'a__'\n{b,c}"];
-  b [label="'b__'\n{a,c}"];
-  c [label="'c__'\n{a,b}"];
-  ab [label="'ab_'\n{c}"];
-  ac [label="'ac_'\n{b}"];
-  ba [label="'ba_'\n{c}"];
-  bc [label="'bc_'\n{a}"];
-  ca [label="'ca_'\n{b}"];
-  cb [label="'cb_'\n{a}"];
-  abc [label="'abc'\n{}"];
-  acb [label="'acb'\n{}"];
-  bac [label="'bac'\n{}"];
-  bca [label="'bca'\n{}"];
-  cab [label="'cab'\n{}"];
-  cba [label="'cba'\n{}"];
-
-  empty -> {a, b, c};
-  a -> {ab, ac}
-  b -> {ba, bc};
-  c -> {ca, cb};
-  ab -> {abc}
-  ac -> {acb}
-  ba -> {bac}
-  bc -> {bca}
-  ca -> {cab}
-  cb -> {cba}
-}
