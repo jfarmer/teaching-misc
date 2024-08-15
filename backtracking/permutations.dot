@@ -1,0 +1,33 @@
+digraph PermutationsABC {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  empty [label="{a,b,c}\n'___'"];
+  a [label="{b,c}\n'a__'"];
+  b [label="{a,c}\n'b__'"];
+  c [label="{a,b}\n'c__'"];
+  ab [label="{c}\n'ab_'"];
+  ac [label="{b}\n'ac_'"];
+  ba [label="{c}\n'ba_'"];
+  bc [label="{a}\n'bc_'"];
+  ca [label="{b}\n'ca_'"];
+  cb [label="{a}\n'cb_'"];
+  abc [label="{}\n'abc'"];
+  acb [label="{}\n'acb'"];
+  bac [label="{}\n'bac'"];
+  bca [label="{}\n'bca'"];
+  cab [label="{}\n'cab'"];
+  cba [label="{}\n'cba'"];
+
+  empty -> {a, b, c};
+  a -> {ab, ac}
+  b -> {ba, bc};
+  c -> {ca, cb};
+  ab -> {abc}
+  ac -> {acb}
+  ba -> {bac}
+  bc -> {bca}
+  ca -> {cab}
+  cb -> {cba}
+}

@@ -82,34 +82,28 @@ def runtime(fn):
 
 boards = []
 
-# try:
-boards_raw = sys.stdin.read()
-boards = [sudoku_board_from_string(board_str) for board_str in boards_raw.strip().split('\n')]
-# except:
-#     sudoku_board = [
-#         [5, 3, 0, 0, 7, 0, 0, 0, 0],
-#         [6, 0, 0, 1, 9, 5, 0, 0, 0],
-#         [0, 9, 8, 0, 0, 0, 0, 6, 0],
-#         [8, 0, 0, 0, 6, 0, 0, 0, 3],
-#         [4, 0, 0, 8, 0, 3, 0, 0, 1],
-#         [7, 0, 0, 0, 2, 0, 0, 0, 6],
-#         [0, 6, 0, 0, 0, 0, 2, 8, 0],
-#         [0, 0, 0, 4, 1, 9, 0, 0, 5],
-#         [0, 0, 0, 0, 8, 0, 0, 7, 9]
-#     ]
-#     boards = [sudoku_board]
+try:
+    boards_raw = sys.stdin.read()
+    boards = [sudoku_board_from_string(board_str) for board_str in boards_raw.strip().split('\n')]
+except:
+    sudoku_board = [
+        [5, 3, 0, 0, 7, 0, 0, 0, 0],
+        [6, 0, 0, 1, 9, 5, 0, 0, 0],
+        [0, 9, 8, 0, 0, 0, 0, 6, 0],
+        [8, 0, 0, 0, 6, 0, 0, 0, 3],
+        [4, 0, 0, 8, 0, 3, 0, 0, 1],
+        [7, 0, 0, 0, 2, 0, 0, 0, 6],
+        [0, 6, 0, 0, 0, 0, 2, 8, 0],
+        [0, 0, 0, 4, 1, 9, 0, 0, 5],
+        [0, 0, 0, 0, 8, 0, 0, 7, 9]
+    ]
+    boards = [sudoku_board]
 
-# with cProfile.Profile() as pr:
 for board in boards:
-    solve_sudoku(board)
+    ms = runtime(lambda: solve_sudoku(board))
 
-    # pr.dump_stats("./sudoku2.profile")
+    print('\n---------\n')
+    print(f'time: {ms:.3f} ms')
+    print()
 
-# for board in boards:
-#     ms = runtime(lambda: solve_sudoku(board))
-
-#     print('\n---------\n')
-#     print(f'time: {ms:.3f} ms')
-#     print()
-
-#     print_sudoku_board(board)
+    print_sudoku_board(board)
