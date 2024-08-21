@@ -22,7 +22,7 @@ digraph G {
 
   rankdir=LR
 
-  S [fillcolor=lightgreen]
+  S [fillcolor=green]
   X [fillcolor=yellow]
 
   S -> {A,B}
