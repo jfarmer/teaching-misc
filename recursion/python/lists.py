@@ -1,5 +1,6 @@
 EMPTY_LIST = None
 
+
 class Node:
     # Helper method to generate a linked list from a list
     @staticmethod
@@ -22,6 +23,7 @@ class Node:
     def __repr__(self):
         return self.__str__()
 
+
 def list_to_string(lst):
     if is_empty(lst):
         return '()'
@@ -29,17 +31,21 @@ def list_to_string(lst):
     first, rest = unprepend(lst)
     return f'{first} -> {list_to_string(rest)}'
 
+
 def is_empty(lst):
     return lst is EMPTY_LIST
 
+
 def is_rest_empty(lst):
     return is_empty(lst) or is_empty(lst.next)
+
 
 def prepend(val, lst):
     if is_empty(lst):
         return Node(val)
 
     return Node(val, lst)
+
 
 def unprepend(lst):
     return lst.value, lst.next

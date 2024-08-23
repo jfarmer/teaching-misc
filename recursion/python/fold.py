@@ -1,5 +1,6 @@
 from lists import is_empty, unprepend
 
+
 def foldr(lst, fn, initial):
     if is_empty(lst):
         return initial
@@ -7,6 +8,7 @@ def foldr(lst, fn, initial):
     first, rest = unprepend(lst)
 
     return fn(first, foldr(rest, fn, initial))
+
 
 def foldl(lst, fn, initial):
     if is_empty(lst):
