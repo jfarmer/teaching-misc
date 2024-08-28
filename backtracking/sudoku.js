@@ -63,9 +63,9 @@ function printSudokuBoard(board) {
  */
 
 function findFirstEmptyCell(board) {
-  for (let i = 0 ; i < board.length; i++){
-    for(let j = 0; j < board[i].length; j++){
-      if (board[i][j] === 0){
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j] === 0) {
         return [i, j];
       }
     }
@@ -107,7 +107,7 @@ function solveSudoku(board) {
   let [row, col] = findFirstEmptyCell(board);
 
   // If there are no empty cells, we're done.
-  if(row === -1 && col === -1) {
+  if (row === -1 && col === -1) {
     return board;
   }
 
@@ -118,7 +118,7 @@ function solveSudoku(board) {
 
     // If guessing "num" leads to solved board, return
     // the solved board
-    if(solveSudoku(board)) {
+    if (solveSudoku(board)) {
       return board;
     }
 
@@ -152,11 +152,11 @@ try {
 }
 
 for (let board of boards) {
-    let ms = runtime(() => solveSudoku(board));
+  let ms = runtime(() => solveSudoku(board));
 
-    console.log('\n---------\n')
-    console.log('time: %s ms', ms.toFixed(3));
-    console.log('');
+  console.log('\n---------\n')
+  console.log('time: %s ms', ms.toFixed(3));
+  console.log('');
 
-    printSudokuBoard(board);
+  printSudokuBoard(board);
 }
