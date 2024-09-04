@@ -26,7 +26,7 @@ def graph_to_adjacency_list(vertex_list, edge_list):
 def graph_get_neighbors(graph, node):
     return graph[node]
 
-def dfs(graph, start_vertex, callback = lambda x: x, visited = set()):
+def dfs_from_node(graph, start_vertex, callback = lambda x: x, visited = set()):
     if (start_vertex in visited):
         return
 
@@ -35,8 +35,37 @@ def dfs(graph, start_vertex, callback = lambda x: x, visited = set()):
     # Preorder
     callback(start_vertex)
 
-    for neighbor in graph_get_neighbors(graph, start_vertex):
-        dfs(graph, neighbor, callback, visited)
+    for neighbor in graph[start_vertex]:
+        dfs_from_node(graph, neighbor, callback, visited)
+
+
+def dfs_from_node_iter(graph, start_vertex, callback = lambda x: x, visited = set()):
+    stack = [start_vertex]
+
+    while stack:
+        current = stack.pop()
+        if current in visited:
+            continue
+
+        visited.add(current)
+        callback(current)
+
+        for neighbor in graph[current]:
+            stack.append(neighbor)
+
+def bfs_from_node(graph, start_vertex, callback = lambda x: x, visited = set()):
+    queue = [start_vertex]
+
+    while queue:
+        current = queue.pop(0)
+        if current in visited:
+            continue
+
+        visited.add(current)
+        callback(current)
+
+        for neighbor in graph[current]:
+            queue.append(neighbor)
 
 vertex_list = ['A', 'B', 'C', 'D', 'E', 'F']
 edge_list = [
