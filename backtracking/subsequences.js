@@ -53,4 +53,19 @@ function subsequences_collect(array, idx = 0, results = [], output = []) {
   return output;
 }
 
+function subsequences_iter(array) {
+  const n = array.length;
+  const totalSubsequences = Math.pow(2, n);
+
+  for (let i = 0; i < totalSubsequences; i++) {
+    let subsequence = [];
+    for (let j = 0; j < n; j++) {
+      if (i & (1 << j)) {
+        subsequence.push(array[j]);
+      }
+    }
+    console.log(subsequence.join(''));
+  }
+}
+
 console.log(subsequences_collect(['a','b','c','d']));
