@@ -7,6 +7,8 @@ digraph Example1 {
     // edge [dir=none] // Make graph undirected
     // edge [dir=back] // Reverse direction of edges
 
+    // A -> B -> C -> D -> E -> F -> A
+
     A B C D E F
 
     A -> B
