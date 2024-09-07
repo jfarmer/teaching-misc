@@ -63,6 +63,20 @@ function permutations(array) {
   return results;
 }
 
+function permutationsBad(array, results = []) {
+  if (array.length === 0) {
+    console.log(results);
+    return;
+  }
+
+  for (let i = 0; i < array.length; i++) {
+    let item = array[i];
+    let remainingItems = array.slice(0, i).concat(array.slice(i + 1));
+
+    permutationsBad(remainingItems, results.concat([item]));
+  }
+}
+
 // Test
 
 let array = Array.from('ABCD');
