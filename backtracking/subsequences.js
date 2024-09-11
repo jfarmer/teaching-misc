@@ -1,4 +1,4 @@
-function subsequences_slice(array, results = []) {
+function subsequencesSlice(array, results = []) {
   if (array.length === 0) {
     console.log(results);
     return;
@@ -7,11 +7,11 @@ function subsequences_slice(array, results = []) {
   let item = array[0];
   let remaining = array.slice(idx + 1, array.length);
 
-  subsequences_slice(remaining, results.concat(item));
-  subsequences_slice(remaining, results);
+  subsequencesSlice(remaining, results.concat(item));
+  subsequencesSlice(remaining, results);
 }
 
-function subsequences_concat(array, idx = 0, results = []) {
+function subsequencesConcat(array, idx = 0, results = []) {
   if (array.length === idx) {
     console.log(results);
     return;
@@ -19,11 +19,11 @@ function subsequences_concat(array, idx = 0, results = []) {
 
   let item = array[idx];
 
-  subsequences_concat(array, idx + 1, results.concat(item));
-  subsequences_concat(array, idx + 1, results);
+  subsequencesConcat(array, idx + 1, results.concat(item));
+  subsequencesConcat(array, idx + 1, results);
 }
 
-function subsequences_push(array, idx = 0, results = [], final = []) {
+function subsequencesPush(array, idx = 0, results = [], final = []) {
   if (array.length === idx) {
     console.log(results);
     return;
@@ -32,12 +32,12 @@ function subsequences_push(array, idx = 0, results = [], final = []) {
   let item = array[idx];
 
   results.push(item);
-  subsequences_push(array, idx + 1, results, final);
+  subsequencesPush(array, idx + 1, results, final);
   results.pop();
-  subsequences_push(array, idx + 1, results, final);
+  subsequencesPush(array, idx + 1, results, final);
 }
 
-function subsequences_collect(array, idx = 0, results = [], output = []) {
+function subsequencesCollect(array, idx = 0, results = [], output = []) {
   if (array.length === idx) {
     output.push(results.join(''));
     return output;
@@ -46,14 +46,14 @@ function subsequences_collect(array, idx = 0, results = [], output = []) {
   let item = array[idx];
 
   results.push(item);
-  subsequences_collect(array, idx + 1, results, output);
+  subsequencesCollect(array, idx + 1, results, output);
   results.pop();
-  subsequences_collect(array, idx + 1, results, output);
+  subsequencesCollect(array, idx + 1, results, output);
 
   return output;
 }
 
-function subsequences_iter(array) {
+function subsequencesIter(array) {
   const n = array.length;
   const totalSubsequences = Math.pow(2, n);
 
@@ -68,4 +68,4 @@ function subsequences_iter(array) {
   }
 }
 
-console.log(subsequences_collect(['a','b','c','d']));
+console.log(subsequencesCollect(['a','b','c','d']));
