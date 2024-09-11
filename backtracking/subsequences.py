@@ -2,37 +2,42 @@ def subsequences(array):
     if not array:
         return [[]]
 
-    head, last = array[0:-1], array[-1]
+    first = array[0]
+    rest = array[1:]
 
-    subseq_without_last = subsequences(head)
-    subseq_with_last = [[*subseq, last] for subseq in subseq_without_last]
+    without_first = subsequences(rest)
+    with_first = [[first] + subseq for subseq in without_first]
 
-    return subseq_without_last + subseq_with_last
+    return without_first + with_first
 
-def subsequences_print(array, results = ''):
+def subsequences_print(array, results = []):
     if not array:
-        print(f"'{results}'")
+        print(results)
+        return
 
-    head, last = array[0:-1], array[-1]
+    first = array[0]
+    rest = array[1:]
 
-    subsequences_print(head, results)
-    subsequences_print(head, last + results)
+    subsequences_print(rest, results)
+    subsequences_print(rest, results + [first])
 
-def subsequences_collect(array, results = ''):
+def subsequences_collect(array, results = []):
     if not array:
         return [results]
 
-    head, last = array[0:-1], array[-1]
+    first = array[0]
+    rest = array[1:]
 
-    without_last = subsequences_collect(head, results)
-    with_last = subsequences_collect(head, last + results)
+    without_first = subsequences_collect(rest, results)
+    with_first = subsequences_collect(rest, results + [first])
 
-    return without_last + with_last
+    return without_first + with_first
 
 def subsequences_collect_ref_idx(array, idx = 0, results = [], final = []):
     if idx == len(array):
-        print(final)
-        final.append(results)
+        # We have to create a copy or else every element in final will
+        # be a reference to the same array
+        final.append(list(results))
         return
 
     results.append(array[idx])
@@ -42,14 +47,16 @@ def subsequences_collect_ref_idx(array, idx = 0, results = [], final = []):
 
     return final
 
-def subseq(array):
-    final = []
-    subsequences_collect_ref_idx(array, 0, [], final)
-    return final
+from pprint import pprint
+def nice_print(*args):
+    pprint(*args, width=40)
 
-# subsequences_print(['a', 'b', 'c', 'd'])
+example_array = ['a', 'b', 'c']
 
-print(subseq(['a', 'b', 'c', 'd']))
+# nice_print(subsequences_collect(example_array))
+subsequences_print(example_array)
+
+# print(subseq(['a', 'b', 'c', 'd']))
 
 # def avg(arr):
 #     return sum(arr) / len(arr)
