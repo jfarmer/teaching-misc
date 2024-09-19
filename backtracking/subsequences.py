@@ -47,6 +47,21 @@ def subsequences_collect_ref_idx(array, idx = 0, results = [], final = []):
 
     return final
 
+# from print_call_tree import print_call_tree
+
+# @print_call_tree(tab_width=2, use_colors=True, only_args=True, show_level=True)
+def subsequences_inner_nodes(array, idx = 0, path = [], results = []):
+    results.append(path)
+
+    n = len(array)
+    if idx == n:
+        return
+
+    for i in range(idx, n):
+        subsequences_inner_nodes(array, i + 1, path + [array[i]], results)
+
+    return results
+
 from pprint import pprint
 def nice_print(*args):
     pprint(*args, width=40)
@@ -54,6 +69,7 @@ def nice_print(*args):
 example_array = ['a', 'b', 'c']
 
 # nice_print(subsequences_collect(example_array))
+# nice_print(subsequences_inner_nodes(example_array))
 subsequences_print(example_array)
 
 # print(subseq(['a', 'b', 'c', 'd']))
