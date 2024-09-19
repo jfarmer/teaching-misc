@@ -64,6 +64,18 @@ function dfsFromVertexIterative(graph, startVertex, callback = doNothing) {
 // let edges = ['AB', 'AC', 'BC', 'BD', 'CD', 'DE'].map(s => s.split(''))
 // let graph = new Graph(vertexes, edges);
 
+// let vertexList = ['A', 'B', 'C', 'D', 'E', 'F'];
+// let edgeList = [
+//   ['A', 'B'],
+//   ['A', 'C'],
+//   ['C', 'D'],
+//   ['D', 'B'],
+//   ['D', 'E'],
+//   ['F', 'C'],
+// ];
+
+// let graph = graphToAdjacencyList(vertexList, edgeList);
+
 module.exports = {
   Graph,
   dfs,
