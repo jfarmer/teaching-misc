@@ -26,31 +26,62 @@ digraph SubsequencesABC {
   edge [len=1.0, penwidth=1.0, arrowsize=1.0];
   rankdir=TB;
 
-  label="All subsequences of [a,b]\nUnderscore _ means empty string";
+  label="All subsequences of [a,b,c]
+  Process list left-to-right, from 'a' to 'c'
+  Left fork excludes element, right fork includes";
+
   labelloc=t;
 
-  n___ [label="[a,b,c]\n'___'"];
-  n__0 [label="[a,b]\n'___'"]
-  n__1 [label="[a,b]\n'__c'"]
-  n_00 [label="[a]\n'___'"]
-  n_01 [label="[a]\n'__c'"]
-  n_10 [label="[a]\n'_b_'"]
-  n_11 [label="[a]\n'_bc'"]
-  n000 [label="[]\n'___'"]
-  n100 [label="[]\n'a__'"]
-  n001 [label="[]\n'__c'"]
-  n101 [label="[]\n'a_c'"]
-  n010 [label="[]\n'_b_'"]
-  n110 [label="[]\n'ab_'"]
-  n011 [label="[]\n'_bc'"]
-  n111 [label="[]\n'abc'"]
+  n___ [label="[a,b,c]\n[]"];
 
-  n___ -> {n__0, n__1}
-  n__0 -> {n_00, n_10}
-  n__1 -> {n_01, n_11}
-  n_00 -> {n000, n100}
-  n_01 -> {n001, n101}
-  n_10 -> {n010, n110}
-  n_11 -> {n011, n111}
+  n0__ [label="[b,c]\n[]"]
+  n1__ [label="[b,c]\n[a]"]
 
+  n00_ [label="[c]\n[]"]
+  n10_ [label="[c]\n[a]"]
+  n01_ [label="[c]\n[b]"]
+  n11_ [label="[c]\n[a,b]"]
+
+  n000 [label="[]\n[]"]
+  n100 [label="[]\n[a]"]
+  n001 [label="[]\n[c]"]
+  n101 [label="[]\n[a,c]"]
+  n010 [label="[]\n[b]"]
+  n011 [label="[]\n[b,c]"]
+  n110 [label="[]\n[a,b]"]
+  n111 [label="[]\n[a,b,c]"]
+
+  n___ -> {n0__, n1__}
+  n0__ -> {n00_, n01_}
+  n1__ -> {n10_, n11_}
+  n00_ -> {n000, n001}
+  n10_ -> {n100, n101}
+  n01_ -> {n010, n011}
+  n11_ -> {n110, n111}
+}
+
+digraph SubsequencesABCBySize {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  label="All subsequences of [a,b,c]
+  Process list left-to-right, from 'a' to 'c'
+  Each level has all subsequences of size k
+  For each node, print out 2nd argument"
+  labelloc=t;
+
+  n000 [label="[a,b,c]\n[]"]
+  n100 [label="[b,c]\n[a]"]
+  n010 [label="[c]\n[b]"]
+  n001 [label="[]\n[c]"]
+  n110 [label="[c]\n[a,b]"]
+  n101 [label="[]\n[a,c]"]
+  n011 [label="[]\n[b,c]"]
+  n111 [label="[]\n[a,b,c]"]
+
+  n000 -> {n100,n010,n001}
+  n100 -> {n110, n101}
+  n010 -> {n011}
+  n110 -> {n111}
 }

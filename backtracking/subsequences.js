@@ -7,9 +7,14 @@ function subsequencesSlice(array, results = []) {
   let item = array[0];
   let remaining = array.slice(idx + 1, array.length);
 
-  subsequencesSlice(remaining, results.concat(item));
+  // Left fork
   subsequencesSlice(remaining, results);
+
+  // Right fork
+  subsequencesSlice(remaining, results.concat(item));
 }
+
+subsequencesSlice(['a', 'b', 'c'], []);
 
 function subsequencesConcat(array, idx = 0, results = []) {
   if (array.length === idx) {
