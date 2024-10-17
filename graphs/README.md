@@ -141,3 +141,23 @@ function canVisitEverything(rooms) {
   return visited.size === rooms.length;
 }
 ```
+
+```python
+from collections import deque
+
+def can_visit_everything(rooms):
+  keys_in_pocket = deque([0])
+  visited = set()
+
+  while keys_in_pocket:
+    current_key = keys_in_pocket.pop()
+    room_keys = rooms[current_key]
+
+    if (current_key in visited):
+      continue
+
+    visited.add(current_key)
+    keys_in_pocket.extend(room_keys)
+
+  return len(visited) == len(rooms)
+```
