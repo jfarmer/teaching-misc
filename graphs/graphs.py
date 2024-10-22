@@ -71,7 +71,7 @@ def dfs_from_node_iter(graph, start_vertex, callback = lambda x: x, visited = No
             stack.append(neighbor)
 
 
-def graph_for_each(graph, iter_method = dfs_from_node, callback = lambda x: x):
+def graph_for_each(graph, iter_method = dfs_from_node_pre, callback = lambda x: x):
     visited = set()
 
     for vertex in graph:
@@ -112,7 +112,26 @@ def bfs_from_node(graph, start_vertex, callback = lambda x: x, visited = None):
         for neighbor in graph[current]:
             queue.append(neighbor)
 
-vertex_list = ['A', 'B', 'C', 'D', 'E', 'F', 8]
+
+def shortest_paths_from_node(graph, start_vertex):
+    distances = {v : float('inf') for v in graph}
+    distances[start_vertex] = 0
+
+    def graph_update_distances(vertex):
+        dist_to_current = distances[vertex]
+
+        for neighbor in graph[vertex]:
+            dist_to_neighbor = distances[neighbor]
+
+            # Replace 1 with edge weight, and you'll find minimum
+            # edge-weighted path
+            distances[neighbor] = min(dist_to_neighbor, dist_to_current + 1)
+
+    bfs_from_node(graph, start_vertex, graph_update_distances)
+
+    return distances
+
+vertex_list = ['A', 'B', 'C', 'D', 'E', 'F']
 
 edge_list = [
   ('A', 'B'),
@@ -126,7 +145,9 @@ edge_list = [
 from pprint import pprint
 
 graph = graph_to_adjacency_list(vertex_list, edge_list)
-pprint(graph, width=40)
+# pprint(graph, width=40)
+
+print(shortest_paths_from_node(graph, 'A'))
 
 # import pprint
 
