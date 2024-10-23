@@ -85,7 +85,8 @@ function sum(list) {
   return add(first, sum(rest));
 }
 
-let list = Node.fromArray([10, 20, 30, -1]);
+// let list = Node.fromArray([10, 20, 30, -1]);
+let list = preprend(10, prepend(20, prepend(30, EMPTY_LIST)));
 
 // console.log('list:    ', list);
 // console.log('sum:     ', sum(list));
