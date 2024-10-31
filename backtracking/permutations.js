@@ -30,7 +30,7 @@ function permutationsSwap(array, index = 0, results = []) {
   for (let i = index; i < array.length; i++) {
     [array[index], array[i]] = [array[i], array[index]];
 
-    permutations(array, index + 1, results);
+    permutationsSwap(array, index + 1, results);
 
     [array[i], array[index]] = [array[index], array[i]];
   }
