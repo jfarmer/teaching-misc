@@ -1,16 +1,3 @@
-class Graph:
-    def __init__(self, vertexes, edges) -> None:
-        self.vertexes = vertexes
-        self.edges = edges
-
-        self._graph = {vertex:list() for vertex in vertexes}
-
-        for (source, target) in edges:
-            self._graph[source].append(target)
-
-    def neighbors_for(self, vertex):
-        return self._graph[vertex]
-
 def graph_to_adjacency_list(vertex_list, edge_list):
     """
     Given a graph represented as a vertex list and an edge list,
