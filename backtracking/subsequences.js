@@ -5,7 +5,7 @@ function subsequencesPrint(array, results = []) {
   }
 
   let item = array[0];
-  let remaining = array.slice(idx + 1, array.length);
+  let remaining = array.slice(1, array.length);
 
   // Exclude item
   subsequencesPrint(remaining, results);
@@ -28,7 +28,7 @@ function subsequencesPrintIdx(array, idx = 0, results = []) {
   subsequencesPrintIdx(array, idx + 1, results.concat(item));
 }
 
-function subsequencesPush(array, idx = 0, results = [], final = []) {
+function subsequencesPush(array, idx = 0, results = []) {
   if (array.length === idx) {
     console.log(results);
     return;
@@ -36,10 +36,11 @@ function subsequencesPush(array, idx = 0, results = [], final = []) {
 
   let item = array[idx];
 
+  subsequencesPush(array, idx + 1, results);
+
   results.push(item);
-  subsequencesPush(array, idx + 1, results, final);
+  subsequencesPush(array, idx + 1, results);
   results.pop();
-  subsequencesPush(array, idx + 1, results, final);
 }
 
 function subsequencesCollect(array, idx = 0, results = [], output = []) {
@@ -50,10 +51,11 @@ function subsequencesCollect(array, idx = 0, results = [], output = []) {
 
   let item = array[idx];
 
+  subsequencesCollect(array, idx + 1, results, output);
+
   results.push(item);
   subsequencesCollect(array, idx + 1, results, output);
   results.pop();
-  subsequencesCollect(array, idx + 1, results, output);
 
   return output;
 }
