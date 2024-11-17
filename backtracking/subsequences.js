@@ -1,4 +1,4 @@
-function subsequencesSlice(array, results = []) {
+function subsequencesPrint(array, results = []) {
   if (array.length === 0) {
     console.log(results);
     return;
@@ -7,16 +7,16 @@ function subsequencesSlice(array, results = []) {
   let item = array[0];
   let remaining = array.slice(idx + 1, array.length);
 
-  // Left fork
-  subsequencesSlice(remaining, results);
+  // Exclude item
+  subsequencesPrint(remaining, results);
 
-  // Right fork
-  subsequencesSlice(remaining, results.concat(item));
+  // Include itemx
+  subsequencesPrint(remaining, results.concat(item));
 }
 
-subsequencesSlice(['a', 'b', 'c'], []);
+subsequencesPrint(['a', 'b', 'c'], []);
 
-function subsequencesConcat(array, idx = 0, results = []) {
+function subsequencesPrintIdx(array, idx = 0, results = []) {
   if (array.length === idx) {
     console.log(results);
     return;
@@ -24,8 +24,8 @@ function subsequencesConcat(array, idx = 0, results = []) {
 
   let item = array[idx];
 
-  subsequencesConcat(array, idx + 1, results.concat(item));
-  subsequencesConcat(array, idx + 1, results);
+  subsequencesPrintIdx(array, idx + 1, results);
+  subsequencesPrintIdx(array, idx + 1, results.concat(item));
 }
 
 function subsequencesPush(array, idx = 0, results = [], final = []) {
