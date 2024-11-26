@@ -15,11 +15,11 @@ Unlike most data structures, there's nothing about the *shape* of an array that 
 
 For example, the EDVAC used delay-line memory, which does *not* have constant-time random access. Still, in his paper describing EDVAC, John von Neumann gave a program that implemented merge sort.
 
-See: https://web.mit.edu/STS.035/www/PDFs/edvac.pdf
+See: <https://web.mit.edu/STS.035/www/PDFs/edvac.pdf>
 
 The "Manchester Baby" is the first computer to support random access memory. It was designed as a prototype / proof-of-concept to illustrate the idea in 1948.
 
-See: https://en.wikipedia.org/wiki/Manchester_Baby
+See: <https://en.wikipedia.org/wiki/Manchester_Baby>
 
 ## Patterns
 
@@ -51,7 +51,7 @@ def template(array):
 
 ## Algebra
 
-See: https://github.com/jfarmer/algebra-via-cs
+See: <https://github.com/jfarmer/algebra-via-cs>
 
 The general pattern looks like this:
 
