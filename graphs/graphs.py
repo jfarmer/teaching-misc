@@ -110,8 +110,8 @@ def shortest_paths_from_node(graph, start_vertex):
         for neighbor in graph[vertex]:
             dist_to_neighbor = distances[neighbor]
 
-            # Replace 1 with edge weight, and you'll find minimum
-            # edge-weighted path
+            # If we have a weighted graph then we can replace "+ 1" with
+            # the edge weight and we will find the minimum edge-weighted path.
             distances[neighbor] = min(dist_to_neighbor, dist_to_current + 1)
 
     bfs_from_node(graph, start_vertex, graph_update_distances)
