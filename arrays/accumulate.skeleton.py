@@ -29,7 +29,7 @@ def add(x, y):
 # sum([]) === 0
 
 
-def sumList(array):
+def sum_list(array):
     result_so_far = 0
 
     for item in array:
