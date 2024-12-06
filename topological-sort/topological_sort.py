@@ -14,6 +14,21 @@ def graph_to_adjacency_list(vertex_list, edge_list):
 def graph_get_outdegrees(graph):
     return {vertex: len(graph(vertex)) for vertex in graph}
 
+def graph_opposite(graph):
+    opposite = {v : [] for v in graph}
+
+    for vertex in graph:
+        for neighbor in graph[neighbor]:
+            graph[neighbor].append(vertex)
+
+    return opposite
+
+def graph_get_sinks(graph):
+    return [v for v in graph if len(graph[v]) == 0]
+
+def graph_get_sources(graph):
+    return graph_get_sinks(graph_opposite(graph))
+
 def graph_get_indegrees(graph):
     """
     Given a graph, return a dictionary whose keys are vertices and whose
@@ -21,25 +36,18 @@ def graph_get_indegrees(graph):
 
     A vertex's in-degree is the number of incoming edges to that vertex.
     """
-    in_degrees = {vertex: 0 for vertex in graph}
+    return {v : len(graph[v]) for v in graph_opposite(graph)}
 
-    for adjacents in graph.values():
-        for vertex in adjacents:
-            in_degrees[vertex] += 1
+# def graph_get_sources(graph):
+#     """
+#     Given a graph, return an array of source vertexes, i.e., vertexes
+#     with no incoming edges. No guarantees are made about the order
+#     of the veretexes in the returned array.
+#     """
 
-    return in_degrees
+#     in_degrees = graph_get_indegrees(graph)
 
-
-def graph_get_sources(graph):
-    """
-    Given a graph, return an array of source vertexes, i.e., vertexes
-    with no incoming edges. No guarantees are made about the order
-    of the veretexes in the returned array.
-    """
-
-    in_degrees = graph_get_indegrees(graph)
-
-    return [vertex for vertex in graph if in_degrees[vertex] == 0]
+#     return [vertex for vertex in graph if in_degrees[vertex] == 0]
 
 
 def graph_get_source(graph):
