@@ -1,10 +1,10 @@
 # example = [10, 20, 30, -1]
 #
 # print('array: ', example);
-# print('sum:   ', sumList(example));
+# print('sum:   ', sum_list(example));
 # print('product: ', product(example));
 # print('largest: ', largest(example));
-# print('evens:   ', selectEvens(example));
+# print('evens:   ', select_evens(example));
 
 
 import operator
@@ -32,8 +32,8 @@ def add(x, y):
 def sum_list(array):
     result_so_far = 0
 
-    for item in array:
-        result_so_far = result_so_far + item
+    for value in array:
+        result_so_far = result_so_far + value
 
     return result_so_far
 
