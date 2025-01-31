@@ -12,43 +12,22 @@ def graph_to_adjacency_list(vertex_list, edge_list):
 
 
 def graph_get_outdegrees(graph):
-    return {vertex: len(graph(vertex)) for vertex in graph}
+    return {vertex: len(graph[vertex]) for vertex in graph}
+
+def graph_get_sinks(graph):
+    return [v for v in graph if len(graph[v]) == 0]
 
 def graph_opposite(graph):
     opposite = {v : [] for v in graph}
 
     for vertex in graph:
-        for neighbor in graph[neighbor]:
-            graph[neighbor].append(vertex)
+        for neighbor in graph[vertex]:
+            opposite[neighbor].append(vertex)
 
     return opposite
 
-def graph_get_sinks(graph):
-    return [v for v in graph if len(graph[v]) == 0]
-
 def graph_get_sources(graph):
     return graph_get_sinks(graph_opposite(graph))
-
-def graph_get_indegrees(graph):
-    """
-    Given a graph, return a dictionary whose keys are vertices and whose
-    values are that vertex's in-degree.
-
-    A vertex's in-degree is the number of incoming edges to that vertex.
-    """
-    return {v : len(graph[v]) for v in graph_opposite(graph)}
-
-# def graph_get_sources(graph):
-#     """
-#     Given a graph, return an array of source vertexes, i.e., vertexes
-#     with no incoming edges. No guarantees are made about the order
-#     of the veretexes in the returned array.
-#     """
-
-#     in_degrees = graph_get_indegrees(graph)
-
-#     return [vertex for vertex in graph if in_degrees[vertex] == 0]
-
 
 def graph_get_source(graph):
     """
@@ -57,6 +36,14 @@ def graph_get_source(graph):
     """
     return next((s for s in graph_get_sources(graph)), None)
 
+def graph_get_indegrees(graph):
+    """
+    Given a graph, return a dictionary whose keys are vertices and whose
+    values are that vertex's in-degree.
+
+    A vertex's in-degree is the number of incoming edges to that vertex.
+    """
+    return graph_get_outdegrees(graph_opposite(graph))
 
 def topological_sort_bfs(graph):
     """
