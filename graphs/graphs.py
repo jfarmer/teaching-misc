@@ -132,10 +132,6 @@ edge_list = [
 from pprint import pprint
 
 graph = graph_to_adjacency_list(vertex_list, edge_list)
-# pprint(graph, width=40)
+pprint(graph, width=40)
 
 print(shortest_paths_from_node(graph, 'A'))
-
-# import pprint
-
-# pprint.pprint(graph, width=40)
