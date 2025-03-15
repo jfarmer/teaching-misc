@@ -103,13 +103,13 @@ function map(array, fn) {
   return resultSoFar;
 }
 
-function accumulate(array, operator, initial) {
+function accumulate(array, operation, initial) {
   let resultSoFar = initial;
 
   for (let item of array) {
     // console.log('resultSoFar:', resultSoFar);
     // console.log('item:', item);
-    resultSoFar = operator(resultSoFar, item);
+    resultSoFar = operation(resultSoFar, item);
   }
 
   return resultSoFar;

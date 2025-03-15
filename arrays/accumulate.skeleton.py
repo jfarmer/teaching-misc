@@ -115,13 +115,13 @@ def map(array, fn):
     return result_so_far
 
 
-def accumulate(array, operator, initial):
+def accumulate(array, operation, initial):
     result_so_far = initial
 
     for item in array:
         # print('result_so_far:', result_so_far)
         # print('item:', item)
-        result_so_far = operator(result_so_far, item)
+        result_so_far = operation(result_so_far, item)
 
     return result_so_far
 
