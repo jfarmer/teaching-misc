@@ -7,6 +7,11 @@
 3. The Maze Metaphor + DFS
 4. Exercises
 
+## Links
+
+- Maze: <https://bit.ly/jfarmer-maze>
+- Permutations: <https://bit.ly/jfarmer-permutation-tree>
+
 ```text
 +   +----------+---+
 | S...........A| C |
