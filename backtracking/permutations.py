@@ -7,12 +7,6 @@ def permutations_print(array, results = ''):
         without_item = array[0:i] + array[i+1:]
         permutations_print(without_item, results + item)
 
-def flat_map(f, xs):
-    ys = []
-    for x in xs:
-        ys.extend(f(x))
-    return ys
-
 def permutations_collect(array):
     if (len(array) == 0):
         return [[]]
