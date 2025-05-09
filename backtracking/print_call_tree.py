@@ -1,6 +1,5 @@
 import functools
 
-
 class TerminalColors:
     RED = '\033[91m'
     GREEN = '\033[92m'
@@ -13,19 +12,22 @@ class TerminalColors:
     colors = [RED, MAGENTA, YELLOW, BLUE, CYAN, GREEN]
 
 
+import sys
+import functools
+from io import StringIO
+
 def print_call_tree(tab_width=2, only_args=False, show_level=False, indent_str=' ', use_colors=False):
     indentation_level = 0
+    original_stdout = sys.stdout
 
     def decorator(fn):
-        # Use wraps to preserve f.__name__
         @functools.wraps(fn)
         def wrapper(*args):
             nonlocal indentation_level
 
-            # Use repr() rather than str() so, e.g., strings are quoted
+            # Create print call representation
             arg_list = ", ".join([repr(arg) for arg in args])
             indentation = indent_str * indentation_level * tab_width
-
             fn_call = indentation
 
             if show_level:
@@ -41,14 +43,19 @@ def print_call_tree(tab_width=2, only_args=False, show_level=False, indent_str='
                 color = TerminalColors.colors[color_idx]
                 fn_call = f'{color}{fn_call}{TerminalColors.RESET}'
 
+            # Ensure stdout works and then immediately disable
+            sys.stdout = original_stdout
             print(fn_call)
+            sys.stdout = StringIO()  # Send to a string buffer
 
             indentation_level += 1
             result = fn(*args)
             indentation_level -= 1
 
+            # Restore stdout
+            sys.stdout = original_stdout
+
             return result
 
         return wrapper
-
     return decorator

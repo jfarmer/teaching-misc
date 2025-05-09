@@ -67,7 +67,9 @@ digraph SubsequencesABCBySize {
 
   label="All subsequences of [a,b,c]
   Process list left-to-right, from 'a' to 'c'
-  Each level has all subsequences of size k
+  The left tree contains all subsequences beginning with 'a'
+  The middle tree are contains subsequences beginning with 'b'
+  etc.
   For each node, print out 2nd argument"
   labelloc=t;
 
