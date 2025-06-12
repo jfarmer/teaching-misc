@@ -1,0 +1,66 @@
+digraph CombinationSum237 {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  label="Combination Sum: candidates = [2,3,6,7], target = 7
+  Each node shows remaining target and current combination
+  Only explore candidates >= last used to avoid duplicates";
+  labelloc=t;
+
+  root [label="target=7\n[]"];
+  
+  r2 [label="target=5\n[2]"];
+  r3 [label="target=4\n[3]"];
+  r6 [label="target=1\n[6]"];
+  r7 [label="target=0\n[7]"];
+  
+  r22 [label="target=3\n[2,2]"];
+  r23 [label="target=2\n[2,3]"];
+  r26 [label="target=-1\n[2,6]"];
+  r33 [label="target=1\n[3,3]"];
+  r36 [label="target=-2\n[3,6]"];
+  
+  r222 [label="target=1\n[2,2,2]"];
+  r223 [label="target=0\n[2,2,3]"];
+  
+  root -> {r2, r3, r6, r7};
+  r2 -> {r22, r23, r26};
+  r3 -> {r33, r36};
+  r22 -> {r222, r223};
+}
+
+digraph CombinationSum235 {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  label="Combination Sum: candidates = [2,3,5], target = 8
+  Shows first few levels - many paths lead to solutions";
+  labelloc=t;
+
+  root [label="target=8\n[]"];
+  
+  r2 [label="target=6\n[2]"];
+  r3 [label="target=5\n[3]"];
+  r5 [label="target=3\n[5]"];
+  
+  r22 [label="target=4\n[2,2]"];
+  r23 [label="target=3\n[2,3]"];
+  r25 [label="target=1\n[2,5]"];
+  r33 [label="target=2\n[3,3]"];
+  r35 [label="target=0\n[3,5]"];
+  
+  r222 [label="target=2\n[2,2,2]"];
+  r223 [label="target=0\n[2,2,3]"];
+  r233 [label="target=0\n[2,3,3]"];
+  
+  r2222 [label="target=0\n[2,2,2,2]"];
+
+  root -> {r2, r3, r5};
+  r2 -> {r22, r23, r25};
+  r3 -> {r33, r35};
+  r22 -> {r222, r223};
+  r23 -> {r233};
+  r222 -> {r2222};
+}

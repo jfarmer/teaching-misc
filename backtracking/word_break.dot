@@ -1,0 +1,61 @@
+digraph WordBreakCatsAndDog {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  label="Word Break for 'catsanddog'
+  dict = ['cat', 'cats', 'and', 'sand', 'dog']
+  Each node shows remaining string and current path";
+  labelloc=t;
+
+  root [label="'catsanddog'\n[]"];
+  
+  cat [label="'sanddog'\n['cat']"];
+  cats [label="'anddog'\n['cats']"];
+  
+  cat_sand [label="'dog'\n['cat','sand']"];
+  cats_and [label="'dog'\n['cats','and']"];
+  
+  cat_sand_dog [label="''\n['cat','sand','dog']"];
+  cats_and_dog [label="''\n['cats','and','dog']"];
+
+  root -> {cat, cats};
+  cat -> {cat_sand};
+  cats -> {cats_and};
+  cat_sand -> {cat_sand_dog};
+  cats_and -> {cats_and_dog};
+}
+
+digraph WordBreakPineApple {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  label="Word Break for 'pineapplepenapple'
+  dict = ['apple', 'pen', 'applepen', 'pine', 'pineapple']
+  Shows first few levels of the tree";
+  labelloc=t;
+
+  root [label="'pineapplepenapple'\n[]"];
+  
+  pine [label="'applepenapple'\n['pine']"];
+  pineapple [label="'penapple'\n['pineapple']"];
+  
+  pine_apple [label="'penapple'\n['pine','apple']"];
+  pine_applepen [label="'apple'\n['pine','applepen']"];
+  pineapple_pen [label="'apple'\n['pineapple','pen']"];
+  
+  pine_apple_pen [label="'apple'\n['pine','apple','pen']"];
+  pine_applepen_apple [label="''\n['pine','applepen','apple']"];
+  pineapple_pen_apple [label="''\n['pineapple','pen','apple']"];
+  
+  pine_apple_pen_apple [label="''\n['pine','apple','pen','apple']"];
+
+  root -> {pine, pineapple};
+  pine -> {pine_apple, pine_applepen};
+  pineapple -> {pineapple_pen};
+  pine_apple -> {pine_apple_pen};
+  pine_applepen -> {pine_applepen_apple};
+  pineapple_pen -> {pineapple_pen_apple};
+  pine_apple_pen -> {pine_apple_pen_apple};
+}

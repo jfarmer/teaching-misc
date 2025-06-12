@@ -1,0 +1,77 @@
+digraph WordSearchABCCED {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  label="Word Search for 'ABCCED' starting at A(0,0)
+  Board: [['A','B','C','E'],['S','F','C','S'],['A','D','E','E']]
+  Each node shows position, remaining word, visited cells";
+  labelloc=t;
+
+  root [label="(0,0) 'A'\n'BCCED'\nvisited: {(0,0)}"];
+  
+  b1 [label="(0,1) 'B'\n'CCED'\nvisited: {(0,0),(0,1)}"];
+  
+  c1 [label="(0,2) 'C'\n'CED'\nvisited: {(0,0),(0,1),(0,2)}"];
+  
+  c2 [label="(1,2) 'C'\n'ED'\nvisited: {(0,0),(0,1),(0,2),(1,2)}"];
+  
+  e1 [label="(0,3) 'E'\n'D'\nvisited: {(0,0),(0,1),(0,2),(1,2),(0,3)}"];
+  e2 [label="(2,2) 'E'\n'D'\nvisited: {(0,0),(0,1),(0,2),(1,2),(2,2)}"];
+  
+  d1 [label="(2,1) 'D'\n''\nvisited: {(0,0),(0,1),(0,2),(1,2),(2,2),(2,1)}"];
+
+  root -> {b1};
+  b1 -> {c1};
+  c1 -> {c2};
+  c2 -> {e1, e2};
+  e2 -> {d1};
+}
+
+digraph WordSearchSEE {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  label="Word Search for 'SEE' starting at S(1,0)
+  Multiple paths possible - shows one successful path";
+  labelloc=t;
+
+  root [label="(1,0) 'S'\n'EE'\nvisited: {(1,0)}"];
+  
+  e1 [label="(2,2) 'E'\n'E'\nvisited: {(1,0),(2,2)}"];
+  
+  e2 [label="(2,3) 'E'\n''\nvisited: {(1,0),(2,2),(2,3)}"];
+
+  root -> {e1};
+  e1 -> {e2};
+}
+
+digraph WordSearchGeneral {
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  edge [len=1.0, penwidth=1.0, arrowsize=1.0];
+  rankdir=TB;
+
+  label="General Word Search Tree Structure
+  For each position matching current letter:
+  - Try all 4 directions (up, down, left, right)
+  - Mark current cell as visited
+  - Recurse with remaining word
+  - Backtrack by unmarking cell";
+  labelloc=t;
+
+  start [label="Find all positions\nmatching word[0]"];
+  
+  pos1 [label="Position (r1,c1)\nword[1:]\nvisited: {(r1,c1)}"];
+  pos2 [label="Position (r2,c2)\nword[1:]\nvisited: {(r2,c2)}"];
+  
+  dir1 [label="Try direction 1\nword[2:]\nvisited: {(r1,c1),(r1',c1')}"];
+  dir2 [label="Try direction 2\nword[2:]\nvisited: {(r1,c1),(r1'',c1'')}"];
+  
+  success [label="word == ''\nSUCCESS"];
+  fail [label="No valid moves\nFAIL"];
+
+  start -> {pos1, pos2};
+  pos1 -> {dir1, dir2};
+  dir1 -> {success, fail};
+}
