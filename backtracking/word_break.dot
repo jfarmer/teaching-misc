@@ -1,5 +1,5 @@
 digraph WordBreakCatsAndDog {
-  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=2.0, height=1.0];
   edge [len=1.0, penwidth=1.0, arrowsize=1.0];
   rankdir=TB;
 
@@ -9,13 +9,13 @@ digraph WordBreakCatsAndDog {
   labelloc=t;
 
   root [label="'catsanddog'\n[]"];
-  
+
   cat [label="'sanddog'\n['cat']"];
   cats [label="'anddog'\n['cats']"];
-  
+
   cat_sand [label="'dog'\n['cat','sand']"];
   cats_and [label="'dog'\n['cats','and']"];
-  
+
   cat_sand_dog [label="''\n['cat','sand','dog']"];
   cats_and_dog [label="''\n['cats','and','dog']"];
 
@@ -27,7 +27,7 @@ digraph WordBreakCatsAndDog {
 }
 
 digraph WordBreakPineApple {
-  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=1.0, height=1.0];
+  node [shape=circle, style=filled, fontname="Consolas",fillcolor=pink, fontcolor=black, fontsize=12, width=2.0, height=1.0];
   edge [len=1.0, penwidth=1.0, arrowsize=1.0];
   rankdir=TB;
 
@@ -36,20 +36,20 @@ digraph WordBreakPineApple {
   Shows first few levels of the tree";
   labelloc=t;
 
-  root [label="'pineapplepenapple'\n[]"];
-  
-  pine [label="'applepenapple'\n['pine']"];
-  pineapple [label="'penapple'\n['pineapple']"];
-  
-  pine_apple [label="'penapple'\n['pine','apple']"];
-  pine_applepen [label="'apple'\n['pine','applepen']"];
-  pineapple_pen [label="'apple'\n['pineapple','pen']"];
-  
-  pine_apple_pen [label="'apple'\n['pine','apple','pen']"];
-  pine_applepen_apple [label="''\n['pine','applepen','apple']"];
-  pineapple_pen_apple [label="''\n['pineapple','pen','apple']"];
-  
-  pine_apple_pen_apple [label="''\n['pine','apple','pen','apple']"];
+  root [label="'pineapplepenapple'\n\n[]"];
+
+  pine [label="'applepenapple'\n\n['pine']"];
+  pineapple [label="'penapple'\n\n['pineapple']"];
+
+  pine_apple [label="'penapple'\n\n['pine','apple']"];
+  pine_applepen [label="'apple'\n\n['pine','applepen']"];
+  pineapple_pen [label="'apple'\n\n['pineapple','pen']"];
+
+  pine_apple_pen [label="'apple'\n\n['pine','apple',\n'pen']"];
+  pine_applepen_apple [label="''\n\n['pine','applepen',\n'apple']"];
+  pineapple_pen_apple [label="''\n\n['pineapple','pen',\n'apple']"];
+
+  pine_apple_pen_apple [label="''\n\n['pine','apple',\n'pen','apple']"];
 
   root -> {pine, pineapple};
   pine -> {pine_apple, pine_applepen};
