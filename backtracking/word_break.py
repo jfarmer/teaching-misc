@@ -1,40 +1,43 @@
-def word_break_print(dictionary, s, path=None):
-    if path is None:
-        path = []
-    
-    if not s:
-        print(" ".join(path))
+from print_call_tree import print_call_tree
+
+@print_call_tree(output_format="dot", only_args=True)
+def word_break_print(dictionary, string, words=None):
+    if words is None:
+        words = []
+
+    if len(string) == 0:
+        print(" ".join(words))
         return
-    
+
     for word in dictionary:
-        if s.startswith(word):
-            remaining = s[len(word):]
-            word_break_print(dictionary, remaining, path + [word])
+        if string.startswith(word):
+            remaining = string[len(word):]
+            word_break_print(dictionary, remaining, words + [word])
 
 def word_break_collect(dictionary, s, path=None):
     if path is None:
         path = []
-    
+
     if not s:
         return [path]
-    
+
     results = []
     for word in dictionary:
         if s.startswith(word):
             remaining = s[len(word):]
             sub_results = word_break_collect(dictionary, remaining, path + [word])
             results.extend(sub_results)
-    
+
     return results
 
 def word_break_print_optimized(dictionary, s, idx=0, path=None):
     if path is None:
         path = []
-    
+
     if idx == len(s):
         print(" ".join(path))
         return
-    
+
     for word in dictionary:
         if idx + len(word) <= len(s) and s[idx:idx+len(word)] == word:
             path.append(word)
@@ -46,35 +49,32 @@ def word_break_collect_optimized(dictionary, s, idx=0, path=None, results=None):
         path = []
     if results is None:
         results = []
-    
+
     if idx == len(s):
         results.append(list(path))
         return
-    
+
     for word in dictionary:
         if idx + len(word) <= len(s) and s[idx:idx+len(word)] == word:
             path.append(word)
             word_break_collect_optimized(dictionary, s, idx + len(word), path, results)
             path.pop()
-    
+
     return results
 
 # Test examples
-example_s1 = "catsanddog"
-example_dict1 = ["cat", "cats", "and", "sand", "dog"]
 
-example_s2 = "pineapplepenapple"
-example_dict2 = ["apple", "pen", "applepen", "pine", "pineapple"]
+examples = [
+    (["cat", "cats", "and", "sand", "dog"],
+     "catsanddog"),
+    (["apple", "pen", "applepen", "pine", "pineapple"],
+     "pineapplepenapple")
+]
 
-from pprint import pprint
-
-print("Example 1 - Basic approach:")
-word_break_print(example_dict1, example_s1)
-
-print("\nExample 1 - Optimized approach:")
-word_break_print_optimized(example_dict1, example_s1)
-
-print("\nExample 2 - Collected results:")
-results = word_break_collect(example_dict2, example_s2)
-for result in results:
-    print(" ".join(result))
+for i, (dictionary, string) in enumerate(examples):
+    # print("-"*10)
+    # print(f"Example {i+1}")
+    # print("Dict:  ", dictionary)
+    # print("String:", string)
+    # print("")
+    word_break_print(dictionary, string)

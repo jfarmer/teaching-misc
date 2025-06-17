@@ -17,7 +17,7 @@ import functools
 import inspect
 from io import StringIO
 
-def print_call_tree(tab_width=2, only_args=False, show_level=False, indent_str=' ', use_colors=False, output_format="tree"):
+def print_call_tree(tab_width=2, only_args=False, show_level=False, indent_str=' ', use_colors=False, output_format="tree", show_arg_names=False):
     indentation_level = 0
     original_stdout = sys.stdout
     dot_nodes = []
@@ -70,13 +70,14 @@ def print_call_tree(tab_width=2, only_args=False, show_level=False, indent_str='
                 # DOT format logic
                 current_node_id = node_counter
                 node_counter += 1
-                print(args)
 
 
                 # Create node label
                 if only_args:
-                    arg_list = "\\l".join(f"{p}={v}" for (p,v) in zip(params, args)) + "\\l"
-                    # arg_list = "\\n".join([repr(arg) for arg in args])
+                    if show_arg_names:
+                        arg_list = "\\l".join(f"{p}={v}" for (p,v) in zip(params, args)) + "\\l"
+                    else:
+                        arg_list = "\\l".join([repr(arg) for arg in args]) + "\\l"
                     node_label = f"{arg_list}"
                 else:
                     arg_list = " ".join([repr(arg) for arg in args])

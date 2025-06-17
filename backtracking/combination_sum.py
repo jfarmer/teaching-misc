@@ -26,7 +26,7 @@ def combination_sum_print(summands, target, results = None):
     for i in range(len(summands)):
         combination_sum_print(summands[i:], target - summands[i], results + [summands[i]])
 
-def combination_sum_print2(summands, target, idx = 0, results = None):
+def combination_sum_print_ref(summands, target, idx = 0, results = None):
     if results is None:
         results = []
 
@@ -38,9 +38,9 @@ def combination_sum_print2(summands, target, idx = 0, results = None):
         return
 
     for i in range(idx, len(summands)):
-        combination_sum_print2(summands, target - summands[i], idx + i, results + [summands[i]])
+        combination_sum_print_ref(summands, target - summands[i], idx + i, results + [summands[i]])
 
-def combination_sum_print3(summands, target, idx = 0, results = None):
+def combination_sum_ref_mut(summands, target, idx = 0, results = None):
     if results is None:
         results = []
 
@@ -53,7 +53,7 @@ def combination_sum_print3(summands, target, idx = 0, results = None):
 
     for i in range(idx, len(summands)):
         results.append(summands[i])
-        combination_sum_print3(summands, target - summands[i], idx + i, results)
+        combination_sum_ref_mut(summands, target - summands[i], idx + i, results)
         results.pop()
 
 def combination_sum_collect(candidates, target, combination=None):
