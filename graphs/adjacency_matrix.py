@@ -70,15 +70,48 @@ no_zero_paths = (I - all_paths)
 print('All paths, exluding paths of length 0:')
 print(no_zero_paths.astype(int))
 
-def adj_to_laplacian(adj_matrix):
-  return np.diag(np.sum(adj_matrix, axis=1)) - adj_matrix
+# If G is a graph then the degree matrix Deg(G) is the matrix
+# where the diagonal entries contain the (out-)degrees of the
+# vertexes and every other entry is 0
+def degree_matrix(adj_matrix):
+  return np.diag(np.sum(adj_matrix, axis=1))
 
-def to_undirected(adj):
-  return adj | adj.T
+# If G is a graph then the Laplacian matrix L(G) is defined as
+#    Deg(G) - Adj(G)
+# So, the diagonal contains the degrees and the non-diagonal entries
+# are -1 is there is an edge and 0 otherwise.
+def laplacian_matrix(adj_matrix):
+  return degree_matrix(adj_matrix) - adj_matrix
 
-lap = adj_to_laplacian(to_undirected(adj))
+# Given an adjacency matrix, this returns a new adjacency matrix
+# corresponding to the undirected version of the graph.
+# The "|" operator is an entrywise OR and adj_matrix.T is the
+# transpose of adj_matrix, i.e., what we get by swapping rows
+# and cvolumns.
+def to_undirected(adj_matrix):
+  return adj_matrix | adj_matrix.T
+
+def is_connected(adj_matrix):
+  lap = laplacian_matrix(adj_matrix)
+
+  eigenvalues = sorted(np.linalg.eigvalsh(lap))
+
+  return eigenvalues[1] > 0
+
+print()
+print("--- LAPLACIAN ---")
+print()
+
+undirected = to_undirected(adj)
+lap = laplacian_matrix(undirected)
 
 print('Laplacian:')
 print(lap.astype(int))
+print()
 
-print(sorted(np.linalg.eigvalsh(lap)))
+from pprint import pprint
+print("Eigenvalues of Laplacian:")
+pprint(sorted(np.linalg.eigvalsh(lap)), width=30)
+print()
+
+print("Graph connected:", is_connected(undirected))
