@@ -81,7 +81,6 @@ def subsequences_collect_ref_idx(array, idx = 0, results = None, final = None):
 
 # from print_call_tree import print_call_tree
 
-# @print_call_tree(tab_width=2, use_colors=True, only_args=True, show_level=True)
 def subsequences_inner_nodes(array, idx = 0, path = None, results = None):
     if path is None:
         path = []
@@ -96,7 +95,9 @@ def subsequences_inner_nodes(array, idx = 0, path = None, results = None):
         return
 
     for i in range(idx, n):
-        subsequences_inner_nodes(array, i + 1, path + [array[i]], results)
+        path.append(array[i])
+        subsequences_inner_nodes(array, i + 1, path, results)
+        path.pop()
 
     return results
 
@@ -106,7 +107,7 @@ def nice_print(*args):
 
 example_array = ['a', 'b', 'c']
 
-subsequences_print(example_array)
+# subsequences_print(example_array)
 
 # nice_print(subsequences_collect(example_array))
-# nice_print(subsequences_inner_nodes(example_array))
+nice_print(subsequences_inner_nodes(example_array))
