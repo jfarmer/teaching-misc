@@ -14,15 +14,15 @@ adj = np.array([
   [0,0,1,0,1],
   [0,0,0,1,1],
   [0,0,0,0,0],
-  [1,0,0,0,0]
+  [0,0,0,0,0]
 ])
 
-# If you think of an edge as a "path of length 1" then
-# the adjacency matrix tells you how many paths of length 1
+# If you think of an edge as a "walk of length 1" then
+# the adjacency matrix tells you how many walks of length 1
 # there are between any two vertexes.
 
 # If you look at adj @ adj, where @ is matrix multiplication
-# you can see that it tells you how many paths of length two
+# you can see that it tells you how many walks of length two
 # there are between any two vertexes.
 
 # print(adj @ adj)
@@ -33,7 +33,7 @@ adj = np.array([
 #  [0 0 0 0 0]]
 
 # In general, the k-th matrix power of adj tells you how
-# many paths of length k there are between any two vertexes.
+# many walks of length k there are between any two vertexes.
 
 for k in range(5):
     print(f'adj**{k} is:')
@@ -49,9 +49,20 @@ for k in range(5):
 #   1 / (1 - x)
 #
 # The same rule applies for matrixes. If we want the number of
-# path of ANY length then that's the number of paths of length 1
-# plus the number of paths of length 2 plus the number of paths
+# walk of ANY length then that's the number of walks of length 1
+# plus the number of walks of length 2 plus the number of walks
 # of length 3 and so on.
+
+# When does this converge? One *sufficient* condition is that
+# the graph is acyclic. Why? Because in an acyclic graph, a walk
+# can't contain more vertexes than are in the graph itself.
+#
+# That means that A**k will be all zero if k is greater than
+# the number of vertexes is the graph, so the "infinite" series
+# is eventually all 0s.
+
+# Because our graph above is acyclic, when we count "walks"
+# we are really counting paths.
 
 # Get the dimension of our adjacency matrix, i.e., the number
 # of vertexes
@@ -61,14 +72,15 @@ dim = adj.shape[0]
 I = np.identity(dim)
 
 # 1/(1-x) becomes inv(I - adj), where inv finds the matrix inverse
-all_paths = np.linalg.inv(I - adj)
+all_walks = np.linalg.inv(I - adj)
 
-# inv(I - adj) counts paths of length 0, but we can subtract those
+# inv(I - adj) counts walks of length 0, but we can subtract those
 # if we want
-no_zero_paths = (I - all_paths)
+print(all_walks)
+no_zero_walks = (all_walks - I)
 
-print('All paths, exluding paths of length 0:')
-print(no_zero_paths.astype(int))
+print('All walks, exluding walks of length 0:')
+print(no_zero_walks.astype(int))
 
 # If G is a graph then the degree matrix Deg(G) is the matrix
 # where the diagonal entries contain the (out-)degrees of the
