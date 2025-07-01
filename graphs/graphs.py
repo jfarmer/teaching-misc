@@ -101,6 +101,24 @@ def bfs_from_node(graph, start_vertex, callback = lambda x: x, visited = None):
 
 
 def shortest_paths_from_node(graph, start_vertex):
+    """
+    Find the shortest path from start_vertex to every other vertex in the graph.
+
+    Uses BFS to explore the graph level by level, ensuring we find the minimum
+    number of edges needed to reach each vertex from the starting point.
+
+    Args:
+        graph: Dictionary representing adjacency list of an unweighted graph
+        start_vertex: The vertex to start from
+
+    Returns:
+        Dictionary mapping each vertex to its shortest distance from start_vertex.
+        Distance is measured in number of edges. Unreachable vertices have distance infinity.
+
+    Example:
+        graph = {'A': ['B', 'C'], 'B': ['D'], 'C': ['D'], 'D': []}
+        shortest_paths_from_node(graph, 'A') -> {'A': 0, 'B': 1, 'C': 1, 'D': 2}
+    """
     distances = {v : float('inf') for v in graph}
     distances[start_vertex] = 0
 

@@ -7,7 +7,6 @@ import numpy as np
 # C -> {D,E}
 # D -> {}
 # E -> {}
-
 # This is its adjacency matrix:
 
 adj = np.array([
@@ -15,7 +14,7 @@ adj = np.array([
   [0,0,1,0,1],
   [0,0,0,1,1],
   [0,0,0,0,0],
-  [0,0,0,0,0]
+  [1,0,0,0,0]
 ])
 
 # If you think of an edge as a "path of length 1" then
@@ -66,7 +65,20 @@ all_paths = np.linalg.inv(I - adj)
 
 # inv(I - adj) counts paths of length 0, but we can subtract those
 # if we want
-no_zero_paths = (all_paths - I)
+no_zero_paths = (I - all_paths)
 
 print('All paths, exluding paths of length 0:')
 print(no_zero_paths.astype(int))
+
+def adj_to_laplacian(adj_matrix):
+  return np.diag(np.sum(adj_matrix, axis=1)) - adj_matrix
+
+def to_undirected(adj):
+  return adj | adj.T
+
+lap = adj_to_laplacian(to_undirected(adj))
+
+print('Laplacian:')
+print(lap.astype(int))
+
+print(sorted(np.linalg.eigvalsh(lap)))
