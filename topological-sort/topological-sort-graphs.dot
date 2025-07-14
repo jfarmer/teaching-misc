@@ -3,6 +3,7 @@ digraph Example1 {
     edge [len=2.0, penwidth=0.5, arrowsize=0.5];
 
     layout="dot" // try "neato", "fdp", "circo", "twopi"
+    // layout="circo"
 
     // edge [dir=none] // Make graph undirected
     // edge [dir=back] // Reverse direction of edges
