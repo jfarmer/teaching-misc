@@ -7,6 +7,24 @@ def permutations_print(array, results = ''):
         without_item = array[0:i] + array[i+1:]
         permutations_print(without_item, results + item)
 
+def permutations_print_mem(array, results = None):
+    # We'd like "results = []", but mutable default arguments in Python
+    # cause problems. See:
+    #   https://docs.python-guide.org/writing/gotchas/#mutable-default-arguments
+    if results is None:
+        results = []
+
+    if len(array) == 0:
+        print(results)
+        return
+
+    for i, item in enumerate(array):
+        without_item = array[0:i] + array[i+1:]
+        results.append(item)
+        permutations_print(without_item, results)
+        results.pop()
+
+
 def permutations_collect(array):
     if (len(array) == 0):
         return [[]]

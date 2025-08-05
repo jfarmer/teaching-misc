@@ -1,15 +1,25 @@
 import pickle
 
 _cache = dict()
+
+def memoize1(f):
+    def decorated(arg):
+        key = (f, arg)
+        if key not in _cache:
+            _cache[key] = f(arg)
+
+        return _cache[key]
+
+    return decorated
+
 def memoize(f):
     """Memoize any function."""
 
     def decorated(*args):
         key = (f, pickle.dumps(args))
-        if key in _cache:
-            return _cache[key]
+        if key not in _cache:
+            _cache[key] = f(*args)
 
-        _cache[key] = f(*args)
         return _cache[key]
 
     return decorated
