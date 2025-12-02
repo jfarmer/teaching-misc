@@ -1,11 +1,19 @@
 # Arrays
 
-## Agenda
+## Agenda <!-- omit in toc -->
 
 1. Introductions (brief!)
 2. Calibration
 3. Arrays and Random Access
 4. Coding
+
+## Contents
+
+- [Contents](#contents)
+- [Why Do Arrays Have O(1) Random Access?](#why-do-arrays-have-o1-random-access)
+- [Exercises](#exercises)
+- [Patterns](#patterns)
+- [Algebra](#algebra)
 
 ## Why Do Arrays Have O(1) Random Access?
 
@@ -20,6 +28,13 @@ See: <https://web.mit.edu/STS.035/www/PDFs/edvac.pdf>
 The "Manchester Baby" is the first computer to support random access memory. It was designed as a prototype / proof-of-concept to illustrate the idea in 1948.
 
 See: <https://en.wikipedia.org/wiki/Manchester_Baby>
+
+## Exercises
+
+Fill in the blanks to implement each function using the accumulator pattern:
+
+- [accumulate_exercises.py](accumulate_exercises.py)
+- [accumulate_exercises.js](accumulate_exercises.js)
 
 ## Patterns
 
