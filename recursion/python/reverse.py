@@ -4,22 +4,22 @@ from append import append
 from fold import foldr, foldl
 
 
-def reverse(lst, result=EMPTY_LIST):
+def reverse_left(lst, result=EMPTY_LIST):
     if is_empty(lst):
         return result
 
     first, rest = unprepend(lst)
 
-    return reverse(rest, prepend(first, result))
+    return reverse_left(rest, prepend(first, result))
 
 
-def reverseBad(lst):
+def reverse_right(lst):
     if is_empty(lst):
         return EMPTY_LIST
 
     first, rest = unprepend(lst)
 
-    return append(first, reverse(rest))
+    return append(first, reverse_right(rest))
 
 
 def reverse_foldr(lst):
