@@ -128,10 +128,10 @@ def select(lst, func):
     return _____
 
 # Other functions to write:
-#  map(func, lst)    # Apply fn to every element of lst
-#  every(func, lst)  # Returns True is func returns True for EVERY element of lst, False otherwise
-#  some(func, lst)   # Returns True is func returns True for ANY element of lst, False otherwise
-#  maxBy(func, lst)  # Returns value x of lst for which func(x) is largest
+#  map(lst, func)    # Apply fn to every element of lst
+#  every(lst, func)  # Returns True is func returns True for EVERY element of lst, False otherwise
+#  some(lst, func)   # Returns True is func returns True for ANY element of lst, False otherwise
+#  maxBy(lst, func)  # Returns value x of lst for which func(x) is largest
 
 
 lst = Node.from_list([10, 20, 30, -1])
