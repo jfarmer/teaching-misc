@@ -154,6 +154,7 @@ def tree_sum(tree: Optional[TreeNode]) -> int:
         return 0
 
     value, left, right = destruct(tree)
+
     return value + tree_sum(left) + tree_sum(right)
 
 
