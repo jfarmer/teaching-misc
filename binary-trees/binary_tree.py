@@ -20,10 +20,10 @@ class TreeNode:
         self.right = right
 
     def __str__(self) -> str:
-        return tree_to_string(self)
+        return tree_to_string_vertical(self)
 
     def __repr__(self) -> str:
-        return self.__str__()
+        return tree_to_string_vertical(self)
 
 
 def is_empty(tree: Optional[TreeNode]) -> bool:
@@ -73,6 +73,128 @@ def subtree_to_string(tree: Optional[TreeNode], pointer: str = '', padding: str 
                                 padding + new_padding, False)
 
     return result
+
+
+def tree_to_string_vertical(tree: Optional[TreeNode]) -> str:
+    if is_empty(tree):
+        return ''
+    lines, _ = _build_vertical(tree)
+    return '\n'.join(line.rstrip() for line in lines)
+
+
+def _build_vertical(tree):
+    if is_empty(tree):
+        return [], 0
+
+    label = str(tree.value)
+
+    if is_leaf(tree):
+        return [label], len(label) // 2
+
+    left_lines, left_root = _build_vertical(tree.left)
+    right_lines, right_root = _build_vertical(tree.right)
+
+    has_left = len(left_lines) > 0
+    has_right = len(right_lines) > 0
+
+    if has_left and has_right:
+        return _combine_two_subtrees(label, left_lines, left_root, right_lines, right_root)
+    elif has_left:
+        return _combine_left_child(label, left_lines, left_root)
+    else:
+        return _combine_right_child(label, right_lines, right_root)
+
+
+def _combine_two_subtrees(label, left_lines, left_root, right_lines, right_root):
+    gap = 3
+    left_w = len(left_lines[0])
+    right_w = len(right_lines[0])
+
+    left_anchor = left_root
+    right_anchor = left_w + gap + right_root
+    mid = (left_anchor + right_anchor) // 2
+
+    label_start = mid - len(label) // 2
+    label_end = label_start + len(label)
+
+    left_pad = max(0, -label_start)
+    total_width = max(left_w + gap + right_w, label_end) + left_pad
+
+    left_anchor += left_pad
+    right_anchor += left_pad
+    mid += left_pad
+    label_start += left_pad
+
+    parent_line = list(' ' * total_width)
+    for i, ch in enumerate(label):
+        parent_line[label_start + i] = ch
+
+    conn = list(' ' * total_width)
+    conn[left_anchor] = '┌'
+    conn[right_anchor] = '┐'
+    for i in range(left_anchor + 1, right_anchor):
+        conn[i] = '─'
+    conn[mid] = '┴'
+
+    max_h = max(len(left_lines), len(right_lines))
+    children = []
+    for i in range(max_h):
+        l = left_lines[i] if i < len(left_lines) else ' ' * left_w
+        r = right_lines[i] if i < len(right_lines) else ' ' * right_w
+        children.append((' ' * left_pad + l + ' ' * gap + r).ljust(total_width))
+
+    return [''.join(parent_line), ''.join(conn)] + children, mid
+
+
+def _combine_left_child(label, child_lines, child_root):
+    """Left child: child subtree on the left, parent to the right."""
+    child_w = len(child_lines[0])
+    gap = 1
+    parent_start = child_w + gap
+    parent_center = parent_start + len(label) // 2
+    total_width = parent_start + len(label)
+
+    parent_line = list(' ' * total_width)
+    for i, ch in enumerate(label):
+        parent_line[parent_start + i] = ch
+
+    conn = list(' ' * total_width)
+    conn[child_root] = '┌'
+    for i in range(child_root + 1, parent_center):
+        conn[i] = '─'
+    conn[parent_center] = '┘'
+
+    children = []
+    for line in child_lines:
+        children.append(line.ljust(total_width))
+
+    return [''.join(parent_line), ''.join(conn)] + children, parent_center
+
+
+def _combine_right_child(label, child_lines, child_root):
+    """Right child: parent on the left, child subtree shifted to the right."""
+    child_w = len(child_lines[0])
+    gap = 1
+    child_shift = len(label) + gap
+    parent_center = len(label) // 2
+    child_root_new = child_shift + child_root
+    total_width = child_shift + child_w
+
+    parent_line = list(' ' * total_width)
+    for i, ch in enumerate(label):
+        parent_line[i] = ch
+
+    conn = list(' ' * total_width)
+    conn[parent_center] = '└'
+    for i in range(parent_center + 1, child_root_new):
+        conn[i] = '─'
+    conn[child_root_new] = '┐'
+
+    children = []
+    for line in child_lines:
+        children.append((' ' * child_shift + line).ljust(total_width))
+
+    return [''.join(parent_line), ''.join(conn)] + children, parent_center
 
 
 def do_nothing(*args, **kwargs):
@@ -217,8 +339,13 @@ if __name__ == "__main__":
          ]
     ])
 
-    print('Tree:')
+    left_only = TreeNode(10, TreeNode(20, TreeNode(30)))
+    print('Tree (horizontal):')
     print(example_tree)
+
+    print('Tree (vertical):')
+    print(tree_to_string_vertical(left_only))
+    print()
 
     print('In-order DFS:')
     tree_dfs_in_order(example_tree, lambda node: print(node.value))
