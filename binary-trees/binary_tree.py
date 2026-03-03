@@ -115,35 +115,26 @@ def _combine_two_subtrees(label, left_lines, left_root, right_lines, right_root)
     mid = (left_anchor + right_anchor) // 2
 
     label_start = mid - len(label) // 2
-    label_end = label_start + len(label)
-
     left_pad = max(0, -label_start)
-    total_width = max(left_w + gap + right_w, label_end) + left_pad
+    total_width = max(left_w + gap + right_w, label_start + len(label)) + left_pad
 
     left_anchor += left_pad
     right_anchor += left_pad
     mid += left_pad
     label_start += left_pad
 
-    parent_line = list(' ' * total_width)
-    for i, ch in enumerate(label):
-        parent_line[label_start + i] = ch
+    parent_line = (' ' * label_start + label).ljust(total_width)
+    conn = (' ' * left_anchor + '┌'
+            + '─' * (mid - left_anchor - 1) + '┴'
+            + '─' * (right_anchor - mid - 1) + '┐').ljust(total_width)
 
-    conn = list(' ' * total_width)
-    conn[left_anchor] = '┌'
-    conn[right_anchor] = '┐'
-    for i in range(left_anchor + 1, right_anchor):
-        conn[i] = '─'
-    conn[mid] = '┴'
-
-    max_h = max(len(left_lines), len(right_lines))
     children = []
-    for i in range(max_h):
+    for i in range(max(len(left_lines), len(right_lines))):
         l = left_lines[i] if i < len(left_lines) else ' ' * left_w
         r = right_lines[i] if i < len(right_lines) else ' ' * right_w
         children.append((' ' * left_pad + l + ' ' * gap + r).ljust(total_width))
 
-    return [''.join(parent_line), ''.join(conn)] + children, mid
+    return [parent_line, conn] + children, mid
 
 
 def _combine_left_child(label, child_lines, child_root):
@@ -152,23 +143,13 @@ def _combine_left_child(label, child_lines, child_root):
     gap = 1
     parent_start = child_w + gap
     parent_center = parent_start + len(label) // 2
-    total_width = parent_start + len(label)
+    w = parent_start + len(label)
 
-    parent_line = list(' ' * total_width)
-    for i, ch in enumerate(label):
-        parent_line[parent_start + i] = ch
+    parent_line = (' ' * parent_start + label).ljust(w)
+    conn = (' ' * child_root + '┌' + '─' * (parent_center - child_root - 1) + '┘').ljust(w)
+    children = [line.ljust(w) for line in child_lines]
 
-    conn = list(' ' * total_width)
-    conn[child_root] = '┌'
-    for i in range(child_root + 1, parent_center):
-        conn[i] = '─'
-    conn[parent_center] = '┘'
-
-    children = []
-    for line in child_lines:
-        children.append(line.ljust(total_width))
-
-    return [''.join(parent_line), ''.join(conn)] + children, parent_center
+    return [parent_line, conn] + children, parent_center
 
 
 def _combine_right_child(label, child_lines, child_root):
@@ -178,23 +159,13 @@ def _combine_right_child(label, child_lines, child_root):
     child_shift = len(label) + gap
     parent_center = len(label) // 2
     child_root_new = child_shift + child_root
-    total_width = child_shift + child_w
+    w = child_shift + child_w
 
-    parent_line = list(' ' * total_width)
-    for i, ch in enumerate(label):
-        parent_line[i] = ch
+    parent_line = label.ljust(w)
+    conn = (' ' * parent_center + '└' + '─' * (child_root_new - parent_center - 1) + '┐').ljust(w)
+    children = [(' ' * child_shift + line).ljust(w) for line in child_lines]
 
-    conn = list(' ' * total_width)
-    conn[parent_center] = '└'
-    for i in range(parent_center + 1, child_root_new):
-        conn[i] = '─'
-    conn[child_root_new] = '┐'
-
-    children = []
-    for line in child_lines:
-        children.append((' ' * child_shift + line).ljust(total_width))
-
-    return [''.join(parent_line), ''.join(conn)] + children, parent_center
+    return [parent_line, conn] + children, parent_center
 
 
 def do_nothing(*args, **kwargs):
