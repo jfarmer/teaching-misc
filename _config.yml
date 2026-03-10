@@ -1,0 +1,5 @@
+title: DSA Teaching Materials
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
