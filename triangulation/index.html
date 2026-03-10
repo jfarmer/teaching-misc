@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polygon Triangulation — Build It</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #1a1a2e;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: #fff;
+  padding: 30px;
+}
+#app {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.input-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 16px; font-size: 13px; color: #666;
+}
+.input-row input {
+  background: rgba(255,255,255,0.08); border: 1px solid #444;
+  border-radius: 4px; color: #eee; font-family: inherit;
+  font-size: 13px; padding: 4px 8px; width: 180px; outline: none;
+}
+.input-row input:focus { border-color: #f1c40f; }
+.input-row .error { color: #e74c3c; font-size: 11px; }
+
+.top-row { display: flex; align-items: flex-start; gap: 20px; }
+
+.side-panel { min-width: 200px; max-width: 240px; padding-top: 8px; }
+.panel-header {
+  font-size: 11px; color: #555;
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+}
+.step-list { list-style: none; font-size: 13px; line-height: 1.9; }
+.step-list li {
+  color: #aaa; padding: 2px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.step-list .cost-val { color: #fff; font-weight: bold; }
+
+.total-row {
+  margin-top: 8px; padding-top: 8px;
+  border-top: 1px solid #333; font-size: 14px; color: #aaa;
+}
+.total-row .total-val { color: #f1c40f; font-weight: bold; }
+.done-msg { margin-top: 8px; font-size: 13px; color: #2ecc71; display: none; }
+
+.controls { margin-top: 12px; display: flex; gap: 8px; }
+.controls button {
+  background: rgba(255,255,255,0.08); border: 1px solid #444;
+  border-radius: 4px; color: #ccc; font-family: inherit;
+  font-size: 12px; padding: 4px 12px; cursor: pointer;
+}
+.controls button:hover { background: rgba(255,255,255,0.15); }
+.controls button:disabled { opacity: 0.3; cursor: default; }
+
+.expr-section {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+  min-width: 500px;
+  max-width: 700px;
+}
+
+.expr-base { color: #555; }
+.expr-cost { font-weight: bold; }
+.expr-plus { color: #555; }
+.expr-tree { font-size: 13px; line-height: 1.9; color: #ccc; }
+.tree-line { white-space: nowrap; }
+.tree-line.tentative { opacity: 0.5; font-style: italic; }
+
+[data-v] { cursor: pointer; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="input-row">
+    <label>balloons:</label>
+    <input id="input" type="text" value="3, 1, 5, 8" spellcheck="false">
+    <span id="input-error" class="error"></span>
+  </div>
+  <div class="top-row">
+    <svg id="viz" width="500" height="500" viewBox="0 0 500 500"></svg>
+    <div class="side-panel">
+      <div class="panel-header">Triangles</div>
+      <ul class="step-list" id="step-list"></ul>
+      <div class="total-row">total = <span class="total-val" id="total-val">0</span></div>
+      <div class="done-msg" id="done-msg">Done!</div>
+      <div class="controls">
+        <button id="btn-undo" disabled>&larr; back</button>
+        <button id="btn-reset">reset</button>
+      </div>
+    </div>
+  </div>
+  <div class="expr-section">
+    <div class="expr-tree" id="expr-tree"></div>
+  </div>
+</div>
+
+<script>
+// ─── Colors ──────────────────────────────────────────────
+// Single ordered palette. Index 0 = first problem, then sequential.
+
+const PALETTE = [
+  '#f1c40f', '#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#e67e22',
+  '#1abc9c', '#e84393', '#00b894', '#fdcb6e', '#6c5ce7', '#fab1a0',
+];
+
+function color(idx) { return PALETTE[idx % PALETTE.length]; }
+
+function colorFill(idx, alpha) {
+  const hex = PALETTE[idx % PALETTE.length];
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+// ─── Geometry ────────────────────────────────────────────
+
+function computeVertices(n, cx, cy, r) {
+  const verts = [];
+  for (let i = 0; i < n; i++) {
+    const a = -Math.PI / 2 + Math.PI / n + i * 2 * Math.PI / n;
+    verts.push({ x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) });
+  }
+  return verts;
+}
+
+function svgPoints(verts, ids) {
+  return ids.map(i => `${verts[i].x},${verts[i].y}`).join(' ');
+}
+
+function centroid(verts, ids) {
+  return {
+    x: ids.reduce((s, i) => s + verts[i].x, 0) / ids.length,
+    y: ids.reduce((s, i) => s + verts[i].y, 0) / ids.length,
+  };
+}
+
+function isDiagonal(a, b, n) {
+  const last = n - 1;
+  return Math.abs(a - b) !== 1 && !(a === 0 && b === last) && !(b === 0 && a === last);
+}
+
+function range(from, to) {
+  return Array.from({ length: to - from + 1 }, (_, i) => from + i);
+}
+
+// ─── Expression tree ─────────────────────────────────────
+
+function expandNode(node, tri) {
+  if (node.type === 'open' && node.i === tri.i && node.j === tri.j) {
+    const mkChild = (a, b, ci) =>
+      (b - a < 2) ? { type: 'base', i: a, j: b }
+                   : { type: 'open', i: a, j: b, colorIdx: ci };
+    return {
+      type: 'resolved', i: tri.i, k: tri.k, j: tri.j,
+      cost: tri.cost, colorIdx: tri.colorIdx, tentative: tri.tentative,
+      left: mkChild(tri.i, tri.k, tri.leftColorIdx),
+      right: mkChild(tri.k, tri.j, tri.rightColorIdx),
+    };
+  }
+  if (node.type === 'resolved') {
+    return {
+      ...node,
+      left: expandNode(node.left, tri),
+      right: expandNode(node.right, tri),
+    };
+  }
+  return node;
+}
+
+function buildExprTree(state) {
+  const { values, done, hover, open } = state;
+  const last = values.length - 1;
+  let root = (last < 2)
+    ? { type: 'base', i: 0, j: last }
+    : { type: 'open', i: 0, j: last, colorIdx: 0 };
+
+  for (const tri of done) {
+    root = expandNode(root, tri);
+  }
+
+  if (hover) {
+    const prob = open[hover.probIdx];
+    if (prob) {
+      const k = hover.k;
+      const cost = values[prob.i] * values[k] * values[prob.j];
+      const hasLeft = (k - prob.i >= 2);
+      const hasRight = (prob.j - k >= 2);
+      let nextCI = state.nextColorIdx;
+      const leftCI = hasLeft ? nextCI++ : -1;
+      const rightCI = hasRight ? nextCI++ : -1;
+      root = expandNode(root, {
+        i: prob.i, k, j: prob.j, cost,
+        colorIdx: prob.colorIdx, tentative: true,
+        leftColorIdx: leftCI, rightColorIdx: rightCI,
+      });
+    }
+  }
+
+  return root;
+}
+
+// ─── State ───────────────────────────────────────────────
+
+function makeState(input) {
+  const values = [1, ...input, 1];
+  return {
+    values,
+    verts: computeVertices(values.length, 250, 250, 190),
+    open: [{ i: 0, j: values.length - 1, colorIdx: 0 }],
+    done: [],
+    history: [],
+    hover: null,
+    nextColorIdx: 1,
+  };
+}
+
+function clickableMap(open) {
+  const m = new Map();
+  open.forEach((prob, idx) => {
+    for (let v = prob.i + 1; v < prob.j; v++) m.set(v, idx);
+  });
+  return m;
+}
+
+// Each vertex is in exactly one role. Visuals are derived from this.
+// Roles: endpoint, picked, open, inert
+function vertexStates(n, open, done, hover) {
+  const last = n - 1;
+  const vs = new Array(n).fill(null);
+
+  vs[0] = { role: 'endpoint' };
+  vs[last] = { role: 'endpoint' };
+
+  for (const tri of done) {
+    vs[tri.k] = { role: 'picked', colorIdx: tri.colorIdx };
+  }
+
+  const cm = clickableMap(open);
+  for (const [v, probIdx] of cm) {
+    if (!vs[v] || vs[v].role !== 'picked') {
+      vs[v] = { role: 'open', colorIdx: open[probIdx].colorIdx, probIdx };
+    }
+  }
+
+  for (let i = 0; i < n; i++) {
+    if (!vs[i]) vs[i] = { role: 'inert' };
+  }
+
+  if (hover && vs[hover.k].role === 'open') {
+    vs[hover.k] = { ...vs[hover.k], hovered: true };
+  }
+
+  return vs;
+}
+
+function vertexStyle(vs) {
+  switch (vs.role) {
+    case 'endpoint':
+      return { r: 18, fill: '#e74c3c', textFill: '#000', stroke: 'none', cursor: 'default' };
+    case 'picked':
+      return { r: 17, fill: color(vs.colorIdx), textFill: '#000', stroke: '#fff', cursor: 'default' };
+    case 'open':
+      return vs.hovered
+        ? { r: 18, fill: color(vs.colorIdx), textFill: '#000', stroke: '#fff', cursor: 'pointer' }
+        : { r: 15, fill: '#ccc', textFill: '#222', stroke: 'none', cursor: 'pointer' };
+    default:
+      return { r: 15, fill: '#555', textFill: '#777', stroke: 'none', cursor: 'default' };
+  }
+}
+
+function applyPick(state, probIdx, k) {
+  const prob = state.open[probIdx];
+  const values = state.values;
+  const cost = values[prob.i] * values[k] * values[prob.j];
+
+  const hasLeft = (k - prob.i >= 2);
+  const hasRight = (prob.j - k >= 2);
+  let nextCI = state.nextColorIdx;
+  const leftCI = hasLeft ? nextCI++ : -1;
+  const rightCI = hasRight ? nextCI++ : -1;
+
+  const tri = {
+    i: prob.i, k, j: prob.j, cost,
+    colorIdx: prob.colorIdx, tentative: false,
+    leftColorIdx: leftCI, rightColorIdx: rightCI,
+  };
+
+  const newOpen = [...state.open];
+  newOpen.splice(probIdx, 1);
+  if (hasRight) newOpen.splice(probIdx, 0, { i: k, j: prob.j, colorIdx: rightCI });
+  if (hasLeft) newOpen.splice(probIdx, 0, { i: prob.i, j: k, colorIdx: leftCI });
+
+  return {
+    ...state,
+    open: newOpen,
+    done: [...state.done, tri],
+    history: [...state.history, { open: state.open, done: state.done, nextColorIdx: state.nextColorIdx }],
+    hover: null,
+    nextColorIdx: nextCI,
+  };
+}
+
+function applyUndo(state) {
+  if (!state.history.length) return state;
+  const prev = state.history[state.history.length - 1];
+  return {
+    ...state,
+    open: prev.open,
+    done: prev.done,
+    history: state.history.slice(0, -1),
+    hover: null,
+    nextColorIdx: prev.nextColorIdx,
+  };
+}
+
+// ─── SVG rendering ───────────────────────────────────────
+
+function renderSVG(state) {
+  const { values, verts, open, done, hover } = state;
+  const n = values.length;
+  const last = n - 1;
+  const pts = (ids) => svgPoints(verts, ids);
+  const hoveredProbIdx = hover ? hover.probIdx : -1;
+  let h = '';
+
+  // Committed triangles + cost labels
+  done.forEach((tri) => {
+    const ci = tri.colorIdx;
+    const c = centroid(verts, [tri.i, tri.k, tri.j]);
+    h += `<polygon points="${pts([tri.i, tri.k, tri.j])}" fill="${colorFill(ci, 0.15)}" stroke="${color(ci)}" stroke-width="1.5"/>`;
+    h += `<text x="${c.x}" y="${c.y}" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="bold" font-family="monospace" fill="${color(ci)}" pointer-events="none">${tri.cost}</text>`;
+  });
+
+  // Polygon edges
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    h += `<line x1="${verts[i].x}" y1="${verts[i].y}" x2="${verts[j].x}" y2="${verts[j].y}" stroke="#e0e0e0" stroke-width="1.5" opacity="0.3"/>`;
+  }
+
+  // Open subproblem regions + base edges
+  open.forEach((prob, idx) => {
+    const ci = prob.colorIdx;
+    const ids = range(prob.i, prob.j);
+    const isHovered = (idx === hoveredProbIdx);
+    if (ids.length >= 3) {
+      h += `<polygon points="${pts(ids)}" fill="${colorFill(ci, 0.10)}" stroke="${color(ci)}" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>`;
+      if (!isHovered) {
+        const c = centroid(verts, ids);
+        h += `<text x="${c.x}" y="${c.y}" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="${color(ci)}" font-family="monospace" pointer-events="none" opacity="0.8">dp(${prob.i},${prob.j})</text>`;
+      }
+    }
+    h += `<line x1="${verts[prob.i].x}" y1="${verts[prob.i].y}" x2="${verts[prob.j].x}" y2="${verts[prob.j].y}" stroke="${color(ci)}" stroke-width="3" opacity="0.8"/>`;
+  });
+
+  // Committed diagonals
+  done.forEach((tri) => {
+    const ci = tri.colorIdx;
+    [[tri.i, tri.k], [tri.k, tri.j]].forEach(([a, b]) => {
+      if (isDiagonal(a, b, n))
+        h += `<line x1="${verts[a].x}" y1="${verts[a].y}" x2="${verts[b].x}" y2="${verts[b].y}" stroke="${color(ci)}" stroke-width="1.5" opacity="0.6"/>`;
+    });
+  });
+
+  // Hover preview
+  if (hover) {
+    const prob = open[hover.probIdx];
+    if (prob) {
+      const { i: pi, j: pj } = prob;
+      const k = hover.k;
+      const ci = prob.colorIdx;
+
+      // Figure out child color indices (same logic as applyPick)
+      const hasLeft = (k - pi >= 2);
+      const hasRight = (pj - k >= 2);
+      let tempCI = state.nextColorIdx;
+      const leftCI = hasLeft ? tempCI++ : -1;
+      const rightCI = hasRight ? tempCI++ : -1;
+
+      const tc = centroid(verts, [pi, k, pj]);
+      const cost = values[pi] * values[k] * values[pj];
+
+      h += `<g pointer-events="none">`;
+
+      // Child sub-polygon previews with their would-be colors
+      if (hasLeft) {
+        const left = range(pi, k);
+        const c = centroid(verts, left);
+        h += `<polygon points="${pts(left)}" fill="${colorFill(leftCI, 0.10)}" stroke="${color(leftCI)}" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>`;
+        h += `<text x="${c.x}" y="${c.y}" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="${color(leftCI)}" font-family="monospace" opacity="0.8">dp(${pi},${k})</text>`;
+      }
+      if (hasRight) {
+        const right = range(k, pj);
+        const c = centroid(verts, right);
+        h += `<polygon points="${pts(right)}" fill="${colorFill(rightCI, 0.10)}" stroke="${color(rightCI)}" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>`;
+        h += `<text x="${c.x}" y="${c.y}" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="${color(rightCI)}" font-family="monospace" opacity="0.8">dp(${k},${pj})</text>`;
+      }
+
+      // Triangle preview (inherits parent problem's color)
+      h += `<polygon points="${pts([pi, k, pj])}" fill="${colorFill(ci, 0.15)}" stroke="none"/>`;
+      h += `<line x1="${verts[pi].x}" y1="${verts[pi].y}" x2="${verts[k].x}" y2="${verts[k].y}" stroke="${color(ci)}" stroke-width="2" stroke-dasharray="5,5" opacity="0.7"/>`;
+      h += `<line x1="${verts[pj].x}" y1="${verts[pj].y}" x2="${verts[k].x}" y2="${verts[k].y}" stroke="${color(ci)}" stroke-width="2" stroke-dasharray="5,5" opacity="0.7"/>`;
+      h += `<text x="${tc.x}" y="${tc.y}" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="bold" font-family="monospace" fill="${color(ci)}" opacity="0.8">${cost}</text>`;
+      h += `</g>`;
+    }
+  }
+
+  // Vertices
+  const vStates = vertexStates(n, open, done, hover);
+  for (let i = 0; i < n; i++) {
+    const vs = vStates[i];
+    const s = vertexStyle(vs);
+    const dataAttrs = vs.role === 'open' ? `data-v="${i}" data-p="${vs.probIdx}"` : '';
+
+    h += `<g ${dataAttrs} style="cursor:${s.cursor}">`;
+    h += `<circle cx="${verts[i].x}" cy="${verts[i].y}" r="${s.r + 8}" fill="transparent"/>`;
+    h += `<circle cx="${verts[i].x}" cy="${verts[i].y}" r="${s.r}" fill="${s.fill}" stroke="${s.stroke}" stroke-width="2"/>`;
+    h += `<text x="${verts[i].x}" y="${verts[i].y - 1}" text-anchor="middle" dominant-baseline="middle" font-size="14" font-weight="bold" font-family="monospace" fill="${s.textFill}">${values[i]}</text>`;
+    h += `</g>`;
+  }
+
+  // Index labels
+  h += `<g pointer-events="none">`;
+  for (let i = 0; i < n; i++) {
+    const dx = verts[i].x - 250, dy = verts[i].y - 250;
+    const d = Math.sqrt(dx * dx + dy * dy);
+    h += `<text x="${verts[i].x + dx / d * 32}" y="${verts[i].y + dy / d * 32}" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#555" font-family="monospace">[${i}]</text>`;
+  }
+  h += `</g>`;
+
+  return h;
+}
+
+// ─── Step list rendering ─────────────────────────────────
+
+function renderStepList(done, values) {
+  return done.map((tri) => {
+    const ci = tri.colorIdx;
+    return `<li><span style="color:${color(ci)}">&#9650;</span> (${tri.i},${tri.k},${tri.j}) &rarr; ${values[tri.i]}&times;${values[tri.k]}&times;${values[tri.j]} = <span class="cost-val">${tri.cost}</span></li>`;
+  }).join('');
+}
+
+// ─── Expression tree rendering ───────────────────────────
+
+function renderTree(node, depth) {
+  if (node.type === 'base') return '';
+  if (node.type === 'open') {
+    return `<div class="tree-line" style="padding-left:${depth * 20}px"><span style="color:${color(node.colorIdx)}">dp(${node.i},${node.j})</span> <span class="expr-base">= ?</span></div>`;
+  }
+
+  const ci = node.colorIdx;
+  const cls = node.tentative ? ' tentative' : '';
+  const leftLabel = node.left.type === 'base'
+    ? `<span class="expr-base">0</span>`
+    : `<span style="color:${color(node.left.colorIdx)}">dp(${node.left.i},${node.left.j})</span>`;
+  const rightLabel = node.right.type === 'base'
+    ? `<span class="expr-base">0</span>`
+    : `<span style="color:${color(node.right.colorIdx)}">dp(${node.right.i},${node.right.j})</span>`;
+
+  let h = `<div class="tree-line${cls}" style="padding-left:${depth * 20}px">`;
+  h += `<span style="color:${color(ci)}">dp(${node.i},${node.j})</span> <span class="expr-plus">=</span> `;
+  h += `${leftLabel} <span class="expr-plus">+</span> <span class="expr-cost" style="color:${color(ci)}">${node.cost}</span> <span class="expr-plus">+</span> ${rightLabel}`;
+  h += `</div>`;
+  h += renderTree(node.left, depth + 1);
+  h += renderTree(node.right, depth + 1);
+  return h;
+}
+
+// ─── App ─────────────────────────────────────────────────
+
+function createApp() {
+  const svgEl = document.getElementById('viz');
+  const stepListEl = document.getElementById('step-list');
+  const totalEl = document.getElementById('total-val');
+  const doneEl = document.getElementById('done-msg');
+  const undoBtn = document.getElementById('btn-undo');
+  const resetBtn = document.getElementById('btn-reset');
+  const inputEl = document.getElementById('input');
+  const errorEl = document.getElementById('input-error');
+  const treeEl = document.getElementById('expr-tree');
+
+  let state = makeState([3, 1, 5, 8]);
+
+  function update() {
+    svgEl.innerHTML = renderSVG(state);
+    stepListEl.innerHTML = renderStepList(state.done, state.values);
+    treeEl.innerHTML = renderTree(buildExprTree(state), 0);
+
+    const total = state.done.reduce((s, t) => s + t.cost, 0);
+    totalEl.textContent = total;
+    doneEl.style.display = state.open.length === 0 ? 'block' : 'none';
+    undoBtn.disabled = state.history.length === 0;
+  }
+
+  function findVertex(target) {
+    const g = target.closest('[data-v]');
+    if (!g) return null;
+    return { k: parseInt(g.dataset.v), probIdx: parseInt(g.dataset.p) };
+  }
+
+  svgEl.addEventListener('click', (e) => {
+    const v = findVertex(e.target);
+    if (v) { state = applyPick(state, v.probIdx, v.k); update(); }
+  });
+
+  svgEl.addEventListener('mouseover', (e) => {
+    const v = findVertex(e.target);
+    if (v && (!state.hover || state.hover.k !== v.k)) {
+      state = { ...state, hover: v };
+      update();
+    }
+  });
+
+  svgEl.addEventListener('mouseout', (e) => {
+    const g = e.target.closest('[data-v]');
+    if (g && state.hover && !g.contains(e.relatedTarget)) {
+      state = { ...state, hover: null };
+      update();
+    }
+  });
+
+  undoBtn.addEventListener('click', () => { state = applyUndo(state); update(); });
+  resetBtn.addEventListener('click', () => { state = makeState(state.values.slice(1, -1)); update(); });
+
+  inputEl.addEventListener('input', () => {
+    const raw = inputEl.value.trim();
+    if (!raw) { errorEl.textContent = 'enter comma-separated numbers'; return; }
+    const parts = raw.split(',').map(s => s.trim());
+    if (parts.some(s => s === '' || isNaN(Number(s)))) { errorEl.textContent = 'invalid'; return; }
+    const arr = parts.map(Number);
+    if (arr.length < 2) { errorEl.textContent = 'need at least 2'; return; }
+    errorEl.textContent = '';
+    state = makeState(arr);
+    update();
+  });
+
+  update();
+}
+
+createApp();
+</script>
+</body>
+</html>
