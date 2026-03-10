@@ -44,33 +44,13 @@ def tree_to_string(tree: Optional[TreeNode], pointer: str = '', padding: str = '
 
     value, left, right = destruct(tree)
 
-    result = f" {padding}{pointer}{value}\n"
-    right_pointer = ' └── '
-    left_pointer = right_pointer if is_empty(right) else ' ├── '
-
-    result += subtree_to_string(left, left_pointer,
-                                padding, not is_empty(right))
-    result += subtree_to_string(right, right_pointer, padding, False)
-
-    return result
-
-
-def subtree_to_string(tree: Optional[TreeNode], pointer: str = '', padding: str = '', has_right_sibling: bool = False) -> str:
-    if is_empty(tree):
-        return ''
-
-    value, left, right = destruct(tree)
-
     result = f"{padding}{pointer}{value}\n"
+    child_padding = padding + (' │  ' if pointer == ' ├── ' else '    ' if pointer else '')
     right_pointer = ' └── '
     left_pointer = right_pointer if is_empty(right) else ' ├── '
 
-    new_padding = ' │  ' if has_right_sibling else '    '
-
-    result += subtree_to_string(left, left_pointer,
-                                padding + new_padding, not is_empty(right))
-    result += subtree_to_string(right, right_pointer,
-                                padding + new_padding, False)
+    result += tree_to_string(left, left_pointer, child_padding)
+    result += tree_to_string(right, right_pointer, child_padding)
 
     return result
 
