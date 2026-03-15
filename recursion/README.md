@@ -35,9 +35,9 @@ We're going to take this shape-centric perspective.
 
 Read a bit below on [recursive data types](#recursive-data-types) and then take a look at some of the other files.
 
-- To see what I typically cover in a session, look at <code>[coderpad.js](./coderpad.js)</code>.
-- For a fuller set of exercises, see <code>[javascript/lists.exercises.js](./javascript/lists.exercises.js)</code> or <code>[python/lists.exercises.py](./python/lists.exercises.py)</code>.
-- Skeletons (fill-in-the-blank): <code>[javascript/lists.skeleton.js](./javascript/lists.skeleton.js)</code> or <code>[python/lists.skeleton.py](./python/lists.skeleton.py)</code>.
+- To see what I typically cover in a session, look at [`coderpad.js`](./coderpad.js).
+- For a fuller set of exercises, see [`javascript/lists.exercises.js`](./javascript/lists.exercises.js) or [`python/lists.exercises.py`](./python/lists.exercises.py).
+- Skeletons (fill-in-the-blank): [`javascript/lists.skeleton.js`](./javascript/lists.skeleton.js) or [`python/lists.skeleton.py`](./python/lists.skeleton.py).
 
 ### Sequence of Exercises
 
